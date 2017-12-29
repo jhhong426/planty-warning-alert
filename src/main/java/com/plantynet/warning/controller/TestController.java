@@ -1,4 +1,4 @@
-package controller;
+package com.plantynet.warning.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -11,9 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import domain.ManagerVO;
-import persistence.TestDAO;
-import persistence.TestDAOImpl;
+import com.plantynet.warning.dao.TestDAO;
+import com.plantynet.warning.dao.impl.TestDAOImpl;
+import com.plantynet.warning.vo.ManagerVO;
 
 /**
  * Handles requests for the application home page.
@@ -25,7 +25,7 @@ public class TestController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println("ÀÌ°Å Å×½ºÆ®¾ß ÀÓ¸¶");
+		System.out.println("ï¿½Ì°ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½Ó¸ï¿½");
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		

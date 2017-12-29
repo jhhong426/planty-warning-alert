@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantynet.warning.sql.notificationMapper">
+    <resultMap id="getManagerInfoResult" type="com.plantynet.warning.vo.NotiInfoVO">
+        <result property="serverId" column="server_id" javaType="Integer"/>
+        <result property="managerId" column="manager_id" javaType="Integer"/>
+        <result property="eventId" column="event_id" javaType="Integer"/>
+        <result property="eventCode" column="event_code" javaType="String"/>
+        <result property="ip" column="ip" javaType="String"/>
+        <result property="ntfcMth" column="ntfc_mth" javaType="String"/>
+        <result property="managerEmail" column="email" javaType="String"/>
+        <result property="managerCttpc" column="phone_no" javaType="String"/>
+    </resultMap>
+    
+    <select id="getManagerInfo" resultMap="getManagerInfoResult">
+        SELECT SERVER.server_id, MANAGER.manager_id, EVENT.event_id, EVENT.event_code, SERVER.ip, EVENT_MANAGER.alert_mth as ntfc_mth, MANAGER.email, MANAGER.phone_no
+        FROM SERVER 
+		JOIN EVENT ON EVENT.server_id = SERVER.server_id
+		JOIN EVENT_MANAGER ON EVENT_MANAGER.event_id = EVENT.event_id 
+		JOIN MANAGER ON MANAGER.manager_id = EVENT_MANAGER.manager_id
+		WHERE EVENT.event_code = #{eventCode} AND SERVER.ip = #{ip}
+    </select>
+    
+    <insert id="setNotiInfo" parameterType="com.plantynet.warning.vo.NotiInfoVO">
+        INSERT INTO NOTIFICATION_TEMP (server_id, manager_id, event_id, event_code, ip, msg, ntfc_mth, manager_email, manager_cttpc, logde)
+        VALUES (
+            #{serverId},
+            #{managerId},
+            #{eventId},
+            #{eventCode},
+            #{ip},
+            #{msg},
+            #{ntfcMth},
+            #{managerEmail},
+            #{managerCttpc},
+            #{logde}
+        )
+    </insert>
+    
+    <select id="ipAllowCheck" resultType="int" parameterType="String">
+        SELECT count(*) from SERVER
+        WHERE ip = #{ip}
+    </select>
+</mapper>

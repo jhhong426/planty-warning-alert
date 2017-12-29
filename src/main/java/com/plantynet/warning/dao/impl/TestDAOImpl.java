@@ -1,18 +1,19 @@
-package persistence;
+package com.plantynet.warning.dao.impl;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import domain.ManagerVO;
+import com.plantynet.warning.dao.TestDAO;
+import com.plantynet.warning.vo.ManagerVO;
 @Repository
 public class TestDAOImpl implements TestDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
 	
-	private static String namespace = "com.plantynet.warning_system.testMapper";
+	private static String namespace = "com.plantynet.warning.sql.testMapper";
 
 	@Override
 	public ManagerVO test() {
@@ -20,7 +21,7 @@ public class TestDAOImpl implements TestDAO {
 	}
 
 	
-//	Âü°í¿ë !!!!!!!!!!!!!
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ !!!!!!!!!!!!!
 //	public void create(BoardVO vo) throws Exception {
 //	    session.insert(namespace + ".create", vo);
 //	  }

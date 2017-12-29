@@ -1,4 +1,4 @@
-package domain;
+package com.plantynet.warning.vo;
 
 public class ManagerVO {
 
