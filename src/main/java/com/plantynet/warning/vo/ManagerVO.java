@@ -2,54 +2,54 @@ package com.plantynet.warning.vo;
 
 public class ManagerVO {
 
-	private int manager_id;
-	private int team_id;
-	private String manager_nm;
-	private String login_password;
-	private String phone_no;
+	private int managerId;
+	private int teamId;
+	private String managerNm;
+	private String loginPassword;
+	private String phoneNo;
 	private String email;
 	private String sttus;
 	private String rgsde;
 	private String updde;
 
-	public int getManager_id() {
-		return manager_id;
+	public int getManagerId() {
+		return managerId;
 	}
 
-	public void setManager_id(int manager_id) {
-		this.manager_id = manager_id;
+	public void setManagerId(int managerId) {
+		this.managerId = managerId;
 	}
 
-	public int getTeam_id() {
-		return team_id;
+	public int getTeamId() {
+		return teamId;
 	}
 
-	public void setTeam_id(int team_id) {
-		this.team_id = team_id;
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
 	}
 
-	public String getManager_nm() {
-		return manager_nm;
+	public String getManagerNm() {
+		return managerNm;
 	}
 
-	public void setManager_nm(String manager_nm) {
-		this.manager_nm = manager_nm;
+	public void setManagerNm(String managerNm) {
+		this.managerNm = managerNm;
 	}
 
-	public String getLogin_password() {
-		return login_password;
+	public String getLoginPassword() {
+		return loginPassword;
 	}
 
-	public void setLogin_password(String login_password) {
-		this.login_password = login_password;
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
 	}
 
-	public String getPhone_no() {
-		return phone_no;
+	public String getPhoneNo() {
+		return phoneNo;
 	}
 
-	public void setPhone_no(String phone_no) {
-		this.phone_no = phone_no;
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 
 	public String getEmail() {

@@ -11,9 +11,9 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<h1>manger_nm : ${vo.manager_nm}</h1>
-<h1>team id : ${vo.team_id}</h1>
-<h1>phone_no : ${vo.phone_no}</h1>
+<h1>manger_nm : ${vo.managerNm}</h1>
+<h1>team id : ${vo.teamId}</h1>
+<h1>phone_no : ${vo.phoneNo}</h1>
 <h1>rgsde : ${vo.rgsde}</h1>
 </body>
 </html>

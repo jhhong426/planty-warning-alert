@@ -3,8 +3,17 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plantynet.warning.sql.testMapper">
-	<select id="test" resultType="com.plantynet.warning.vo.ManagerVO">
-		select * from MANAGER;
+
+	<resultMap id="test" type="com.plantynet.warning.vo.ManagerVO">
+        <result property="managerId" column="manager_id" javaType="int"/>
+        <result property="teamId" column="team_id" javaType="int"/>
+        <result property="managerNm" column="manager_nm" javaType="String"/>
+        <result property="loginPassword" column="login_password" javaType="String"/>
+        <result property="phoneNo" column="phone_no" javaType="String"/>
+    </resultMap>
+
+	<select id="test" resultType="com.plantynet.warning.vo.ManagerVO" resultMap = "test">
+		select * from MANAGER where manager_id = 1;
 	</select>
 
 	
