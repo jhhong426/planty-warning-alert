@@ -25,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService
         for (NotiInfoVO manager : managerInfos)
         {
             manager.setMsg(vo.getMsg());
-            manager.setLogde(vo.getLodge());
+            manager.setLogde(vo.getLogde());
             dao.setNotiInfo(manager);
         }
         

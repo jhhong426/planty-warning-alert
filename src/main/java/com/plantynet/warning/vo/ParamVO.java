@@ -14,7 +14,7 @@ public class ParamVO
     private String ip;
     private String eventCode;
     private String msg;
-    private String lodge;
+    private String logde;
     
     public String getIp()
     {
@@ -40,18 +40,18 @@ public class ParamVO
     {
         this.msg = msg;
     }
-    public String getLodge()
+    public String getLogde()
     {
-        return lodge;
+        return logde;
     }
-    public void setLodge(String lodge)
+    public void setLogde(String lodge)
     {
-        this.lodge = lodge;
+        this.logde = lodge;
     }
     @Override
     public String toString()
     {
-        return "ParamVO [ip=" + ip + ", eventCode=" + eventCode + ", msg=" + msg + ", lodge=" + lodge + "]";
+        return "ParamVO [ip=" + ip + ", eventCode=" + eventCode + ", msg=" + msg + ", logde=" + logde + "]";
     }
     
     

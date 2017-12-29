@@ -26,11 +26,12 @@ public class AlertAPIController
     @RequestMapping(value="/api", method=RequestMethod.GET)
     public Map<String, Integer> setNotiInfoForAlert(HttpServletRequest req, ParamVO vo)
     {
+        System.out.println(vo);
         
         Map<String, Integer> map = new HashMap<>();
         
         //예외 처리 1. 값이 제대로 전달 되지 않았을 때(response_code = 3)
-        if(vo.getIp() == null || vo.getEventCode() == null || vo.getLodge() == null || vo.getMsg() == null)
+        if(vo.getIp() == null || vo.getEventCode() == null || vo.getLogde() == null || vo.getMsg() == null)
         {
             map.put("response_code", 3);
             return map;
