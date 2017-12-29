@@ -25,7 +25,7 @@ public class TestController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println("�̰� �׽�Ʈ�� �Ӹ�");
+		System.out.println("이거 테스트입니다");
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
