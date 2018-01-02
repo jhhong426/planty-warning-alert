@@ -5,12 +5,21 @@ public class ManagerVO {
 	private int managerId;
 	private int teamId;
 	private String managerNm;
+	private String loginId;
 	private String loginPassword;
 	private String phoneNo;
 	private String email;
 	private String sttus;
 	private String rgsde;
 	private String updde;
+
+	public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
 
 	public int getManagerId() {
 		return managerId;
@@ -83,6 +92,5 @@ public class ManagerVO {
 	public void setUpdde(String updde) {
 		this.updde = updde;
 	}
-	
 
 }

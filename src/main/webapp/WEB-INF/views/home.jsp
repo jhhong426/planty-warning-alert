@@ -11,6 +11,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<h1>내가 전달한 데이터 ${data}</h1>
+<h1>내가 전달한 데이터</h1>
 </body>
 </html>
