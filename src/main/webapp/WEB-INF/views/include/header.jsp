@@ -28,18 +28,21 @@
     <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
   </head>
 
-
-<body class="skin-blue sidebar-mini" style="height: 550px; min-height: 550px;">
+<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+  <div class="wrapper" style="height: auto; min-height: 100%;">
 	<aside class="main-sidebar">
-		<section class="sidebar" style="height: 550px;">
-			<div class="user-panel">
-				<font color="white">OOO님 환영합니다!</font> 
-				<br>
-				<br> 
-				<font color="#0EA2F1"><u>[로그아웃]</u></font>
-			</div>
+		<section class="sidebar" style="height: 951.444px;">
+			<li>
+				<a>OOO님 환영합니다!</a>
+			</li>
 			<br>
-			<br>
+            <li>
+            	<a href="">
+            		<button class="btn btn-default btn-xs">로그아웃</button>
+            	</a>
+            </li>
+			<br><br>
+
 			<ul class="sidebar-menu tree" data-widget="tree">
 				<li class="treeview">
 					<a href="/login"> 
@@ -47,17 +50,17 @@
 					</a>
 				</li>
 				<li class="treeview">
-					<a href="/login/administrator">
+					<a href="/login/admin">
 						<span>담당자 관리</span>
 					</a>
 				</li>
 				<li class="treeview">
-					<a href="/login/user"> 
+					<a href="/login/userInfo"> 
 						<span>사용자 정보</span>
 					</a>
 				</li>
 				<li class="treeview">
-					<a href="/login/server"> 
+					<a href="/login/serverList"> 
 						<span>서버 목록</span>
 					</a>
 				</li>
@@ -69,5 +72,6 @@
 			</ul>
 		</section>
 	</aside>
+	
 	
 	
