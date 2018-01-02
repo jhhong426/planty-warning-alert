@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.plantynet.warning.dao.LoginDAO;
 import com.plantynet.warning.dao.TestDAO;
+import com.plantynet.warning.vo.ManagerVO;
 @Repository
 public class LoginDAOImpl implements LoginDAO {
 	
@@ -22,6 +23,11 @@ public class LoginDAOImpl implements LoginDAO {
 	public int login(HashMap<String,String> map) {
 		return sqlSession.selectOne(namespace+".login",map);
 	}
+	
+	public ManagerVO getManagerByLoginId(String id) {
+		return sqlSession.selectOne(namespace+".getManagerByLoginId",id);
+	}
+
 
 	
 //	public void create(BoardVO vo) throws Exception {

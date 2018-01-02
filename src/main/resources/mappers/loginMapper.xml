@@ -14,7 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
 	<select id="login" resultType="int">
-		select count(*) from MANAGER where login_id = #{id} and login_password =#{pw};
+		select count(*) from MANAGER where login_id = #{id} and login_password =password(#{password}) and sttus = "ACT01";
+	</select>
+	
+	<select id="getManagerByLoginId" resultType="com.plantynet.warning.vo.ManagerVO" resultMap="managerVO">
+		select * from MANAGER where login_id = #{id};
 	</select>
 
 	
