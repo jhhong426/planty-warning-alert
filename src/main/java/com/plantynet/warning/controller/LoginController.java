@@ -24,17 +24,17 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String submit(Model model, @RequestParam("id") String id, @RequestParam("password") String password) {
-		System.out.println("°ªÀÌ µé¾î¿Ô½À´Ï´Ù");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô½ï¿½ï¿½Ï´ï¿½");
 		System.out.println("id : " + id + "\npass :" + password);
 		HashMap<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("pw", password);
 		int result = loginDAO.login(map);
 		if (result >= 1) {
-			System.out.println("·Î±×ÀÎ ¼º°ø");
+			System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return "home";
 		}else {
-			System.out.println("·Î±×ÀÎ ½ÇÆÐ");
+			System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return "login";
 		}
 
@@ -42,7 +42,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public void submit1(Model model, @RequestParam("id") String id, @RequestParam("password") String password) {
-		System.out.println("Å×½ºÆ®¿ë");
+		System.out.println("ï¿½×½ï¿½Æ®ï¿½ï¿½");
 		System.out.println("id : " + id + "\npass :" + password);
 
 	}

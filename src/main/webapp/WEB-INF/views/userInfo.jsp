@@ -61,7 +61,7 @@
 				          <h4>사용자 정보 수정</h4>
 				        </div>
 				        <div class="modal-body" style="padding:40px 50px;">
-				          <form role="form">
+				          <form role="form" action="/userInfo/changeInfo" method="POST">
 					          <table class="table" style="width:500px;" align="center">
 								<tbody>
 									<tr>
@@ -79,9 +79,9 @@
 									<tr>
 										<th style="text-align:center">&ensp;휴&ensp;대&ensp;폰</th>
 								         	<td>
-								         		<input type="text" name="" value="010" style="width:90px; text-align:center"> -
-								             	<input type="text" name="" value="6808" style="width:130px; text-align:center"> -
-								             	<input type="text" name="" value="2992" style="width:130px; text-align:center">
+								         		<input type="text" name="test" value="010" style="width:90px; text-align:center"> -
+								             	<input type="text" name="test" value="6808" style="width:130px; text-align:center"> -
+								             	<input type="text" name="test" value="2992" style="width:130px; text-align:center">
 								        	</td>
 									</tr>      
 									<tr>
@@ -93,11 +93,12 @@
 							      	</tr>   
 								</tbody>
 							</table>
-				          </form>
-				          <div class="modal-footer center-block" style="width:500px; padding:10px;">
-							<button id="" type="submit" style="float:left" class="btn btn-success col-md-offset-5" data-dismiss="modal">저장</button>
-					        <button type="submit" style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
-						  </div>
+				          
+				            <div class="modal-footer center-block" style="width:500px; padding:10px;">
+							  <input id="" type="submit" style="float:left" class="btn btn-success col-md-offset-5"/>
+					          <button type="" style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
+						    </div>
+						  </form>
 				        </div>
 				      </div>
 			    	</div>
