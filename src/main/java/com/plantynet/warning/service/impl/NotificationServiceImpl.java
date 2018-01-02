@@ -18,9 +18,13 @@ public class NotificationServiceImpl implements NotificationService
     NotificationDAO dao;
     
     @Override
-    public void setNotiInfo(ParamVO vo)
+    public boolean setNotiInfo(ParamVO vo)
     {
         List<NotiInfoVO> managerInfos = dao.getManagerInfo(vo);
+        
+        if(managerInfos.isEmpty()){
+            return false;
+        }
         
         for (NotiInfoVO manager : managerInfos)
         {
@@ -29,6 +33,7 @@ public class NotificationServiceImpl implements NotificationService
             dao.setNotiInfo(manager);
         }
         
+        return true;
         
     }
 
