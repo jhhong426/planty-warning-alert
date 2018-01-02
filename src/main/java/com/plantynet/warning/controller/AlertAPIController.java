@@ -52,11 +52,12 @@ public class AlertAPIController
         else
         {
             //정상 저장 (response_code = 1)
-            if(service.setNotiInfo(vo)){
+            if(service.setNotiInfo(vo))
+            {
                 map.put("response_code", 1);
                 return map;
             }
-            //해당 장애 코드가 없거나 담당자가 없을 경우(response_code = 5)
+            //해당 장애 코드가 없거나 담당자가 없을 경우(response_code = 4)
             else{
                 map.put("response_code", 4);
                 return map;

@@ -36,6 +36,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String submit(Model model, @RequestParam("id") String id, @RequestParam("password") String password,
 			HttpServletRequest request) {
+
 		HashMap<String, String> map = new HashMap<>();
 
 		map.put("id", id);
@@ -43,7 +44,6 @@ public class LoginController {
 		int result = loginDAO.login(map);
 
 		if (result >= 1) {
-			System.out.println("·Î±×ÀÎ ¼º°ø");
 			HttpSession session = request.getSession(true);
 			ManagerVO vo = loginDAO.getManagerByLoginId(id);
 			SessionVO sessionVO = new SessionVO();
@@ -58,31 +58,31 @@ public class LoginController {
 
 			return "redirect:admin";
 		} else {
-			System.out.println("·Î±×ÀÎ ½ÇÆĞ");
-			model.addAttribute("loginFail", "ÀÏÄ¡ÇÏ´Â Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
+			model.addAttribute("loginFail", "ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			return "login";
 		}
 	}
 
-	// // ´ã´çÀÚ °ü¸®
+	// // å ì™ì˜™å ì™ì˜™å ï¿½ å ì™ì˜™å ì™ì˜™
 	// @RequestMapping(value = "/admin", method = RequestMethod.GET)
 	// public String admin(Model model) throws Exception {
 	// return "admin";
 	// }
 	//
-	// // »ç¿ëÀÚ Á¤º¸
+	// // å ì™ì˜™å ì™ì˜™å ï¿½ å ì™ì˜™å ì™ì˜™
 	// @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
 	// public String user(Model model) throws Exception {
 	// return "userInfo";
 	// }
 	//
-	// // ¼­¹ö ¸ñ·Ï
+	// // å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ï¿½
 	// @RequestMapping(value = "/serverList", method = RequestMethod.GET)
 	// public String server(Model model) throws Exception {
 	// return "serverList";
 	// }
 	//
-	// // ¸ğ´ÏÅÍ¸µ
+	// // å ì™ì˜™å ì™ì˜™æ‹·å ï¿½
 	// @RequestMapping(value = "/monitoring", method = RequestMethod.GET)
 	// public String monitoring(Model model) throws Exception {
 	// return "monitoring";
