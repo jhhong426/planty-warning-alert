@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +34,7 @@
 	<aside class="main-sidebar">
 		<section class="sidebar" style="height: 951.444px;">
 			<li>
-				<a>OOO님 환영합니다!</a>
+				<a>${sessionScope.sessionVO.managerNm}님 환영합니다!</a>
 			</li>
 			<br>
             <li>
