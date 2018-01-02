@@ -37,13 +37,14 @@
 				<a>${sessionScope.sessionVO.managerNm}님 환영합니다!</a>
 			</li>
 			<br>
+			<form action="/login" method="get">
             <li>
-            	<a href="">
-            		<button class="btn btn-default btn-xs">로그아웃</button>
+          		<a>
+            			<button type="submit" class="btn btn-default btn-xs">로그아웃</button>
             	</a>
             </li>
+            </form>
 			<br><br>
-
 			<ul class="sidebar-menu tree" data-widget="tree">
 				<li class="treeview">
 					<a href="/login"> 

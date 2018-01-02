@@ -23,18 +23,25 @@ public class LoginController {
 	LoginDAOImpl loginDAO;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
-		return "login";
+	public String login(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			return "redirect:/monitroing";
+		}else {
+			return "login";
+		}
+		
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String submit(Model model, @RequestParam("id") String id, @RequestParam("password") String password,
 			HttpServletRequest request) {
-		System.out.println("값이 들어왔습니다\n" +"id : " + id + "\npass :" + password);
 		HashMap<String, String> map = new HashMap<>();
+
 		map.put("id", id);
 		map.put("password", password);
 		int result = loginDAO.login(map);
+
 		if (result >= 1) {
 			System.out.println("로그인 성공");
 			HttpSession session = request.getSession(true);
@@ -46,16 +53,15 @@ public class LoginController {
 			sessionVO.setLoginId(vo.getLoginId());
 			sessionVO.setPhoneNo(vo.getPhoneNo());
 			sessionVO.setEmail(vo.getEmail());
-			
+
 			session.setAttribute("sessionVO", sessionVO);
-			
-			return "admin";
+
+			return "redirect:admin";
 		} else {
 			System.out.println("로그인 실패");
-			model.addAttribute("loginFail","일치하는 정보가 없습니다.");
+			model.addAttribute("loginFail", "일치하는 정보가 없습니다.");
 			return "login";
 		}
-
 	}
 
 	// // 담당자 관리
