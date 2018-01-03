@@ -23,14 +23,23 @@ public class LoginController {
 	LoginDAOImpl loginDAO;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			return "redirect:/monitroing";
-		}else {
+	public String login(Model model, HttpServletRequest request, HttpSession session) {
+		SessionVO vo = (SessionVO) session.getAttribute("sessionVO");
+		if(vo == null) {
 			return "login";
 		}
-		
+		else {
+			return "redirect:/monitoring";
+		}
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -64,27 +73,4 @@ public class LoginController {
 		}
 	}
 
-	// // 占쏙옙占쏙옙占� 占쏙옙占쏙옙
-	// @RequestMapping(value = "/admin", method = RequestMethod.GET)
-	// public String admin(Model model) throws Exception {
-	// return "admin";
-	// }
-	//
-	// // 占쏙옙占쏙옙占� 占쏙옙占쏙옙
-	// @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	// public String user(Model model) throws Exception {
-	// return "userInfo";
-	// }
-	//
-	// // 占쏙옙占쏙옙 占쏙옙占�
-	// @RequestMapping(value = "/serverList", method = RequestMethod.GET)
-	// public String server(Model model) throws Exception {
-	// return "serverList";
-	// }
-	//
-	// // 占쏙옙占쏙옙拷占�
-	// @RequestMapping(value = "/monitoring", method = RequestMethod.GET)
-	// public String monitoring(Model model) throws Exception {
-	// return "monitoring";
-	// }
 }
