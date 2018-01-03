@@ -73,11 +73,6 @@
 						<span>모니터링</span>
 					</a>
 				</li>
-				<li class="treeview">
-					<a href="/test_serverInfo"> 
-						<span>test</span>
-					</a>
-				</li>
 			</ul>
 		</section>
 	</aside>

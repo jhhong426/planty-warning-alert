@@ -3,12 +3,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
+<style>
+	div.relative1 {
+		position: relative;
+		right: 6px;
+	}
+	div.relative2 {
+		position: relative;
+		left: 8px;
+	}
+	div.relative3 {
+		position: relative;
+		left: 8px;
+	}
+</style>
+
 <%@include file="include/header.jsp"%>
 <div class="content-wrapper" style="min-height:951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h3><strong>&emsp;서버 목록 > 서버 상세정보</strong></h3>
 		<div class="box">
            <div class="box-body">
+           
             <h5 class="col-md-offset-3"><strong>&emsp; &bull; &ensp;서버 정보</strong></h5>
            	<div class="row">
            	   <form role="form">
@@ -37,54 +53,98 @@
 	          </form>
 	        </div>
 	        <br>
-           	
+           
            	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 목록</strong></h5>
-           	<table id="serverInfo" class="table table-bordered table-hover display">
-				<thead>
-					<tr>
-						<th style="text-align:center">장애코드</th>
-						<th style="text-align:center">상세설명</th>
-						<th style="text-align:center">등록일</th>
-						<th style="text-align:center">수정</th>
-						<th style="text-align:center">삭제</th>
-					</tr>
-				</thead>
-				<tbody style="text-align:center">
-					<tr>
-			       		<td>A1</td>
-			       		<td>CPU 점유율 80% 이상</td>
-			       		<td>2017-12-05 16:38:56</td>
-			       		<td><button id="btnUpdate" type="button" class="btn btn-default" onclick="">수정</button></td>
-			       		<td><button id="" type="button" class="btn btn-default" onclick="">삭제</button></td>
-		       		</tr>
-		       		<tr>
-			       		<td>C2</td>
-			       		<td>메모리 사용량 90% 이상</td>
-			       		<td>2017-12-24 17:55:32</td>
-			       		<td><button id="btnUpdate" type="button" class="btn btn-default" onclick="">수정</button></td>
-			       		<td><button id="" type="button" class="btn btn-default" onclick="">삭제</button></td>
-		       		</tr>
-		       		<tr>
-			       		<td>B3</td>
-			       		<td>방화벽 해제</td>
-			       		<td>2017-12-27 10:12:13</td>
-			       		<td><button id="btnUpdate" type="button" class="btn btn-default" onclick="">수정</button></td>
-			       		<td><button id="" type="button" class="btn btn-default" onclick="">삭제</button></td>
-		       		</tr>
-				</tbody>
-		    </table>
-           	
-           	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 등록</strong></h5>
+           	<div class="row" style="background-color:#F2F2F2">
+				<div class="col-md-2 text-center">
+					<h4><strong>장애코드</strong></h4>
+				</div>
+				<div class="col-md-4 text-center">
+					<h4><strong>상세설명</strong></h4>
+				</div>
+				<div class="col-md-3 text-center">
+					<h4><strong>등록일</strong></h4>
+				</div>
+				<div class="col-md-1 text-center">
+					<h4><strong>수정</strong></h4>	
+				</div>
+				<div class="col-md-1 text-center">
+					<h4><strong>삭제</strong></h4>
+				</div>
+			</div>
+			<div class="box box-default">
+				<div class="box-header with-border">
+					<div class="box-tools pull right">
+	                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-plus"></i></button>
+	                 </div>
+					<div class="row">
+						<div class="col-md-2 text-center relative1">
+							<h4>A1</h4>
+						</div>
+						<div class="col-md-4 text-center">
+							<h4>CPU 점유율 80% 이상</h4>
+						</div>
+						<div class="col-md-3 text-center">
+							<h4>2014-12-14 15:35:22</h4>
+						</div>
+						<div class="col-md-1 text-center relative2">
+							<button id="btnUpdate" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
+						</div>
+						<div class="col-md-1 text-center relative3">
+							<button id="" type="button" class="btn btn-default btn-sm" onclick="">삭제</button>
+						</div>
+					</div>
+				</div>
+				<div class="box-body">
+					<table style="width:70%; margin:auto;">
+					  <tr style="height:30px;">
+					    <th class="col-md-2 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">담당자</th>
+					    <th class="col-md-2 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">알림방법</th>
+					    <th class="col-md-3 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">등록일</th>
+					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">수정</th>
+					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">삭제</th>
+					  </tr>
+					  <tr style="height:30px;">
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">김규식</td>
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">Email+SMS</td>
+					    <td class="col-md-3 text-center" style="border:1px gray solid;">2017-12-29 13:05:12</td>
+					    <td class="col-md-1 text-center" style="border:1px gray solid;">
+					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
+					    <td class="col-md-1 text-center" style="border:1px gray solid;">
+					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
+					  </tr>
+					  <tr style="height:30px;">
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">정연태</td>
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">Email</td>
+					    <td class="col-md-3 text-center" style="border:1px gray solid;">2017-12-31 17:12:25</td>
+					    <td class="col-md-1 text-center" style="border:1px gray solid;">
+					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
+					    <td class="col-md-1 text-center" style="border:1px gray solid;">
+					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
+					  </tr>
+					  <tr style="height:30px;">
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">JYT</td>
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">Email+SMS</td>
+					    <td class="col-md-3 text-center" style="border:1px gray solid;">2017-12-31 17:12:25</td>
+					    <td class="col-md-1 text-center" style="border:1px gray solid;">
+					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
+					    <td class="col-md-1 text-center" style="border:1px gray solid;">
+					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
+					  </tr>
+					</table>
+				</div>
+			</div>
+			<br><br>
+			
+			
+			<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 등록</strong></h5>
             <div class="left-block" style="width:400px; padding:10px;">
 				<button id="btnRegister" type="submit" class="btn btn-default col-md-offset-1">장애 코드 등록</button>
 				<button id="btnAdminRegister" type="submit" class="btn btn-default col-md-offset-1"> 담당자 등록 </button>
 			</div>
-               
-               
-           <!-- 여기부터는 각 팝업창(4개)에 대한 설정들임. -->    
-               
-               
-           <!-- 장애코드 수정 팝업창 기능 -->
+		
+		
+			<!-- 장애코드 수정 팝업창 기능 -->
 			  <div class="modal fade" id="errorUpdatePopup" role="dialog">
 			    <div class="modal-dialog">
 			      <div class="modal-content">
@@ -111,7 +171,7 @@
 								<tr>
 									<th style="text-align:center">서&ensp;버&ensp;명</th>
 							         	<td>
-							         		<input type="text" name="" value="Test" style="width:250px; text-align:center" disabled>
+							         		<input type="text" name="" value="Test 서버" style="width:250px; text-align:center" disabled>
 							        	</td>
 								</tr>  
 							</tbody>
@@ -141,7 +201,7 @@
 								<tr>
 									<th style="text-align:center">서&ensp;버&ensp;명</th>
 										<td>
-											<input type="text" name="" value="Test" style="width:250px; text-align:center" disabled>
+											<input type="text" name="" value="Test 서버" style="width:250px; text-align:center" disabled>
 										</td>
 								</tr>
 								<tr>
@@ -302,9 +362,7 @@
 			      </div>
 		    	</div>
 		  	  </div> 
-               
-               
-               
+
            </div>
         </div>
 	</div>
@@ -314,32 +372,19 @@
 <%@include file="include/footer.jsp"%>
 
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/resources/plugins/fastclick/fastclick.js"></script>
+<script src="/resources/plugins/knob/jquery.knob.js"></script>
+<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="/resources/dist/js/demo.js"></script>
+<script src="/resources/dist/js/app.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <script>
-	// 장애 및 담당자 목록  Data Table
-	var serverInfo = $("#serverInfo").DataTable({
-		"language"    : {
-       		 'paginate'          : {
-        	  	  "first" : "<<",
-         		  "previous" : "<",
-         		  "last"  : ">>",
-          		  "next"  : ">"
-         }
-       },
-       "scrollY"              : 400,
-       "scrollCollapse"       : true,
-		"pageLength"           : 10,
-	    "pagingType"           : "full_numbers",
-	    "dom"                  : '<"top"<"col-md-12"B>>' +
-	                             'rt' +
-	                             '<"bottom"<"col-md-8"p><"col-md-4"B>>',
-	    "select"              : "multi",
-		"autoWidth" : false,
-	    "ordering": false
-	});
+	// box-body default로 닫혀있게하는 설정
+	$(".box-default").addClass("collapsed-box");
 	
 	// 장애코드 수정 팝업창 띄우기
 	$(document).ready(function(){
@@ -368,4 +413,6 @@
 	        $("#errorAdminRegisterPopup").modal();
 	    });
 	});
+	
 </script>
+

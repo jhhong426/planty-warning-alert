@@ -166,19 +166,17 @@
 
 <%@include file="include/footer.jsp"%>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 178fa0ae4171375a4f0dffb25fd1b5209f9ccce9
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/resources/plugins/fastclick/fastclick.js"></script>
+<script src="/resources/plugins/knob/jquery.knob.js"></script>
+<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="resources/dist/js/demo.js"></script>
+<script src="resources/dist/js/app.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<<<<<<< HEAD
-=======
 
->>>>>>> 178fa0ae4171375a4f0dffb25fd1b5209f9ccce9
 <script>
 	//서버 등록 팝업창 띄우기 버튼 
 	$(document).ready(function(){

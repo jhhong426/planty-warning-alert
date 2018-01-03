@@ -10,18 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/serverList")
 public class ServerInfoController {
-    @RequestMapping(value = "/serverList", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String serverListGET(){
         return "serverList";
     }
-	@RequestMapping(value = "/serverList/serverInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
 	public String serverInfoGET() {
 		return "serverInfo";
-	}
-	// Test
-	@RequestMapping(value = "/test_serverInfo", method = RequestMethod.GET) 
-	public String test(Model model) throws Exception {   
-		return "test_serverInfo";
 	}
 }
