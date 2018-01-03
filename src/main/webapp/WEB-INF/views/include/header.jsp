@@ -56,7 +56,7 @@
 					</a>
 				</li>
 				<li class="treeview">
-					<a href="/login/userInfo"> 
+					<a href="/userInfo"> 
 						<span>사용자 정보</span>
 					</a>
 				</li>

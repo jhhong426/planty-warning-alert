@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantynet.warning.sql.userInfoMapper">
+    <resultMap id="getManagerInfo" type="com.plantynet.warning.vo.ManagerVO">
+        <result property="managerId" column="manager_id" javaType="int"/>
+        <result property="teamId" column="team_id" javaType="int"/>
+        <result property="teamNm" column="team_nm" javaType="String"/>
+        <result property="managerNm" column="manager_nm" javaType="String"/>
+        <result property="phoneNo" column="phone_no" javaType="String"/>
+        <result property="email" column="email" javaType="String"/>
+    </resultMap>
+    
+    
+    <select id="getManagerInfo" resultMap="getManagerInfo" parameterType="int">
+        SELECT MANAGER.manager_id, MANAGER.manager_nm, MANAGER.team_id, TEAM.team_nm, MANAGER.phone_no, MANAGER.email  
+        FROM MANAGER JOIN TEAM ON TEAM.team_id = MANAGER.team_id
+        WHERE MANAGER.manager_id = #{managerId}
+    </select>
+    
+    <update id="changeUserPassword">
+        UPDATE MANAGER SET login_password = password(#{changePassword}) 
+        WHERE manager_id = #{managerId}
+    </update>
+    
+    <update id="changeUserInfo">
+        UPDATE MANAGER SET
+		  manager_nm = #{managerNm}
+		  ,phone_no = #{phoneNo}
+		  ,email = #{email}
+		  ,updde = current_timestamp
+		WHERE manager_id = #{managerId}
+    </update>
+    
+    
+</mapper>
