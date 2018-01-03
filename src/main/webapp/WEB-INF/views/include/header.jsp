@@ -54,11 +54,6 @@
 			<br><br>
 			<ul class="sidebar-menu tree" data-widget="tree">
 				<li class="treeview">
-					<a href="/login"> 
-						<span>로그인</span>
-					</a>
-				</li>
-				<li class="treeview">
 					<a href="/admin">
 						<span>담당자 관리</span>
 					</a>

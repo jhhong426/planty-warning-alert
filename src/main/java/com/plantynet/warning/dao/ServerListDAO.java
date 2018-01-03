@@ -1,5 +1,10 @@
 package com.plantynet.warning.dao;
 
-public class ServerListDAO {
+import java.util.List;
 
+import com.plantynet.warning.vo.ServerVO;
+
+public interface ServerListDAO {
+	public List<ServerVO> getServerListByIp(String ip);
+	public List<ServerVO> getServerListByServerNm(String ServerNm);
 }

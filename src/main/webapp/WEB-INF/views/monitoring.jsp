@@ -2,17 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
-<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
 <%@include file="include/header.jsp"%>
 
@@ -43,6 +32,16 @@
 
 <%@include file="include/footer.jsp"%>
 
+<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
 <script>
 
