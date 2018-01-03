@@ -12,18 +12,15 @@
 		
 		<div class="box">
 			<div class="box-header">
-				<div id="date-text" style="float:left; width:30%">
-					<h3><strong>통계 기간 : </strong></h3>
-				</div>
-				<div id="button" style="float:left; width:70%">
-					<button style="height:50px"><strong>상세조회</strong></button>
-				</div>
+				<h4><strong>통계 기간 : </strong></h4>
+				<h4><strong>서      버 : </strong></h4>
+				<h4><strong>I    P : </strong></h4>
 			</div>
 			
            <div class="box-body">
 			
-			<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-			<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
+				<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
+				<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
 			
 		   </div>
 		</div>
@@ -52,7 +49,7 @@ Highcharts.chart('line-chart', {
         type: 'spline'
     },
     title: {
-        text: '<strong>서버 장애 이력</strong>'
+        text: '<strong>장애 일간 통계</strong>'
     },
     subtitle: {
         text: 'TOP 5'
@@ -109,7 +106,7 @@ Highcharts.chart('bar-chart', {
         type: 'column'
     },
     title: {
-        text: '주간 TOP 5'
+        text: '장애 TOP 5'
     },
     subtitle: {
         text: '에러코드 발생 주간 TOP 5'
