@@ -9,7 +9,7 @@ public class ServerVO {
 	private String ip;
 	private String sttus;
 	private Timestamp rgsde;
-	private Timestamp updde;
+	private String updde;
 	public int getServerId() {
 		return serverId;
 	}
@@ -46,10 +46,10 @@ public class ServerVO {
 	public void setRgsde(Timestamp rgsde) {
 		this.rgsde = rgsde;
 	}
-	public Timestamp getUpdde() {
+	public String getUpdde() {
 		return updde;
 	}
-	public void setUpdde(Timestamp updde) {
+	public void setUpdde(String updde) {
 		this.updde = updde;
 	}
 	@Override

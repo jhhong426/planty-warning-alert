@@ -5,21 +5,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.plantynet.warning.sql.serverListMapper">
 
 	<resultMap id="serverVO" type="com.plantynet.warning.vo.ServerVO">
-        <result property="managerId" column="manager_id" javaType="int"/>
+        <result property="serverId" column="server_id" javaType="int"/>
         <result property="teamId" column="team_id" javaType="int"/>
-        <result property="managerNm" column="manager_nm" javaType="String"/>
-        <result property="loginId" column="login_id" javaType="String"/>
-        <result property="loginPassword" column="login_password" javaType="String"/>
-        <result property="phoneNo" column="phone_no" javaType="String"/>
+        <result property="serverNm" column="server_nm" javaType="String"/>
+        <result property="ip" column="ip" javaType="String"/>
+        <result property="sttus" column="sttus" javaType="String"/>
+        <result property="rgsde" column="rgsde" javaType="java.sql.Timestamp"/>
+        <result property="updde" column="updde" javaType="String"/>
     </resultMap>
+    
+    <select id="getServerList" resultMap="serverVO">
+		select * from SERVER where sttus = "ACT01" and team_id = #{teamId}
+	</select>
 
-	<select id="login" resultType="int">
-		select count(*) from MANAGER where login_id = #{id} and login_password =password(#{password}) and sttus = "ACT01";
+	<select id="getServerListByIp" resultMap="serverVO">
+		select * from SERVER where ip = #{ip} and sttus = "ACT01" and team_id = #{teamId}
 	</select>
 	
-	<select id="getManagerByLoginId" resultType="com.plantynet.warning.vo.ManagerVO" resultMap="serverVO">
-		select * from MANAGER where login_id = #{id};
+	<select id= "getServerListByServerNm" resultMap="serverVO">
+		select * from SERVER where server_nm = #{serverNm} and sttus = "ACT01" and team_id = #{teamId}
 	</select>
+	
+	<insert id= "addServer">
+		insert into SERVER(team_id,server_nm,ip,sttus) values(#{teamId},#{serverNm},#{ip},"ACT01")
+	</insert>
+	
+	<update id = "deleteServer">
+		UPDATE SERVER SET sttus= "ACT00"  WHERE server_id = #{serverId}
+	</update>
+	
+	<update id = "updateServer">
+		UPDATE SERVER SET server_nm = #{serverNm}, ip= #{ip}  WHERE server_id = #{serverId}
+	</update>
+	
+	
 
 	
 	<!-- 참고용 !!!!
