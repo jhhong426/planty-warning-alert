@@ -22,73 +22,70 @@
 						</tr>
 					</thead>
 					<tbody style="text-align:center">
-						<tr>
-				       		<td>jyt0206</td>
-				       		<td>정연태</td>
-				       		<td>010-6808-2992</td>
-				       		<td>wjddusxo222@naver.com</td>
-				       		<td><button type="button" class="btn btn-default" onclick="">삭제</button></td>
-			       		</tr>
-			       		<tr>
-				       		<td>zazang</td>
-				       		<td>김규식</td>
-				       		<td>010-3838-1929</td>
-				       		<td>zajan@starhuzup</td>
-				       		<td><button id="btnRemove" type="button" class="btn btn-default">삭제</button></td>
-				       	</tr>
-				       	<tr>
-				       		<td>baekjoon</td>
-				       		<td>김주승</td>
-				       		<td>010-2812-0291</td>
-				       		<td>ethereum@gazua</td>
-				       		<td><button id="btnRemove" type="button" class="btn btn-default">삭제</button></td>
-				       	</tr>
-				       	<tr>
-				       		<td>gameMaker</td>
-				       		<td>홍재혁</td>
-				       		<td>010-1982-3918</td>
-				       		<td>ncsoft@gazua</td>
-				       		<td><button id="btnRemove" type="button" class="btn btn-default">삭제</button></td>
-				       	</tr>
+					
+						<c:forEach items = "${list}" var = "item">
+							<tr>
+					       		<td>${item.loginId}</td>
+					       		<td>${item.managerNm}</td>
+					       		<td>${item.phoneNo }</td>
+					       		<td>${item.email}</td>
+					       		<td><form name="" method="post" action="/deleteAdmin">
+					       		<input id="managerId" name="managerId" type="hidden" value="${item.managerId}">
+					       		<button type="submit" class="btn btn-default" >삭제</button></form></td>
+				       		</tr>
+      					</c:forEach>
+						
 					</tbody>
 			    </table>
 				<br>
 				
 				
 				<h5 class="col-md-offset-3"><strong>&emsp; &bull; &ensp;담당자 등록</strong></h5>
-				<form name="" method="post" action="" onsubmit="">
+				<form name="" method="post" action="/admin" onsubmit="return check()">
 				<table class="table" style="width:500px;" align="center">
 					<tbody>
 						<tr>
+							<th style="text-align:center">&ensp;아 &ensp;이&ensp;디 </th>
+								<td>
+									<input id = "loginId" type="text" name="loginId" value="" style="width:375px; text-align:center">
+								</td>
+						</tr>
+						<tr>
+							<th style="text-align:center">&ensp;비 밀&ensp;번호 </th>
+								<td>
+									<input id = "loginPassword" type="text" name="loginPassword" value="" style="width:375px; text-align:center">
+								</td>
+						</tr>
+						<tr>
 							<th style="text-align:center">&ensp;이 &emsp; &ensp; 름 </th>
 								<td>
-									<input type="text" name="manager_nm" value="" style="width:375px; text-align:center">
+									<input id = "managerNm" type="text" name="managerNm" value="" style="width:375px; text-align:center">
 								</td>
 						</tr>
 						<tr>
 							<th style="text-align:center">&ensp;소&ensp;속&ensp;팀</th>
 								<td>
-									<input type="text" name="teamNm" value="채널연구개발팀" style="width:375px; text-align:center" disabled >
+									<input type="text" name="" value="채널연구개발팀" style="width:375px; text-align:center" disabled >
 								</td>
 						</tr>
 						<tr>
 							<th style="text-align:center">&ensp;휴&ensp;대&ensp;폰</th>
 					         	<td>
-					         		<input type="text" name="phoneNum1" value="010" style="width:90px; text-align:center"> -
-					             	<input type="text" name="phoneNum2" style="width:130px; text-align:center"> -
-					             	<input type="text" name="phoneNum3" style="width:130px; text-align:center">
+					         		<input id = "phoneNo1" type="text" name="phoneNo1" value="010" style="width:90px; text-align:center"> -
+					             	<input id = "phoneNo2" type="text" name="phoneNo2" style="width:130px; text-align:center"> -
+					             	<input id = "phoneNo3" type="text" name="phoneNo3" style="width:130px; text-align:center">
 					        	</td>
 						</tr>      
 						<tr>
 							<th style="text-align:center">&ensp;이&ensp;메&ensp;일</th>
 					         	<td>
-					         		<input type='text' name="email1" style="width:175px; text-align:center"> @
-					            	<input type='text' name="email2" style="width:180px; text-align:center">
+					         		<input id = "email1" type='text' name="email1" style="width:175px; text-align:center"> @
+					            	<input id = "email2" type='text' name="email2" style="width:180px; text-align:center">
 					         	</td>
 				      	</tr>   
 					</tbody>
 				</table>
-				  	<button id="btnRegister" type="button" class="btn btn-default col-md-offset-6">등록</button>
+				  	<button id="btnRegister" type="submit" class="btn btn-default col-md-offset-6">등록</button>
 				  	<br>
 				</form>
 				<br>
@@ -119,5 +116,14 @@
 	    "ordering": false
 	});
 	 
+	function check(){
+		if( $("#managerNm").val()=="" || $("#phoneNo1").val()=="" || $("#phoneNo2").val()=="" || $("#phoneNo3").val()=="" || $("#email1").val()=="" || $("#email2").val()=="" || $("#loginId").val()==""|| $("#loginPassword").val()==""){
+			alert("모든 입력칸을 채워야합니다");
+			return false;
+		}else{
+			return true;	
+		}
+	}
+	
 	
 </script>

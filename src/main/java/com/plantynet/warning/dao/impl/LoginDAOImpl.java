@@ -1,22 +1,19 @@
 package com.plantynet.warning.dao.impl;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.plantynet.warning.dao.LoginDAO;
-import com.plantynet.warning.dao.TestDAO;
 import com.plantynet.warning.vo.ManagerVO;
 @Repository
 public class LoginDAOImpl implements LoginDAO {
 	
-	@Inject
+	@Autowired
 	private SqlSession sqlSession;
-	
 	private static String namespace = "com.plantynet.warning.sql.loginMapper";
 
 	@Override

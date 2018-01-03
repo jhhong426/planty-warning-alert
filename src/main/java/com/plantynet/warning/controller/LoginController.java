@@ -23,20 +23,36 @@ public class LoginController {
 	LoginDAOImpl loginDAO;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
-		return "login";
+	public String login(Model model, HttpServletRequest request, HttpSession session) {
+		SessionVO vo = (SessionVO) session.getAttribute("sessionVO");
+		if(vo == null) {
+			return "login";
+		}
+		else {
+			return "redirect:/monitoring";
+		}
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String submit(Model model, @RequestParam("id") String id, @RequestParam("password") String password,
 			HttpServletRequest request) {
-		System.out.println("���� ���Խ��ϴ�\n" +"id : " + id + "\npass :" + password);
+
 		HashMap<String, String> map = new HashMap<>();
+
 		map.put("id", id);
 		map.put("password", password);
 		int result = loginDAO.login(map);
+
 		if (result >= 1) {
-			System.out.println("�α��� ����");
 			HttpSession session = request.getSession(true);
 			ManagerVO vo = loginDAO.getManagerByLoginId(id);
 			SessionVO sessionVO = new SessionVO();
@@ -46,39 +62,15 @@ public class LoginController {
 			sessionVO.setLoginId(vo.getLoginId());
 			sessionVO.setPhoneNo(vo.getPhoneNo());
 			sessionVO.setEmail(vo.getEmail());
-			
+
 			session.setAttribute("sessionVO", sessionVO);
-			
-			return "admin";
+
+			return "redirect:admin";
 		} else {
-			System.out.println("�α��� ����");
-			model.addAttribute("loginFail","��ġ�ϴ� ������ �����ϴ�.");
+			System.out.println("로그인 실패");
+			model.addAttribute("loginFail", "일치하는 정보가 없습니다.");
 			return "login";
 		}
-
 	}
 
-	// // ����� ����
-	// @RequestMapping(value = "/admin", method = RequestMethod.GET)
-	// public String admin(Model model) throws Exception {
-	// return "admin";
-	// }
-	//
-	// // ����� ����
-	// @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	// public String user(Model model) throws Exception {
-	// return "userInfo";
-	// }
-	//
-	// // ���� ���
-	// @RequestMapping(value = "/serverList", method = RequestMethod.GET)
-	// public String server(Model model) throws Exception {
-	// return "serverList";
-	// }
-	//
-	// // ����͸�
-	// @RequestMapping(value = "/monitoring", method = RequestMethod.GET)
-	// public String monitoring(Model model) throws Exception {
-	// return "monitoring";
-	// }
 }

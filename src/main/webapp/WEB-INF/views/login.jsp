@@ -55,6 +55,8 @@
                   		<br>
                   		<button type="submit" id="btn-login" class="btn btn-default btn-lg btn-block">Login</button>
                   		<p style= "color: red;">${loginFail}</p>
+                  		<%-- <h1 style= "color: red;">${logout}</h1> --%>
+                  		
             		</div>
             		</form>
  				</div>
@@ -69,10 +71,7 @@ function check(){
 	if( $("#login-id").val()=="" || $("#login-password").val()=="" ){
 		alert("아이디와 패스워드를 입력해 주십시오");
 		return false;
-	}else if(false){
-		return false;
 	}else{
-		console.log("성공");
 		return true;	
 	}
 }

@@ -2,6 +2,8 @@ package com.plantynet.warning.vo;
 
 public class ManagerVO {
 
+
+
 	private int managerId;
 	private int teamId;
 	private String teamNm;
@@ -106,6 +108,7 @@ public class ManagerVO {
 		this.updde = updde;
 	}
 
+
     @Override
     public String toString()
     {
@@ -113,5 +116,6 @@ public class ManagerVO {
                 + managerNm + ", loginId=" + loginId + ", loginPassword=" + loginPassword + ", phoneNo=" + phoneNo
                 + ", email=" + email + ", sttus=" + sttus + ", rgsde=" + rgsde + ", updde=" + updde + "]";
     }
+
 	
 }
