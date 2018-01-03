@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ServerInfoController {
+    
+    @RequestMapping(value = "/serverList", method = RequestMethod.GET)
+    public String serverListGET(){
+        return "serverList";
+    }
 	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
-	public String userInfoGET() {
+	public String serverInfoGET() {
 		return "serverInfo";
 	}
 
