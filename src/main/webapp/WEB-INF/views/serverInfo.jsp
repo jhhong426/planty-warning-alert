@@ -9,35 +9,35 @@
 		<h3><strong>&emsp;서버 목록 > 서버 상세정보</strong></h3>
 		<div class="box">
            <div class="box-body">
-            <h5 class="col-md-offset-3"><strong>&emsp; &bull; &ensp;서버 정보</strong></h5>
+            <h5 class=""><strong>&emsp; &bull; &ensp;서버 정보</strong></h5>
            	<div class="row">
            	   <form role="form">
-		          <table class="table" style="width:400px;" align="center">
-					<tbody style="display:block; border:1px solid black;">
+		          <table class="table" style="margin-left:15px;width:400px;" align="left">
+					<tbody style="display:block; border:1px solid gray;">
 						<tr>
 							<th style="text-align:center">&ensp;서&ensp;버&ensp;명</th>
 								<td>
-									<input type="text" name="" value="DB#1" style="width:280px; text-align:center" disabled>
+									<input class="form-control" type="text" name="" value="DB#1" style="width:280px; text-align:center" disabled>
 								</td>
 						</tr>
 						<tr>
 							<th style="text-align:center">&emsp;&emsp;I P&ensp;&ensp;</th>
 								<td>
-									<input type="text" name="" value="121.241.223.110" style="width:280px; text-align:center" disabled>
+									<input class="form-control" type="text" name="" value="121.241.223.110" style="width:280px; text-align:center" disabled>
 								</td>
 						</tr>
 						<tr>
 							<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
 					         	<td>
-					         		<input type="text" name="" value="플랜티넷팀" style="width:280px; text-align:center" disabled>
+					         		<input class="form-control" type="text" name="" value="플랜티넷팀" style="width:280px; text-align:center" disabled>
 					        	</td>
 						</tr>
 					</tbody>
 				</table>
 	          </form>
 	        </div>
-	        <br>
-           	
+	        
+           	<hr>
            	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 목록</strong></h5>
            	<table id="serverInfo" class="table table-bordered table-hover display">
 				<thead>
@@ -73,7 +73,7 @@
 		       		</tr>
 				</tbody>
 		    </table>
-           	
+           	<hr>
            	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 등록</strong></h5>
             <div class="left-block" style="width:400px; padding:10px;">
 				<button id="btnRegister" type="submit" class="btn btn-default col-md-offset-1">장애 코드 등록</button>

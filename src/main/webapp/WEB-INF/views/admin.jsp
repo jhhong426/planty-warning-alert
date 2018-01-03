@@ -105,13 +105,21 @@
 <script>
     // 운영진 리스트 Data Table
 	var admin = $("#admin").DataTable({
-		"pageLength"           : 10,
+	    "language"    : {
+            'paginate'          : {
+                 "first" : "<<",
+                 "previous" : "<",
+                 "last"  : ">>",
+                 "next"  : ">"
+             }
+	    },
+	    "pageLength"           : 10,
         "pagingType"           : "full_numbers",
         "dom"                  : '<"top"<"col-md-12"B>>' +
                                  'rt' +
-                                 '<"bottom"<"col-md-12"B>>',
+                                 '<"bottom"<"col-md-8"p><"col-md-4"B>>',
         "select"              : "multi",
-	    "autoWidth" : false,
+	    "autoWidth" : true,
 	    "ordering": false
 	});
 	 

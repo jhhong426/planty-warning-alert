@@ -19,9 +19,4 @@ public class ServerInfoController {
 	public String serverInfoGET() {
 		return "serverInfo";
 	}
-	// Test
-	@RequestMapping(value = "/test_serverInfo", method = RequestMethod.GET) 
-	public String test(Model model) throws Exception {   
-		return "test_serverInfo";
-	}
 }
