@@ -32,7 +32,7 @@
 <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
 	<header class="main-header">
-	    <a href="/login/monitoring" style="float:left;padding-top:-10px;" >
+	    <a href="/monitoring" style="float:left;padding-top:-10px;" >
 	      <img src="\resources\dist\img\photo1.png" alt="" width="230px" height="70px">
 	    </a>
 	    <h1 style="color:white">&ensp;장애 알림 관리 시스템</h1>

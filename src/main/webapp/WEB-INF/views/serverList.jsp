@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
-   
+
 <%@include file="include/header.jsp"%>
 <!-- 서버 상세정보 링크 부분 a태그 css 설정 -->
 <style type="text/css"> 
@@ -165,11 +166,19 @@
 
 <%@include file="include/footer.jsp"%>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 178fa0ae4171375a4f0dffb25fd1b5209f9ccce9
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 178fa0ae4171375a4f0dffb25fd1b5209f9ccce9
 <script>
 	//서버 등록 팝업창 띄우기 버튼 
 	$(document).ready(function(){
