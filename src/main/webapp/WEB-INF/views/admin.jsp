@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 
-
 <%@include file="include/header.jsp"%>
 <div class="content-wrapper" style="min-height:951.444px;">
 	<div class="box" style="min-height:951.444px;">

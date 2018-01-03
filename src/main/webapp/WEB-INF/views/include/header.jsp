@@ -54,12 +54,7 @@
 			<br><br>
 			<ul class="sidebar-menu tree" data-widget="tree">
 				<li class="treeview">
-					<a href="/login"> 
-						<span>로그인</span>
-					</a>
-				</li>
-				<li class="treeview">
-					<a href="/login/admin">
+					<a href="/admin">
 						<span>담당자 관리</span>
 					</a>
 				</li>
@@ -69,12 +64,12 @@
 					</a>
 				</li>
 				<li class="treeview">
-					<a href="/login/serverList"> 
+					<a href="/serverList"> 
 						<span>서버 목록</span>
 					</a>
 				</li>
 				<li class="treeview">
-					<a href="/login/monitoring"> 
+					<a href="/monitoring"> 
 						<span>모니터링</span>
 					</a>
 				</li>
