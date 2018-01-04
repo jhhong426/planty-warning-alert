@@ -38,4 +38,23 @@ public class ServerInfoDAOImpl implements ServerInfoDAO
         return session.selectList(namespace+".getEventManagerInfoList", eventId);
     }
 
+    @Override
+    public void updateEvent(EventVO vo)
+    {
+        session.update(namespace+".updateEvent", vo);
+    }
+
+    @Override
+    public void deleteEvent(int eventId)
+    {
+        session.update(namespace+".updateEventForDel", eventId);
+        session.update(namespace+".updateEvntMngrForDel", eventId);
+    }
+
+    @Override
+    public void updateEvntMngr(ManagerInChargeVO vo)
+    {
+        session.update(namespace+".updateEvntMngr", vo);
+    }
+
 }

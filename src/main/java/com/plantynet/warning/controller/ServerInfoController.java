@@ -1,8 +1,11 @@
 package com.plantynet.warning.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plantynet.warning.service.AdminService;
 import com.plantynet.warning.service.ServerInfoService;
 import com.plantynet.warning.service.impl.ServerListServiceImpl;
+import com.plantynet.warning.vo.EventVO;
+import com.plantynet.warning.vo.ManagerInChargeVO;
 import com.plantynet.warning.vo.ServerVO;
 import com.plantynet.warning.vo.SessionVO;
 
@@ -79,7 +85,6 @@ public class ServerInfoController {
         return "redirect:/serverList";
     }
     
-    
 	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
 	public String serverInfoGET(Model model, HttpSession session, Integer id) {
 	    
@@ -90,8 +95,59 @@ public class ServerInfoController {
 	    model.addAttribute("eventList", serverInfoService.getServerEventList(id));
 	    model.addAttribute("eventMngrInfoList", serverInfoService.getManagerInChargeList(id));
 	    
-	    System.out.println(serverInfoService.getManagerInChargeList(id));
-	    
 		return "serverInfo";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/updateEvent", method=RequestMethod.POST)
+	public Map<String, Boolean> updateEvent(EventVO vo){
+	    
+	    Map<String, Boolean> map = new HashMap<>();
+	    
+	    serverInfoService.updateEvent(vo);
+	    map.put("flag", true);
+	    
+	    return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteEvent", method=RequestMethod.POST)
+	public Map<String, Boolean> deleteEvent(int eventId){
+	    
+	    Map<String, Boolean> map = new HashMap<>();
+        
+	    serverInfoService.deleteEvent(eventId);
+        map.put("flag", true);
+        
+        return map;
+	}
+	
+	@ResponseBody
+    @RequestMapping(value="/updateEvntMngr", method=RequestMethod.POST)
+    public Map<String, Boolean> updateEvntMngr(ManagerInChargeVO vo){
+        
+        Map<String, Boolean> map = new HashMap<>();
+        
+        serverInfoService.updateEvntMngr(vo);
+        map.put("flag", true);
+        
+        return map;
+        
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

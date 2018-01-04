@@ -50,4 +50,22 @@ public class SeverInfoServiceImpl implements ServerInfoService
         return finalMICVo;
     }
 
+    @Override
+    public void updateEvent(EventVO vo)
+    {
+        serverInfoDao.updateEvent(vo);
+    }
+
+    @Override
+    public void deleteEvent(int eventId)
+    {
+        serverInfoDao.deleteEvent(eventId);
+    }
+
+    @Override
+    public void updateEvntMngr(ManagerInChargeVO vo)
+    {
+        serverInfoDao.updateEvntMngr(vo);
+    }
+
 }
