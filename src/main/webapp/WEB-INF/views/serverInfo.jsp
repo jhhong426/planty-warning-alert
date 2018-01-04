@@ -32,19 +32,19 @@
 						<tr>
 							<th style="text-align:center">&ensp;서&ensp;버&ensp;명</th>
 								<td>
-									<input class="form-control" type="text" name="" value="DB#1" style="width:280px; text-align:center" disabled>
+									<input class="form-control" type="text" name="" value="${serverInfo.serverNm}" style="width:280px; text-align:center" disabled>
 								</td>
 						</tr>
 						<tr>
 							<th style="text-align:center">&emsp;&emsp;I P&ensp;&ensp;</th>
 								<td>
-									<input class="form-control" type="text" name="" value="121.241.223.110" style="width:280px; text-align:center" disabled>
+									<input class="form-control" type="text" name="" value="${serverInfo.ip}" style="width:280px; text-align:center" disabled>
 								</td>
 						</tr>
 						<tr>
 							<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
 					         	<td>
-					         		<input class="form-control" type="text" name="" value="플랜티넷팀" style="width:280px; text-align:center" disabled>
+					         		<input class="form-control" type="text" name="" value="${serverInfo.teamNm}" style="width:280px; text-align:center" disabled>
 					        	</td>
 						</tr>
 					</tbody>
@@ -70,6 +70,9 @@
 					<h4><strong>삭제</strong></h4>
 				</div>
 			</div>
+			
+			
+			<c:forEach items = "${eventList}" var = "event">
 			<div class="box box-default">
 				<div class="box-header with-border">
 					<div class="box-tools pull right">
@@ -77,13 +80,13 @@
 	                 </div>
 					<div class="row">
 						<div class="col-md-2 text-center relative1">
-							<h4>A1</h4>
+							<h4>${event.eventCode}</h4>
 						</div>
 						<div class="col-md-4 text-center">
-							<h4>CPU 점유율 80% 이상</h4>
+							<h4>${event.description}</h4>
 						</div>
 						<div class="col-md-3 text-center">
-							<h4>2014-12-14 15:35:22</h4>
+							<h4>${event.rgsde}</h4>
 						</div>
 						<div class="col-md-1 text-center relative2">
 							<button id="btnUpdate" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
@@ -102,36 +105,24 @@
 					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">수정</th>
 					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">삭제</th>
 					  </tr>
+					  <c:forEach items="${eventMngrInfoList}" var="eventMngInfo">
+                      <c:if test="${event.eventId == eventMngInfo.eventId }">
 					  <tr style="height:30px;">
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">김규식</td>
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">Email+SMS</td>
-					    <td class="col-md-3 text-center" style="border:1px gray solid;">2017-12-29 13:05:12</td>
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.managerNm}</td>
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.alertMth}</td>
+					    <td class="col-md-3 text-center" style="border:1px gray solid;">${eventMngInfo.rgsde}</td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
 					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
 					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
 					  </tr>
-					  <tr style="height:30px;">
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">정연태</td>
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">Email</td>
-					    <td class="col-md-3 text-center" style="border:1px gray solid;">2017-12-31 17:12:25</td>
-					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
-					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
-					  </tr>
-					  <tr style="height:30px;">
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">JYT</td>
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">Email+SMS</td>
-					    <td class="col-md-3 text-center" style="border:1px gray solid;">2017-12-31 17:12:25</td>
-					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
-					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
-					  </tr>
+					  </c:if>
+					  </c:forEach>
 					</table>
 				</div>
 			</div>
+			</c:forEach>
+			
 			<br>
 			<hr>
 			
@@ -232,10 +223,9 @@
 									<th style="text-align:center">담&ensp;당&ensp;자</th>
 							         	<td>
 							         		<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
-							                    <option value="">호날두</option>
-							                    <option value="">메에시</option>
-							                    <option value="">토오티</option>
-							                    <option value="">히딩크</option>
+							         		    <c:forEach items="${managerList}" var="manager">
+							                    <option value="${manager.managerId}">${manager.managerNm }</option>
+							                    </c:forEach>
 							                </select>
 							         	</td>
 						      	</tr>   

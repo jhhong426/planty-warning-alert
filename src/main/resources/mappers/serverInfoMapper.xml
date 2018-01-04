@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where event_id = #{eventId} and EVENT_MANAGER.sttus = "ACT01"
     </select>
     
-    <select id="getServerInfo">
+    <select id="getServerInfo" resultMap="getServerInfo">
 		select server_id, SERVER.team_id, TEAM.team_nm, SERVER.server_nm, SERVER.ip
 		from SERVER join TEAM 
 		ON TEAM.team_id = SERVER.team_id
