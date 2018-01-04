@@ -29,6 +29,13 @@ public class AdminController {
 		int teamId = sessionVO.getTeamId();
 
 		List<ManagerVO> list = adminService.getManagerListByTeamId(teamId);
+		
+		for (ManagerVO managerVO : list) {
+			StringBuffer buffer = new StringBuffer(managerVO.getPhoneNo());
+			buffer.insert(3, "-");
+			buffer.insert(8, "-");
+			managerVO.setPhoneNo(buffer.toString());
+		}
 		model.addAttribute("list", list);
 	}
 
@@ -40,7 +47,7 @@ public class AdminController {
 		HttpSession session = request.getSession(false);
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
 		String email = email1 + "@" + email2;
-		String phoneNo = phoneNo1 + "-" + phoneNo2 + "-" + phoneNo3;
+		String phoneNo = phoneNo1 + phoneNo2 + phoneNo3;
 		int teamId = sessionVO.getTeamId();
 
 		managerVO.setEmail(email);

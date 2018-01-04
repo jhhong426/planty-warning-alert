@@ -47,6 +47,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where server_id = #{serverId}
     </select>
     
+    <update id="updateEvent">
+		UPDATE EVENT 
+		SET description = #{description}, updde = CURRENT_TIMESTAMP()
+		WHERE event_id = #{eventId}
+    </update>
     
+    <update id="updateEventForDel">
+        UPDATE EVENT
+        SET sttus = "ACT02"
+        WHERE event_id = #{eventId}
+    </update>
+    
+    <update id="updateEvntMngrForDel">
+        UPDATE EVENT_MANAGER
+        SET sttus = "ACT02"
+        WHERE event_id = #{eventId}
+    </update>
+    
+    <update id="updateEvntMngr">
+		UPDATE EVENT_MANAGER
+		SET manager_id = #{managerId}, alert_mth = #{alertMth}, updde = CURRENT_TIMESTAMP()
+		WHERE event_id = #{eventId}
+    </update>
     
 </mapper>

@@ -63,21 +63,22 @@
 					<div class="box-tools pull right">
 	                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-plus"></i></button>
 	                 </div>
-					<div class="row">
+					<div class="row" id="container">
 						<div class="col-md-2 text-center" style="position:relative; right:6px;">
-							<h4>${event.eventCode}</h4>
+						     <input id="eventId" type="hidden" value="${event.eventId }">
+							<h4 id="eventCode">${event.eventCode}</h4>
 						</div>
 						<div class="col-md-4 text-center">
-							<h4>${event.description}</h4>
+							<h4 id="description">${event.description}</h4>
 						</div>
 						<div class="col-md-3 text-center">
 							<h4>${event.rgsde}</h4>
 						</div>
 						<div class="col-md-1 text-center" style="position:relative; left:6px;">
-							<button id="btnUpdate" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
+							<button id="btnUpdateEvent" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
 						</div>
 						<div class="col-md-1 text-center" style="position:relative; left:6px;">
-							<button id="" type="button" class="btn btn-default btn-sm" onclick="">삭제</button>
+							<button data-eventId="${event.eventId}" id="btnDeleteEvent" type="button" class="btn btn-default btn-sm" onclick="">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -93,13 +94,23 @@
 					  <c:forEach items="${eventMngrInfoList}" var="eventMngInfo">
                       <c:if test="${event.eventId == eventMngInfo.eventId }">
 					  <tr style="height:30px;">
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.managerNm}</td>
-					    <td class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.alertMth}</td>
+					    <input id="eventId2" type="hidden" value="${event.eventId }"/>
+					    <input id="eventCode2" type="hidden" value="${event.eventCode }"/>
+					    <td id="managerNm" class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.managerNm}</td>
+					    <c:choose>
+					       <c:when test = "${eventMngInfo.alertMth == 'ALM01' }">
+					           <td id="alertMth" class="col-md-2 text-center" style="border:1px gray solid;">Email</td>
+					       </c:when>
+					       <c:when test = "${eventMngInfo.alertMth == 'ALM02' }">
+					           <td id="alertMth" class="col-md-2 text-center" style="border:1px gray solid;">SMS + Email</td>
+                           </c:when>
+					    </c:choose>
+					    
 					    <td class="col-md-3 text-center" style="border:1px gray solid;">${eventMngInfo.rgsde}</td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="btnAdminUpdate" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
+					    	<button id="btnUpdateEvntMngr" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
+					    	<button id="btnDeleteEvntMngr" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
 					  </tr>
 					  </c:if>
 					  </c:forEach>
@@ -114,8 +125,8 @@
 			<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 등록</strong></h5>
 
             <div class="left-block" style="width:400px; padding:10px;">
-				<button id="btnRegister" type="submit" class="btn btn-default col-md-offset-1">장애 코드 등록</button>
-				<button id="btnAdminRegister" type="submit" class="btn btn-default col-md-offset-1"> 담당자 등록 </button>
+				<button id="btnAddEvent" type="submit" class="btn btn-default col-md-offset-1">장애 코드 등록</button>
+				<button id="btnAddEvntMngr" type="submit" class="btn btn-default col-md-offset-1"> 담당자 등록 </button>
 			</div>
 		
 		
@@ -128,33 +139,34 @@
 			          <h4>장애코드 수정</h4>
 			        </div>
 			        <div class="modal-body" style="padding:40px 50px;">
-			          <form role="form">
+			          <form role="form" id="frmUpdateEvent" action="/updateEvent" method="post">
 				          <table class="table" style="width:400px;" align="center">
 							<tbody>
 								<tr>
 									<th style="text-align:center">장애코드</th>
 										<td>
-											<input type="text" name="" value="A1" style="width:250px; text-align:center">
+										    <input type="hidden" id="inputUptEventId" name="eventId" value="">
+											<input id="inputUptEventCode" type="text" name="" value="" style="width:250px; text-align:center" disabled>
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">상세설명</th>
 										<td>
-											<input type="text" name="" value="CPU 점유율 80% 이상" style="width:250px; text-align:center">
+											<input id="inputUptDescription" type="text" name="description" value="" style="width:250px; text-align:center">
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">서&ensp;버&ensp;명</th>
 							         	<td>
-							         		<input type="text" name="" value="Test 서버" style="width:250px; text-align:center" disabled>
+							         		<input type="text" name="" value="${serverInfo.serverNm}" style="width:250px; text-align:center" disabled>
 							        	</td>
 								</tr>  
 							</tbody>
 						</table>
 			          </form>
 			          <div class="modal-footer center-block" style="width:500px; padding:10px;">
-						<button id="" type="submit" style="float:left" class="btn btn-success col-md-offset-5">수정</button>
-				        <button type="submit" style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
+						<button id="btnUpdateEventGo" style="float:left" class="btn btn-success col-md-offset-5">수정</button>
+				        <button style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
 					  </div>
 			        </div>
 			      </div>
@@ -170,44 +182,35 @@
 			          <h4>장애담당자 수정</h4>
 			        </div>
 			        <div class="modal-body" style="padding:40px 50px;">
-			          <form role="form">
+			          <form role="form" id="frmUpdateEvntMngr" action="/updateEvntMngr" method="post">
 				          <table class="table" style="width:400px;" align="center">
 							<tbody>
 								<tr>
 									<th style="text-align:center">서&ensp;버&ensp;명</th>
 										<td>
-											<input type="text" name="" value="Test 서버" style="width:250px; text-align:center" disabled>
+											<input type="text" name="" value="${serverInfo.serverNm}" style="width:250px; text-align:center" disabled>
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">장애코드</th>
 										<td>
-											<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
-							                    <option value="">A1</option>
-							                    <option value="">A2</option>
-							                    <option value="">A3</option>
-							                    <option value="">B1</option>
-							                    <option value="">B2</option>
-							                    <option value="">B3</option>
-							                    <option value="">C1</option>
-							                    <option value="">C2</option>
-							                    <option value="">C3</option>
-							                </select>
+										    <input id="inputUptEventId2" type="hidden" name="eventId" value="" style="width:250px; text-align:center">
+											<input id="inputUptEventCode2" type="text" name="" value="" style="width:250px; text-align:center" disabled>
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">알림방법</th>
 							         	<td>
-							         		<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
-							                    <option value="">Email</option>
-							                    <option value="">SMS + Email</option>
+							         		<select id="selUptAlertMth" onChange="" name="alertMth" class="form-control inline-block" style="display:inline; width:250px; height:35px">
+							                    <option value="ALM01">Email</option>
+							                    <option value="ALM02">SMS + Email</option>
 							                </select>
 							        	</td>
 								</tr>      
 								<tr>
 									<th style="text-align:center">담&ensp;당&ensp;자</th>
 							         	<td>
-							         		<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
+							         		<select id="selUptManager" onChange="" name="managerId" class="form-control inline-block" style="display:inline; width:250px; height:35px">
 							         		    <c:forEach items="${managerList}" var="manager">
 							                    <option value="${manager.managerId}">${manager.managerNm }</option>
 							                    </c:forEach>
@@ -218,8 +221,8 @@
 						</table>
 			          </form>
 			          <div class="modal-footer center-block" style="width:500px; padding:10px;">
-						<button id="" type="submit" style="float:left" class="btn btn-success col-md-offset-5">수정</button>
-				        <button type="submit" style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
+						<button id="btnUpdateEvntMngrGo"style="float:left" class="btn btn-success col-md-offset-5">수정</button>
+				        <button style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
 					  </div>
 			        </div>
 			      </div>
@@ -235,25 +238,26 @@
 			          <h4>장애코드 등록</h4>
 			        </div>
 			        <div class="modal-body" style="padding:40px 50px;">
-			          <form role="form">
+			          <form role="form" id="frmAddEvent" action="/" method="post">
 				          <table class="table" style="width:400px;" align="center">
 							<tbody>
 								<tr>
 									<th style="text-align:center">장애코드</th>
 										<td>
-											<input type="text" name="" value="" style="width:250px; text-align:center">
+											<input type="text" name="eventCode" style="width:250px; text-align:center">
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">상세설명</th>
 										<td>
-											<input type="text" name="" value="" style="width:250px; text-align:center">
+											<input type="text" name="description" value="" style="width:250px; text-align:center">
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">서&ensp;버&ensp;명</th>
 							         	<td>
-							         		<input type="text" name="" value="Test" style="width:250px; text-align:center" disabled>
+							         	    <input type="hidden" name="serverId" value="${serverInfo.serverId}" />
+							         		<input type="text" name="" value="${serverInfo.serverNm }" style="width:250px; text-align:center" disabled>
 							        	</td>
 								</tr>  
 							</tbody>
@@ -277,7 +281,7 @@
 			          <h4>장애담당자 등록</h4>
 			        </div>
 			        <div class="modal-body" style="padding:40px 50px;">
-			          <form role="form">
+			          <form role="form" id="frmAddEvntMngr" action="" method="post">
 				          <table class="table" style="width:400px;" align="center">
 							<tbody>
 								<tr>
@@ -289,39 +293,29 @@
 								<tr>
 									<th style="text-align:center">장애코드</th>
 										<td>
-											<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
-							                    <option value=""></option>
-							                    <option value="">A1</option>
-							                    <option value="">A2</option>
-							                    <option value="">A3</option>
-							                    <option value="">B1</option>
-							                    <option value="">B2</option>
-							                    <option value="">B3</option>
-							                    <option value="">C1</option>
-							                    <option value="">C2</option>
-							                    <option value="">C3</option>
+											<select id="" onChange="" name="eventId" class="form-control inline-block" style="display:inline; width:250px; height:35px">
+							                    <c:forEach items="${eventList}" var="event">
+							                    <option value="${event.eventId }">${event.eventCode }</option>
+							                    </c:forEach>
 							                </select>
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">알림방법</th>
 							         	<td>
-							         		<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
-							                    <option value=""></option>
-							                    <option value="">Email</option>
-							                    <option value="">SMS + Email</option>
+							         		<select id="" onChange="" name="alertMth" class="form-control inline-block" style="display:inline; width:250px; height:35px">
+							                    <option value="ALM01">Email</option>
+							                    <option value="ALM02">SMS + Email</option>
 							                </select>
 							        	</td>
 								</tr>      
 								<tr>
 									<th style="text-align:center">담&ensp;당&ensp;자</th>
 							         	<td>
-							         		<select id="" onChange="" name="" class="form-control inline-block" style="display:inline; width:250px; height:35px">
-							                    <option value=""></option>
-							                    <option value="">호날두</option>
-							                    <option value="">메에시</option>
-							                    <option value="">토오티</option>
-							                    <option value="">히딩크</option>
+							         		<select id="" onChange="" name="managerId" class="form-control inline-block" style="display:inline; width:250px; height:35px">
+							                    <c:forEach items="${managerList}" var="manager">
+                                                <option value="${manager.managerId}">${manager.managerNm }</option>
+                                                </c:forEach>
 							                </select>
 							         	</td>
 						      	</tr>    
@@ -359,6 +353,108 @@
 <script>
 	// box-body default로 닫혀있게하는 설정
 	$(".box-default").addClass("collapsed-box");
+	
+	//form ajax submit 처리 함수 
+    function ajaxPost(frm, msg){
+        
+        var _data = $(frm).serialize();
+        var _url = $(frm).attr("action");
+        
+        $.ajax({
+           type :"post",
+           url : _url,
+           data : _data,
+           success : function(result){
+               if(result.flag){
+                   window.location.reload();
+                   alert(msg);
+               }
+           }
+        });
+    }
+	
+	/////////////////////////////// 장애 코드 수정 및 삭제 script ///////////////////////////////
+	
+	//장애 코드 수정 팝업 띄우기
+	$("#btnUpdateEvent").each(function(){
+	    $(this).click(function(){
+	       $("#inputUptEventId").val($(this).parents("#container").children().eq(0).children("#eventId").val());
+	       $("#inputUptEventCode").val($(this).parents("#container").children().eq(0).children("#eventCode").text());
+	       $("#inputUptDescription").val($(this).parents("#container").children().eq(1).children("#description").text());
+	       $("#errorUpdatePopup").modal();
+	    });
+	});
+	
+	//수정 완료 시 submit
+	$("#btnUpdateEventGo").click(function(){
+	    
+	    var frm = $("#frmUpdateEvent");
+	    ajaxPost(frm,"수정되었습니다.");
+	});
+	//장애 코드 삭제
+	$("#btnDeleteEvent").each(function(){
+	   $(this).click(function(){
+	       
+	       if(confirm("정말 삭제 하시겠습니까?")){
+	           
+	           var eventId = $(this).attr("data-eventId");
+	           var _data = {
+	                   "eventId": eventId
+	           };
+	           
+	           $.ajax({
+	               type : "post",
+	               url : "/deleteEvent",
+	               data : _data,
+	               success : function(result){
+	                   if(result.flag){
+	                       window.location.reload();
+	                       alert("삭제 되었습니다.");
+	                   }
+	               }
+	           });
+	       }
+	   });
+	});
+	
+/////////////////////////////// 담당자 수정 및 삭제  script ///////////////////////////////
+
+    //담당자 수정 데이터 입력 후 띄우기
+	$("#btnUpdateEvntMngr").each(function(){
+	   $(this).click(function(){
+	       var eventId = $(this).parents("tr").children().eq(0).val();
+	       var eventCode = $(this).parents("tr").children().eq(1).val();
+	       var managerNm = $(this).parents("tr").children().eq(2).text();
+	       var alertMth = $(this).parents("tr").children().eq(3).text();
+	       
+	       $("#inputUptEventId2").val(eventId);
+	       $("#inputUptEventCode2").val(eventCode);
+	       
+	       $("#selUptAlertMth option").filter(function(){
+	          return this.text == alertMth; 
+	       }).attr("selected", true);
+	       
+	       $("#selUptManager option").filter(function(){
+	              return this.text == managerNm; 
+	           }).attr("selected", true);
+	       
+	       $("#errorAdminUpdatePopup").modal();
+	   });
+	});
+	
+	//담당자 수정 완료 시 form submit
+	$("#btnUpdateEvntMngrGo").click(function(){
+	    var frm = $("#frmUpdateEvntMngr");
+	    ajaxPost(frm,"수정 되었습니다.");
+	});
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 장애코드 수정 팝업창 띄우기
 	$(document).ready(function(){
