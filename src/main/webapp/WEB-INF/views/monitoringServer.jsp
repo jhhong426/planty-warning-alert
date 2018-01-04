@@ -12,9 +12,9 @@
 		
 		<div class="box">
 			<div class="box-header">
-				<h4><strong>통계 기간 : </strong></h4>
-				<h4><strong>서      버 : </strong></h4>
-				<h4><strong>I    P : </strong></h4>
+				<h4><strong>통계 기간 : ${today}</strong></h4>
+				<h4><strong>서      버 : ${serverInfo.serverNm}</strong></h4>
+				<h4><strong>I    P : ${serverInfo.ip}</strong></h4>
 			</div>
 			
            <div class="box-body">
@@ -58,7 +58,7 @@ Highcharts.chart('line-chart', {
         type: 'datetime',
         dateTimeLabelFormats: {
             day: '%e',
-    				month: '%m'
+    		month: '%m'
         },
         title: {
             text: 'Date'

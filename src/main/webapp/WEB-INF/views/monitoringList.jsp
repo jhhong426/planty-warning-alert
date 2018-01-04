@@ -66,8 +66,8 @@
 				<tbody style="text-align: center">
 					<c:forEach var="item" items="${errorLogList}">
 						<tr>
-							<td>${item.serverNm}</td>
-							<td>${item.ip}</td>
+							<td><a href="/monitoringServer?serverId=${item.serverId}">${item.serverNm}</a></td>
+							<td><a href="/monitoringServer?serverId=${item.serverId}">${item.ip}</a></td>
 							<td>${item.eventCode}</td>
 							<td>${item.managerNm}</td>
 							<td>${item.msg}</td>
@@ -153,7 +153,7 @@ function ServerChange(serverIdNum) {
 	else {
 		$.ajax({
             type: "POST",
-            url: "/monitoring/list/changeServer",
+            url: "/monitoringList/changeServer",
             async:false,
             data: { serverId : serverIdNum },
             dataType: "json",

@@ -12,7 +12,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div id="date-text" style="float:left; width:30%">
-					<h3><strong>통계 기간 : </strong></h3>
+					<h3><strong>통계 기간 : ${today}</strong></h3>
 				</div>
 				<div id="button" style="float:left; width:70%">
 					<button style="height:50px"><strong>상세조회</strong></button>
@@ -44,6 +44,13 @@
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
 <script>
+
+function DateParser(arg) {
+	var splitArg = arg.split("-");
+	var stringArg = splitArg[0] + splitArg[1] + splitArg[2];
+	var intArg = parseInt(stringArg);
+	return intArg;
+};
 
 Highcharts.chart('line-chart', {
     chart: {
@@ -86,9 +93,8 @@ Highcharts.chart('line-chart', {
 
     series: [{
         name: 'TOP 5',
-        // Define the data points. All series have a dummy year
-        // of 1970/71 in order to be compared on the same x axis. Note
-        // that in JavaScript, months start at 0 for January, 1 for February etc.
+        // [Date.UTC(년, 월(0~11), 일), 값]
+
         data: [
             [Date.UTC(2017, 11, 1), 0],
             [Date.UTC(2017, 11, 2), 28],
