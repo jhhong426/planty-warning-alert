@@ -21,7 +21,6 @@
 						</tr>
 					</thead>
 					<tbody style="text-align:center">
-					
 						<c:forEach items = "${list}" var = "item">
 							<tr>
 					       		<td>${item.loginId}</td>
@@ -29,8 +28,10 @@
 					       		<td>${item.phoneNo }</td>
 					       		<td>${item.email}</td>
 					       		<td><form name="" method="post" action="/deleteAdmin">
-					       		<input id="managerId" name="managerId" type="hidden" value="${item.managerId}">
-					       		<button type="submit" class="btn btn-default" >삭제</button></form></td>
+					       				<input id="managerId" name="managerId" type="hidden" value="${item.managerId}">
+					       				<button type="submit" class="btn btn-default" style="position:relative; top:8px;">삭제</button>
+					       			</form>
+					       		</td>
 				       		</tr>
       					</c:forEach>
 						
@@ -103,7 +104,7 @@
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
-    // 운영진 리스트 Data Table
+    // 담당자 리스트 Data Table
 	var admin = $("#admin").DataTable({
 	    "language"    : {
             'paginate'          : {

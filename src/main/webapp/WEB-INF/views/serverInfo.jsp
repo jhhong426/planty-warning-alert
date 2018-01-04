@@ -76,7 +76,7 @@
 	                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-plus"></i></button>
 	                 </div>
 					<div class="row">
-						<div class="col-md-2 text-center relative1">
+						<div class="col-md-2 text-center" style="position:relative; right:6px;">
 							<h4>A1</h4>
 						</div>
 						<div class="col-md-4 text-center">
@@ -85,10 +85,10 @@
 						<div class="col-md-3 text-center">
 							<h4>2014-12-14 15:35:22</h4>
 						</div>
-						<div class="col-md-1 text-center relative2">
+						<div class="col-md-1 text-center" style="position:relative; right:6px;">
 							<button id="btnUpdate" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
 						</div>
-						<div class="col-md-1 text-center relative3">
+						<div class="col-md-1 text-center" style="position:relative; right:6px;">
 							<button id="" type="button" class="btn btn-default btn-sm" onclick="">삭제</button>
 						</div>
 					</div>
