@@ -53,9 +53,9 @@
 					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
 					       		<td>${item.rgsde}</td>
 					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-default" >수정</button></td>
-					       		<td><form name="" method="post" action="/deleteServer">
+					       		<td><form name="" method="post" action="/deleteServer" onsubmit="return deleteConfirm();" style="margin-bottom: 0px;">
 					       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
-					       				<button type="submit" class="btn btn-default" style="position:relative; top:8px;">삭제</button>
+					       				<button type="submit" class="btn btn-default" >삭제</button>
 					       			</form>
 					       		</td>
 				       		</tr>
@@ -73,7 +73,7 @@
 				          <h4>서버 등록</h4>
 				        </div>
 				        <div class="modal-body" style="padding:40px 50px;">
-				          <form role="form" action = "/addServer" method = "get">
+				          <form role="form" action = "/addServer" method = "get" onsubmit="return isConflict();">
 					          <table class="table" style="width:500px;" align="center">
 								<tbody>
 									<tr>
@@ -256,5 +256,16 @@
 			  }); */
 	}
 	
+	function deleteConfirm(){
+		if (confirm("정말 삭제하시겠습니까??") == true){    
+		    return true;
+		}else{  
+		    return false;
+		}
+	}
+	
+	function isConflict(){
+		alert("작동");
+	}
 	
 </script>

@@ -13,4 +13,10 @@ public interface ServerInfoService
     public List<EventVO> getServerEventList(int serverId);
     
     public List<ManagerInChargeVO> getManagerInChargeList(int serverId);
+    
+    public void updateEvent(EventVO vo);
+    
+    public void deleteEvent(int eventId);
+    
+    public void updateEvntMngr(ManagerInChargeVO vo);
 }

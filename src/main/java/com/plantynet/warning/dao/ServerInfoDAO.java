@@ -13,4 +13,10 @@ public interface ServerInfoDAO
     public List<EventVO> getServerEventList(int serverId);
     
     public List<ManagerInChargeVO> getManagerInChargeList(int eventId);
+    
+    public void updateEvent(EventVO vo);
+    
+    public void deleteEvent(int eventId);
+    
+    public void updateEvntMngr(ManagerInChargeVO vo);
 }
