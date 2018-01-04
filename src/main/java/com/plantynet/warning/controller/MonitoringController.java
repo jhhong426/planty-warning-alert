@@ -58,6 +58,7 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoringServer", method = RequestMethod.GET)
 	public String monitoringServer(Integer serverId, Model model)
 		throws Exception {
+		model.addAttribute("today", monitoringService.getDate());
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
 		//model.addAttribute("", service.getServerLineStat(serverId));
 		//model.addAttribute("", service.getServerBarStat(serverId));

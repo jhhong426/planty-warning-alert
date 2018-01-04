@@ -47,6 +47,12 @@ public class EventVO
     {
         this.rgsde = rgsde;
     }
+    @Override
+    public String toString()
+    {
+        return "EventVO [eventId=" + eventId + ", serverId=" + serverId + ", eventCode=" + eventCode + ", description="
+                + description + ", rgsde=" + rgsde + "]";
+    }
     
     
 }
