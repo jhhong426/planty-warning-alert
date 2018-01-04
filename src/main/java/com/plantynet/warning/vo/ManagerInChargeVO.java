@@ -49,6 +49,12 @@ public class ManagerInChargeVO
     {
         this.rgsde = rgsde;
     }
+    @Override
+    public String toString()
+    {
+        return "ManagerInChargeVO [managerId=" + managerId + ", eventId=" + eventId + ", managerNm=" + managerNm
+                + ", alertMth=" + alertMth + ", rgsde=" + rgsde + "]";
+    }
     
     
 }

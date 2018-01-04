@@ -15,24 +15,20 @@
     </resultMap>
 
 	<select id="getDate" resultType="String">
-        SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), interval -7 day), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
+        SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -7 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
     </select>
 
 	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT server_id, server_nm
         FROM SERVER
-        WHERE team_id=(
-        	SELECT team_id 
-        	FROM MANAGER 
-        	WHERE manager_id=1
-        )
+        WHERE team_id=#{teamId}
     </select>
     
     <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT EVENT.event_id, EVENT.event_code
         FROM EVENT, EVENT_MANAGER
         WHERE EVENT.event_id=EVENT_MANAGER.event_id
-        AND EVENT_MANAGER.manager_id=1
+        AND EVENT_MANAGER.manager_id=#{managerId}
     </select>
 
 	<select id="getGlobalLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
@@ -49,11 +45,7 @@
 		WHERE n.server_id=s.server_id
 		AND n.event_id=e.event_id
 		AND n.manager_id=m.manager_id
-		AND m.team_id=(
-        	SELECT team_id 
-        	FROM MANAGER 
-        	WHERE manager_id=1
-        )
+		AND m.team_id=#{teamId}
     </select>
     
     <select id="getServerInfo" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
@@ -63,11 +55,21 @@
     </select>
     
     <select id="getErrorLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_code, count(SELECT C)
+        SELECT DATE_FORMAT(NOW(),'%Y-%m-%d') AS date, count(*) AS count
+        FROM NOTIFICATION_HISTORY
+        WHERE server_id=#{serverId}
+        GROUP BY DATE_FORMAT(rgsde,'%Y-%m-%d')
+        LIMIT 7
     </select>
     
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        
+        SELECT event_code, count(*) AS count
+        FROM NOTIFICATION_HISTORY
+        WHERE rgsde > (CURDATE() - INTERVAL 7 DAY)
+        AND server_id=#{serverId}
+        GROUP BY event_code
+        ORDER BY count
+        LIMIT 5
     </select>
 
 

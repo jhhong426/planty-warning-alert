@@ -21,7 +21,7 @@ public class MonitoringServiceImpl implements MonitoringService{
 		return monitoringDAO.getDate();
 	}
 	@Override
-	public List<MonitoringVO> getServerList(int teamId) {
+	public List<MonitoringVO> getServerList(Integer teamId) {
 		return monitoringDAO.getServerList(teamId);
 	}
 	@Override
@@ -29,15 +29,15 @@ public class MonitoringServiceImpl implements MonitoringService{
 		return monitoringDAO.getCodeList(serverId);
 	}
 	@Override
-	public List<MonitoringVO> getGlobalLineStat(int teamId) {
+	public List<MonitoringVO> getGlobalLineStat(Integer teamId) {
 		return monitoringDAO.getGlobalLineStat(teamId);
 	}
 	@Override
-	public List<MonitoringVO> getGlobalBarStat(int teamId) {
+	public List<MonitoringVO> getGlobalBarStat(Integer teamId) {
 		return monitoringDAO.getGlobalBarStat(teamId);
 	}
 	@Override
-	public List<MonitoringVO> getErrorLogList(int teamId) {
+	public List<MonitoringVO> getErrorLogList(Integer teamId) {
 		return monitoringDAO.getErrorLogList(teamId);
 	}
 	@Override

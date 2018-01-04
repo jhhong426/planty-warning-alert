@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 
 <%@include file="include/header.jsp"%>
+
 <!-- 서버 상세정보 링크 부분 a태그 css 설정 -->
 <style type="text/css"> 
 	 a:link { color: black; text-decoration: none;}
@@ -15,7 +16,7 @@
 <div class="content-wrapper" style="min-height:951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h3><strong>&emsp;서버 목록</strong></h3>
-		
+
                <div class="row">
                  <div class="col-md-2">
                    <select id="serverCategory" class="form-control form-group-inline" onchange="selectChange()" style="display:inline-block">
@@ -54,7 +55,7 @@
 					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-default" >수정</button></td>
 					       		<td><form name="" method="post" action="/deleteServer">
 					       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
-					       				<button type="submit" class="btn btn-default" >삭제</button>
+					       				<button type="submit" class="btn btn-default" style="position:relative; top:8px;">삭제</button>
 					       			</form>
 					       		</td>
 				       		</tr>
