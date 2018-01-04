@@ -23,13 +23,13 @@
 					<tbody style="text-align:center">
 						<c:forEach items = "${list}" var = "item">
 							<tr>
-					       		<td><div class="row" style="position:relative; top:12px;">${item.loginId}</div></td>
-					       		<td><div class="row" style="position:relative; top:12px;">${item.managerNm}</div></td>
-					       		<td><div class="row" style="position:relative; top:12px;">${item.phoneNo }</div></td>
-					       		<td><div class="row" style="position:relative; top:12px;">${item.email}</div></td>
-					       		<td><form name="" method="post" action="/deleteAdmin">
-					       				<input id="managerId" name="managerId" type="hidden" value="${item.managerId}">
-					       				<button type="submit" class="btn btn-default" style="position:relative; top:8px;">삭제</button>
+					       		<td><div class="row" style="position:relative; top:4px;">${item.loginId}</div></td>
+					       		<td><div class="row" style="position:relative; top:4px;">${item.managerNm}</div></td>
+					       		<td><div class="row" style="position:relative; top:4px;">${item.phoneNo }</div></td>
+					       		<td><div class="row" style="position:relative; top:4px;">${item.email}</div></td>
+					       		<td><form name="" method="post" action="/deleteAdmin" onsubmit="return deleteConfirm()" style="margin-bottom: 0px;">
+					       				<input  name="managerId" type="hidden" value="${item.managerId}">
+					       				<button type="submit"  class="btn btn-default">삭제</button>
 					       			</form>
 					       		</td>
 				       		</tr>
@@ -53,7 +53,7 @@
 						<tr>
 							<th style="text-align:center">&ensp;비 밀&ensp;번호 </th>
 								<td>
-									<input id = "loginPassword" type="text" name="loginPassword" value="" style="width:375px; text-align:center">
+									<input id = "loginPassword" type="password" name="loginPassword" value="" style="width:375px; text-align:center">
 								</td>
 						</tr>
 						<tr>
@@ -130,6 +130,14 @@
 			return false;
 		}else{
 			return true;	
+		}
+	}
+	
+	function deleteConfirm(){
+		if (confirm("정말 삭제하시겠습니까??") == true){    
+		    return true;
+		}else{  
+		    return false;
 		}
 	}
 	
