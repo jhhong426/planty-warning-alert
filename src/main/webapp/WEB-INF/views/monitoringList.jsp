@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/resources/demos/style.css">  
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
-
 <%@include file="include/header.jsp"%>
 
 <div class="content-wrapper" style="min-height: 951.444px;">
@@ -14,16 +13,17 @@
 		
 		<div class="box">
 			<div class="row">
-				<h4 class="col-md-1"><strong>기간 : </strong></h4>
-				<div class="col-md-3">
-					<input type="text" id="preDate" class="inline">&emsp;~&emsp;
-					<input type="text" id="postDate" class="inline">
+				<h4 class="col-md-1" align="right"><strong>&emsp;기&emsp;&emsp;간 : </strong></h4>
+				<div class="col-md-5">
+					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="20px" style="text-align:center;">
+					&emsp;~&emsp;
+					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="20px" style="text-align:center;">
 				</div>
-				<div class="col-md-8"></div>
+				<div class="col-md-6"></div>
 			</div>
 			<div class="row">
-				<h4 class="col-md-1"><strong>서버명 : </strong></h4>
-				<div class="col-md-3">
+				<h4 class="col-md-1" align="right"><strong>&emsp;서&ensp;버&ensp;명 : </strong></h4>
+				<div class="col-md-2">
 					<select id="serverCategory" name="serverCategory" class="form-control form-group-inline"
 						onchange="ServerChange(this.value);" style="display: inline-block">
 						<option value="">전체</option>
@@ -32,10 +32,10 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="col-md-8"></div>
+				<div class="col-md-9"></div>
 			</div>
 			<div class="row">
-				<h4 class="col-md-1"><strong>장애코드 : </strong></h4>
+				<h4 class="col-md-1" align="right"><strong>&emsp;장애코드 : </strong></h4>
 				<div class="col-md-2" id="codeDynamicCategory">
 					<select id="codeCategory" class="form-control form-group-inline"
 						style="display: inline-block">
@@ -114,27 +114,28 @@ $(document).ready(function() {
 	$("#errorList").DataTable(
 		{
 			"language" : {
-				'zeroRecords' : "검색 결과가 없습니다.",
-				'info' : "에러 알림 건수 :  _TOTAL_ 개",
-				'infoEmpty' : "에러 알림 건수 :  _TOTAL_ 개",
+				'zeroRecords'  : "검색 결과가 없습니다.",
+				'info'		   : "에러 알림 건수 :  _TOTAL_ 개",
+				'infoEmpty'    : "에러 알림 건수 :  _TOTAL_ 개",
 				'infoFiltered' : " ",
-				"lengthMenu" : "출력 개수 :  _MENU_",
+				"lengthMenu"   : "출력 개수 :  _MENU_",
 				'paginate' : {
-					"first" : "처음",
-					"last" : "마지막",
-					"next" : "다음",
-					"previous" : "이전"
+					"first" : "<<",
+	          		  "previous" : "<",
+	          		  "last"  : ">>",
+	           		  "next"  : ">"
 				}
 			},
 			"lengthMenu" : [ 15, 25, 50 ],
 			"lengthChange" : true,
+			"pagingType"   : "full_numbers",
 			"searching" : true,
 			"paging" : true,
 			"ordering" : true,
 			"info" : true,
 			"autoWidth" : false,
 			"dom" : '<"top"<"col-md-4"i><"col-md-6"B><"col-md-2"l>>'
-					+ 'rt' + '<"bottom pull-left"<"col-md-12"p>>',
+					+ 'rt' + '<"bottom"<"col-md-8"p><"col-md-4"B>>',
 			"order" : [ [ 4, "desc" ] ]
 		}
 	)

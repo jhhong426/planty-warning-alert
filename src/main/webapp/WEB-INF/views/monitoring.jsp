@@ -11,11 +11,11 @@
 		
 		<div class="box">
 			<div class="box-header">
-				<div id="date-text" style="float:left; width:30%">
-					<h3><strong>통계 기간 : ${today}</strong></h3>
+				<div id="date-text" style="float:left; width:20%">
+					<h4><strong>통계 기간 : </strong>${today}</h4>
 				</div>
-				<div id="button" style="float:left; width:70%">
-					<a href = "/monitoringList"><button style="height:50px"><strong>상세목록</strong></button></a>
+				<div id="button" style="float:left; width:80%">
+					<a href = "/monitoringList"><button style="height:40px"><strong>상세목록</strong></button></a>
 				</div>
 			</div>
 			

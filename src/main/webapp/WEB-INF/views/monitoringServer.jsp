@@ -12,9 +12,9 @@
 		
 		<div class="box">
 			<div class="box-header">
-				<h4><strong>통계 기간 : ${today}</strong></h4>
-				<h4><strong>서      버 : ${serverInfo.serverNm}</strong></h4>
-				<h4><strong>I    P : ${serverInfo.ip}</strong></h4>
+				<h4><strong>&emsp;통계기간 : </strong> ${today}</h4>
+				<h4><strong>&emsp;서&emsp;&emsp;버 : </strong> ${serverInfo.serverNm}</h4>
+				<h4><strong>&emsp;&ensp;I&emsp;&emsp;&ensp;P : </strong>${serverInfo.ip}</h4>
 			</div>
 			
            <div class="box-body">

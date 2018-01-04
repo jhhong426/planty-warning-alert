@@ -246,8 +246,6 @@
 	              .draw();
     }
 	
-	
-	
 	function searchClicked(){
 		/* $.ajax({
 			  method: "GET",
@@ -257,7 +255,6 @@
 			  .done(function() {
 			  }); */
 	}
-	
 	
 	
 </script>
