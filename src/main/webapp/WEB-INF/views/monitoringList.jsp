@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <link rel="stylesheet" href="/resources/demos/style.css">  
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
 
 <%@include file="include/header.jsp"%>
 
@@ -22,59 +24,60 @@
 			<div class="row">
 				<h4 class="col-md-1"><strong>서버명 : </strong></h4>
 				<div class="col-md-3">
-					<select id="serverCategory" class="form-control form-group-inline"
-						onchange="ServerChange()" style="display: inline-block">
-						<option value="0">전체</option>
+					<select id="serverCategory" name="serverCategory" class="form-control form-group-inline"
+						onchange="ServerChange(this.value);" style="display: inline-block">
+						<option value="">전체</option>
+						<c:forEach var="item" items="${serverList}">
+						<option value="${item.serverId}">${item.serverNm}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="col-md-8"></div>
 			</div>
 			<div class="row">
 				<h4 class="col-md-1"><strong>장애코드 : </strong></h4>
-				<div class="col-md-2">
+				<div class="col-md-2" id="codeDynamicCategory">
 					<select id="codeCategory" class="form-control form-group-inline"
-						onchange="CodeChange()" style="display: inline-block">
-						<option value="0">전체</option>
+						style="display: inline-block">
+						<option value="">전체</option>
 					</select>
 				</div>
 				<div class="col-md-1">
-					<button style="height:35px"><strong>조회</strong></button>
+					<button style="height:35px" onclick="Search()"><strong>조회</strong></button>
 				</div>
 				<div class="col-md-8"></div>
 			</div>
 			
-       <div class="box-body">
+       		<div class="box-body">
 			
-
-			<table id="errorList" class="display" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th style="text-align: center">서버명</th>
-					<th style="text-align: center">IP</th>
-					<th style="text-align: center">장애코드</th>
-					<th style="text-align: center">담당자</th>
-					<th style="text-align: center">메시지</th>
-					<th style="text-align: center">알림방법</th>
-					<th style="text-align: center">알림일시</th>
-					<th style="text-align: center">장애일시</th>
-				</tr>
-			</thead>
-			<tbody style="text-align: center">
-				<!--<c:forEach var="voNot" items="${reportYetVO}">-->
+				<table id="errorList" cellpadding="5" cellspacing="0" border="0" style="width:100%; margin: 0 auto 2em auto;">
+				<thead>
 					<tr>
-						<td>${voNot.report_no}</td>
-						<td>${voNot.report_category}</td>
-						<td>${voNot.report_contents}</td>
-						<td>${voNot.email}</td>
-						<td>${voNot.reg_date}</td>
-						<td>${voNot.survey_no}</td>
-						<td>${voNot.survey_no}</td>
-						<td>${voNot.survey_no}</td>
+						<th style="text-align: center">서버명</th>
+						<th style="text-align: center">IP</th>
+						<th style="text-align: center">장애코드</th>
+						<th style="text-align: center">담당자</th>
+						<th style="text-align: center">메시지</th>
+						<th style="text-align: center">알림방법</th>
+						<th style="text-align: center">알림일시</th>
+						<th style="text-align: center">장애일시</th>
 					</tr>
-				<!--</c:forEach>-->
-			</tbody>
-			</table>
-			
+				</thead>
+				<tbody style="text-align: center">
+					<c:forEach var="item" items="${errorLogList}">
+						<tr>
+							<td>${item.serverNm}</td>
+							<td>${item.ip}</td>
+							<td>${item.eventCode}</td>
+							<td>${item.managerNm}</td>
+							<td>${item.msg}</td>
+							<td>${item.ntfcMth}</td>
+							<td>${item.ntfcde}</td>
+							<td>${item.logde}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				</table>
 			
 		   </div>
 		</div>
@@ -91,49 +94,114 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
 <script>
 
 $(function() {
 	$("#preDate").datepicker({
 		dateFormat : "yy-mm-dd"
 	});
-});
-
-$(function() {
+	
 	$("#postDate").datepicker({
 		dateFormat : "yy-mm-dd"
 	});
 });
 
-$(function() {
+
+$(document).ready(function() {
+	
 	$("#errorList").DataTable(
-			{
-				"language" : {
-					'zeroRecords' : "검색 결과가 없습니다.",
-					'info' : "에러 알림 건수 :  _TOTAL_ 개",
-					'infoEmpty' : "에러 알림 건수 :  _TOTAL_ 개",
-					'infoFiltered' : " ",
-					"lengthMenu" : "출력 개수 :  _MENU_",
-					'paginate' : {
-						"first" : "처음",
-						"last" : "마지막",
-						"next" : "다음",
-						"previous" : "이전"
-					}
-
-				},
-				"lengthMenu" : [ 15, 25, 50 ],
-				"lengthChange" : true,
-				"searching" : true,
-				"paging" : true,
-				"ordering" : true,
-				"info" : true,
-				"autoWidth" : false,
-				"dom" : '<"top"<"col-md-4"i><"col-md-6"B><"col-md-2"l>>'
-						+ 'rt' + '<"bottom pull-left"<"col-md-12"p>>',
-				"order" : [ [ 4, "desc" ] ]
-
-			})
+		{
+			"language" : {
+				'zeroRecords' : "검색 결과가 없습니다.",
+				'info' : "에러 알림 건수 :  _TOTAL_ 개",
+				'infoEmpty' : "에러 알림 건수 :  _TOTAL_ 개",
+				'infoFiltered' : " ",
+				"lengthMenu" : "출력 개수 :  _MENU_",
+				'paginate' : {
+					"first" : "처음",
+					"last" : "마지막",
+					"next" : "다음",
+					"previous" : "이전"
+				}
+			},
+			"lengthMenu" : [ 15, 25, 50 ],
+			"lengthChange" : true,
+			"searching" : true,
+			"paging" : true,
+			"ordering" : true,
+			"info" : true,
+			"autoWidth" : false,
+			"dom" : '<"top"<"col-md-4"i><"col-md-6"B><"col-md-2"l>>'
+					+ 'rt' + '<"bottom pull-left"<"col-md-12"p>>',
+			"order" : [ [ 4, "desc" ] ]
+		}
+	)
 });
+
+
+function ServerChange(serverIdNum) {
+	//var $target = $("select[name='codeCategory']")
+	
+	//$target.empty();
+	$("#codeCategory").empty();
+	$("#codeCategory").append("<option value=''>전체</option>");
+	if (serverIdNum == ''){
+		return;
+	}
+	else {
+		$.ajax({
+            type: "POST",
+            url: "/monitoring/list/changeServer",
+            async:false,
+            data: { serverId : serverIdNum },
+            dataType: "json",
+            success: function(data){
+                $(data).each(function(i){
+                	var str = "<option value='" + data.result[i].eventId + "'>" + data.result[i].eventCode + "</option>";
+                	$("#codeCategory").append(str);
+                }) 
+            },  
+            error:function(){
+                alert("변경 중 에러가 발생하였습니다. 다시 시도해주세요.");
+                return;
+            }
+        });	
+	}
+	
+}
+
+var dateParsing = function(arg) {
+	var splitArg = arg.split("-");
+	var stringArg = splitArg[0] + splitArg[1] + splitArg[2];
+	var intArg = parseInt(stringArg);
+	return intArg;
+};
+
+// 검색
+function Search() {
+	
+	$('#errorList').DataTable().columns().search("").draw();
+	
+	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+		var min = parseInt(dateParsing($('#preDate').val()));
+		var max = parseInt(dateParsing($('#postDate').val()));
+		var age = parseFloat(dateParsing(data[6])) || 0; // use data for the age column
+
+		if ((isNaN(min) && isNaN(max)) || (isNaN(min) && age <= max)
+				|| (min <= age && isNaN(max))
+				|| (min <= age && age <= max)) {
+			return true;
+		}
+		return false;
+	});
+	
+	$('#errorList').DataTable().column(0).search($('#serverCategory').val());
+	$('#errorList').DataTable().column(2).search($('#codeCategory').val());
+
+	
+	$("#errorList").DataTable().draw();
+}
 
 </script>
