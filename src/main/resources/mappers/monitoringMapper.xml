@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantynet.warning.sql.monitoringMapper">
+
+	<resultMap id="monitoringVO" type="com.plantynet.warning.vo.MonitoringVO">
+		<result property="ntfcId" column="ntfc_id" javaType="int"/>
+        <result property="serverId" column="server_id" javaType="int"/>
+        <result property="managerId" column="manager_id" javaType="int"/>
+        <result property="eventId" column="event_id" javaType="int"/>
+        <result property="serverNm" column="server_nm" javaType="String"/>
+        <result property="eventCode" column="event_code" javaType="String"/>
+        <result property="ntfcMth" column="ntfc_mth" javaType="String"/>
+        <result property="managerEmail" column="manager_email" javaType="String"/>
+        <result property="managerCttpc" column="manager_cttpc" javaType="String"/>
+    </resultMap>
+
+	<select id="getDate" resultType="String">
+        SELECT NOW() AS date
+    </select>
+
+	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT server_id, server_nm
+        FROM SERVER
+        WHERE team_id=(
+        	SELECT team_id 
+        	FROM MANAGER 
+        	WHERE manager_id=1
+        )
+    </select>
+    
+    <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT EVENT.event_id, EVENT.event_code
+        FROM EVENT, EVENT_MANAGER
+        WHERE EVENT.event_id=EVENT_MANAGER.event_id
+        AND EVENT_MANAGER.manager_id=1
+    </select>
+
+	<select id="getGlobalLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT 
+    </select>
+    
+    <select id="getGlobalBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        
+    </select>
+    
+    <select id="getErrorLogList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT n.server_id, s.server_nm, n.ip, e.event_code, m.manager_nm, n.msg, n.ntfc_mth, n.ntfcde, n.logde
+        FROM SERVER s, MANAGER m, NOTIFICATION_HISTORY n, EVENT e
+		WHERE n.server_id=s.server_id
+		AND n.event_id=e.event_id
+		AND n.manager_id=m.manager_id
+		AND m.team_id=(
+        	SELECT team_id 
+        	FROM MANAGER 
+        	WHERE manager_id=1
+        )
+    </select>
+    
+    <select id="getServerInfo" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT server_nm, ip
+        FROM SERVER
+        WHERE server_id=#{serverId}
+    </select>
+    
+    <select id="getErrorLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        
+    </select>
+    
+    <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        
+    </select>
+
+
+</mapper>

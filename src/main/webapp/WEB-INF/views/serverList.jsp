@@ -48,8 +48,8 @@
 						
 						<c:forEach items = "${serverList}" var = "item">
 							<tr>
-					       		<td>${item.serverNm}</td>
-					       		<td>${item.ip}</td>
+					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.serverNm}</a></td>
+					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
 					       		<td>${item.rgsde}</td>
 					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-default" >수정</button></td>
 					       		<td><form name="" method="post" action="/deleteServer">

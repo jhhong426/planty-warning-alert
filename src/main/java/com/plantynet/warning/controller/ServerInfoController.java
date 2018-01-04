@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.plantynet.warning.service.AdminService;
+import com.plantynet.warning.service.ServerInfoService;
 import com.plantynet.warning.service.impl.ServerListServiceImpl;
 import com.plantynet.warning.vo.ServerVO;
 import com.plantynet.warning.vo.SessionVO;
@@ -21,6 +23,12 @@ public class ServerInfoController {
 	
 	@Autowired
 	ServerListServiceImpl serverListService;
+	
+	@Autowired
+	ServerInfoService serverInfoService;
+	
+	@Autowired
+	AdminService adminService;
 	
     @RequestMapping(value = "/serverList", method = RequestMethod.GET)
     public String serverListGET(Model model,HttpSession session){
@@ -73,7 +81,17 @@ public class ServerInfoController {
     
     
 	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
-	public String serverInfoGET() {
+	public String serverInfoGET(Model model, HttpSession session, Integer id) {
+	    
+	    SessionVO sessionVo = (SessionVO) session.getAttribute("sessionVO");
+	    
+	    model.addAttribute("managerList", adminService.getManagerListByTeamId(sessionVo.getTeamId()));
+	    model.addAttribute("serverInfo", serverInfoService.getServerInfo(id));
+	    model.addAttribute("eventList", serverInfoService.getServerEventList(id));
+	    model.addAttribute("eventMngrInfoList", serverInfoService.getManagerInChargeList(id));
+	    
+	    System.out.println(serverInfoService.getManagerInChargeList(id));
+	    
 		return "serverInfo";
 	}
 }
