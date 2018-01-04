@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.plantynet.warning.service.ServerInfoService;
 import com.plantynet.warning.service.impl.ServerListServiceImpl;
 import com.plantynet.warning.vo.ServerVO;
 import com.plantynet.warning.vo.SessionVO;
@@ -21,6 +22,9 @@ public class ServerInfoController {
 	
 	@Autowired
 	ServerListServiceImpl serverListService;
+	
+	@Autowired
+	ServerInfoService serverInfoService;
 	
     @RequestMapping(value = "/serverList", method = RequestMethod.GET)
     public String serverListGET(Model model,HttpSession session){
@@ -73,7 +77,8 @@ public class ServerInfoController {
     
     
 	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
-	public String serverInfoGET() {
+	public String serverInfoGET(Model model, Integer id) {
+	    
 		return "serverInfo";
 	}
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plantynet.warning.sql.serverInfoMapper">
+    <resultMap id="getServerInfo" type="com.plantynet.warning.vo.ServerVO">
+        <result property="serverId" column="server_id" javaType="Integer"/>
+        <result property="teamId" column="team_id" javaType="Integer"/>
+        <result property="teamNm" column="team_nm" javaType="String"/>
+        <result property="serverNm" column="server_nm" javaType="String"/>
+        <result property="ip" column="ip" javaType="String"/>
+    </resultMap>
+    
+    <resultMap id="getServerEventList" type="com.plantynet.warning.vo.EventVO">
+        <result property="eventId" column="event_id" javaType="Integer"/>
+        <result property="serverId" column="server_id" javaType="Integer"/>
+        <result property="eventCode" column="event_code" javaType="String"/>
+        <result property="description" column="description" javaType="String"/>
+        <result property="rgsde" column="rgsde" javaType="String"/>
+    </resultMap>
+    
+    <resultMap id="getEventManagerInfoList" type="com.plantynet.warning.vo.ManagerInChargeVO">
+        <result property="managerId" column="manager_id" javaType="Integer"/>
+        <result property="eventId" column="event_id" javaType="Integer"/>
+        <result property="managerNm" column="manager_nm" javaType="String"/>
+        <result property="alertMth" column="alert_mth" javaType="String"/>
+        <result property="rgsde" column="rgsde" javaType="String"/>
+    </resultMap>
+    
+    <select id="getServerEventList" resultMap="getServerEventList">
+        select event_id, server_id, event_code, description, rgsde 
+        from EVENT 
+        where server_id = #{serverId} and sttus = "ACT01"
+    </select>
+    
+    <select id="getEventManagerInfoList" resultMap="getEventManagerInfoList">
+		select EVENT_MANAGER.manager_id, EVENT_MANAGER.event_id, MANAGER.manager_nm, EVENT_MANAGER.alert_mth, EVENT_MANAGER.rgsde
+		from EVENT_MANAGER 
+		join MANAGER ON MANAGER.manager_id = EVENT_MANAGER.manager_id
+		where event_id = #{eventId} and EVENT_MANAGER.sttus = "ACT01"
+    </select>
+    
+    <select id="getServerInfo">
+		select server_id, SERVER.team_id, TEAM.team_nm, SERVER.server_nm, SERVER.ip
+		from SERVER join TEAM 
+		ON TEAM.team_id = SERVER.team_id
+		where server_id = #{serverId}
+    </select>
+    
+    
+    
+</mapper>
