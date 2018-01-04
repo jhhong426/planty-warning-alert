@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 
-
 <%@include file="include/header.jsp"%>
 <div class="content-wrapper" style="min-height:951.444px;">
 	<div class="box" style="min-height:951.444px;">
@@ -106,13 +105,21 @@
 <script>
     // 운영진 리스트 Data Table
 	var admin = $("#admin").DataTable({
-		"pageLength"           : 10,
+	    "language"    : {
+            'paginate'          : {
+                 "first" : "<<",
+                 "previous" : "<",
+                 "last"  : ">>",
+                 "next"  : ">"
+             }
+	    },
+	    "pageLength"           : 10,
         "pagingType"           : "full_numbers",
         "dom"                  : '<"top"<"col-md-12"B>>' +
                                  'rt' +
-                                 '<"bottom"<"col-md-12"B>>',
+                                 '<"bottom"<"col-md-8"p><"col-md-4"B>>',
         "select"              : "multi",
-	    "autoWidth" : false,
+	    "autoWidth" : true,
 	    "ordering": false
 	});
 	 

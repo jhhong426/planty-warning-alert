@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.vo.ManagerVO;
+import com.plantynet.warning.vo.MonitoringVO;
 
 @Controller
 public class MonitoringController<MonitoringVO> {
@@ -60,16 +61,24 @@ public class MonitoringController<MonitoringVO> {
 
 	@ResponseBody
 	@RequestMapping(value = "/monitoring/list/changeServer", method = RequestMethod.POST)
-	public Map<String, Integer> changeServer(@RequestParam("serverId") int serverId, HttpSession session) 
+	public Map<String, Object> changeServer(@RequestParam("serverId") int serverId, HttpSession session) 
 		throws Exception {
+		
+			Map<String, Object> map = new HashMap<String,Object>();
+			
+			@SuppressWarnings("unchecked")
+			List<MonitoringVO> list = (List<MonitoringVO>) service.getCodeList(serverId);
+			map.put("result", list);
+			
+			
 
-        Map<String, Integer> serverIdMap = new HashMap<>();
-        List<MonitoringVO> list = new ArrayList<>();
-        list = (List<MonitoringVO>) service.getCodeList(serverId);
-        System.out.println(list);
+//        Map<String, Integer> serverIdMap = new HashMap<>();
+//        List<MonitoringVO> list = new ArrayList<>();
+//        list = (List<MonitoringVO>) service.getCodeList(serverId);
+//        System.out.println(list);
 
 
-		return serverIdMap;
+		return map;
 	}
 	
 }

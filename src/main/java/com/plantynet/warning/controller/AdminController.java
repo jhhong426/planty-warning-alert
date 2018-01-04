@@ -28,13 +28,12 @@ public class AdminController {
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
 		int teamId = sessionVO.getTeamId();
 
-		// 담당자 목록
 		List<ManagerVO> list = adminService.getManagerListByTeamId(teamId);
 		model.addAttribute("list", list);
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.POST)
-	public void addAdmin(Model model, @RequestParam("email1") String email1, @RequestParam("email2") String email2,
+	public String addAdmin(Model model, @RequestParam("email1") String email1, @RequestParam("email2") String email2,
 			@RequestParam("phoneNo1") String phoneNo1, @RequestParam("phoneNo2") String phoneNo2,
 			@RequestParam("phoneNo3") String phoneNo3, ManagerVO managerVO, HttpServletRequest request) {
 
@@ -44,44 +43,19 @@ public class AdminController {
 		String phoneNo = phoneNo1 + phoneNo2;
 		int teamId = sessionVO.getTeamId();
 
-		// 어드민 등록
 		managerVO.setEmail(email);
 		managerVO.setPhoneNo(phoneNo);
 		managerVO.setTeamId(teamId);
 		managerVO.toString();
 		adminService.addAdmin(managerVO);
-
+		return "redirect:/admin";
 	}
 
 	@RequestMapping(value = "/deleteAdmin", method = RequestMethod.POST)
 	public String deleteAdmin(Model model, @RequestParam("managerId") int managerId) {
-		System.out.println("딜리트 컨트롤러");
 		System.out.println(managerId);
 		adminService.deleteAdmin(managerId);
 		return "redirect:/admin";
 	}
 
-	// // 담당자 관리
-	// @RequestMapping(value = "/admin", method = RequestMethod.GET)
-	// public String admin(Model model) throws Exception {
-	// return "admin";
-	// }
-	//
-	// // 사용자 정보
-	// @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	// public String user(Model model) throws Exception {
-	// return "userInfo";
-	// }
-	//
-	// // 서버 목록
-	// @RequestMapping(value = "/serverList", method = RequestMethod.GET)
-	// public String server(Model model) throws Exception {
-	// return "serverList";
-	// }
-	//
-	// // 모니터링
-	// @RequestMapping(value = "/monitoring", method = RequestMethod.GET)
-	// public String monitoring(Model model) throws Exception {
-	// return "monitoring";
-	// }
 }

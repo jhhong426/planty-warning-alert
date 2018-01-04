@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <link rel="stylesheet" href="/resources/demos/style.css">  
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-  
-
-
 
 
 <%@include file="include/header.jsp"%>
@@ -146,11 +142,12 @@ $(document).ready(function() {
 
 
 function ServerChange(serverIdNum) {
-	var $target = $("select[name='codeCategory']")
+	//var $target = $("select[name='codeCategory']")
 	
-	$target.empty();
+	//$target.empty();
+	$("#codeCategory").empty();
+	$("#codeCategory").append("<option value=''>전체</option>");
 	if (serverIdNum == ''){
-		$target.append("<option value=''>전체</option>");
 		return;
 	}
 	else {
@@ -160,21 +157,27 @@ function ServerChange(serverIdNum) {
             async:false,
             data: { serverId : serverIdNum },
             dataType: "json",
-            success: function(result){
-            	console.log(result);
-                $(result).each(function(i){
-                	$target.append("<option value='"+ result[i].eventId +"'>" + result[i].eventNm + "</option>");
-                })
+            success: function(data){
+                $(data).each(function(i){
+                	var str = "<option value='" + data.result[i].eventId + "'>" + data.result[i].eventCode + "</option>";
+                	$("#codeCategory").append(str);
+                }) 
             },  
             error:function(){
                 alert("변경 중 에러가 발생하였습니다. 다시 시도해주세요.");
                 return;
             }
         });	
-		console.log("clear");
 	}
 	
 }
+
+var dateParsing = function(arg) {
+	var splitArg = arg.split("-");
+	var stringArg = splitArg[0] + splitArg[1] + splitArg[2];
+	var intArg = parseInt(stringArg);
+	return intArg;
+};
 
 // 검색
 function Search() {
