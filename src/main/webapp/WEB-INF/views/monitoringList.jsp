@@ -7,6 +7,12 @@
 
 <%@include file="include/header.jsp"%>
 
+<style type="text/css"> 
+	 a:link { color: black; text-decoration: none;}
+	 a:visited { color: black; text-decoration: underline;}
+	 a:hover { color: blue; text-decoration: underline;}
+</style>
+
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h2><strong>&emsp;모니터링</strong></h2>
