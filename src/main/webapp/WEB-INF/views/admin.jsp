@@ -120,7 +120,7 @@
                                  'rt' +
                                  '<"bottom"<"col-md-8"p><"col-md-4"B>>',
         "select"              : "multi",
-	    "autoWidth" : true,
+	    "autoWidth" : false,
 	    "ordering": false
 	});
 	 

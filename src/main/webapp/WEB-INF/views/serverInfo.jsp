@@ -3,21 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
-<style>
-	div.relative1 {
-		position: relative;
-		right: 6px;
-	}
-	div.relative2 {
-		position: relative;
-		left: 8px;
-	}
-	div.relative3 {
-		position: relative;
-		left: 8px;
-	}
-</style>
-
 <%@include file="include/header.jsp"%>
 <div class="content-wrapper" style="min-height:951.444px;">
 	<div class="box" style="min-height:951.444px;">
@@ -88,10 +73,10 @@
 						<div class="col-md-3 text-center">
 							<h4>${event.rgsde}</h4>
 						</div>
-						<div class="col-md-1 text-center" style="position:relative; right:6px;">
+						<div class="col-md-1 text-center" style="position:relative; left:6px;">
 							<button id="btnUpdate" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
 						</div>
-						<div class="col-md-1 text-center" style="position:relative; right:6px;">
+						<div class="col-md-1 text-center" style="position:relative; left:6px;">
 							<button id="" type="button" class="btn btn-default btn-sm" onclick="">삭제</button>
 						</div>
 					</div>

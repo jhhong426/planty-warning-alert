@@ -36,7 +36,7 @@ public class MonitoringController<MonitoringVO> {
 	}
 	
 	// 모니터링 리스트 페이지
-	@RequestMapping(value = "/monitoring/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/monitoringList", method = RequestMethod.GET)
 	public String monitoringList(Model model, HttpSession session) 
 		throws Exception {
 		
