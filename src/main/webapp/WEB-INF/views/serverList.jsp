@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 
 <%@include file="include/header.jsp"%>
+
 <!-- 서버 상세정보 링크 부분 a태그 css 설정 -->
 <style type="text/css"> 
 	 a:link { color: black; text-decoration: none;}
@@ -245,8 +246,6 @@
 	              .draw();
     }
 	
-	
-	
 	function searchClicked(){
 		/* $.ajax({
 			  method: "GET",
@@ -256,7 +255,6 @@
 			  .done(function() {
 			  }); */
 	}
-	
 	
 	
 </script>

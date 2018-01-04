@@ -15,7 +15,7 @@
     </resultMap>
 
 	<select id="getDate" resultType="String">
-        SELECT NOW() AS date
+        SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), interval -7 day), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
     </select>
 
 	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
@@ -63,7 +63,7 @@
     </select>
     
     <select id="getErrorLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        
+        SELECT event_code, count(SELECT C)
     </select>
     
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
