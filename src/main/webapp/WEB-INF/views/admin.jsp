@@ -23,10 +23,10 @@
 					<tbody style="text-align:center">
 						<c:forEach items = "${list}" var = "item">
 							<tr>
-					       		<td>${item.loginId}</td>
-					       		<td>${item.managerNm}</td>
-					       		<td>${item.phoneNo }</td>
-					       		<td>${item.email}</td>
+					       		<td><div class="row" style="position:relative; top:12px;">${item.loginId}</div></td>
+					       		<td><div class="row" style="position:relative; top:12px;">${item.managerNm}</div></td>
+					       		<td><div class="row" style="position:relative; top:12px;">${item.phoneNo }</div></td>
+					       		<td><div class="row" style="position:relative; top:12px;">${item.email}</div></td>
 					       		<td><form name="" method="post" action="/deleteAdmin">
 					       				<input id="managerId" name="managerId" type="hidden" value="${item.managerId}">
 					       				<button type="submit" class="btn btn-default" style="position:relative; top:8px;">삭제</button>

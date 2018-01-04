@@ -40,7 +40,7 @@ public class AdminController {
 		HttpSession session = request.getSession(false);
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
 		String email = email1 + "@" + email2;
-		String phoneNo = phoneNo1 + phoneNo2;
+		String phoneNo = phoneNo1 + "-" + phoneNo2 + "-" + phoneNo3;
 		int teamId = sessionVO.getTeamId();
 
 		managerVO.setEmail(email);
