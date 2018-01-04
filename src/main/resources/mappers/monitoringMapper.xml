@@ -54,12 +54,13 @@
         WHERE server_id=#{serverId}
     </select>
     
-    <select id="getErrorLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT DATE_FORMAT(NOW(),'%Y-%m-%d') AS date, count(*) AS count
-        FROM NOTIFICATION_HISTORY
-        WHERE server_id=#{serverId}
-        GROUP BY DATE_FORMAT(rgsde,'%Y-%m-%d')
-        LIMIT 7
+    <!-- 수정필수 -->
+    <select id="getErrorLineStat" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+		SET @date = DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL #{index} DAY
+		SELECT @date AS date ,IFNULL(count(*), 0) AS count
+		FROM NOTIFICATION_HISTORY
+		WHERE DATE_FORMAT(rgsde, '%Y-%m-%d')=@date
+		AND server_id=#{serverId}
     </select>
     
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">

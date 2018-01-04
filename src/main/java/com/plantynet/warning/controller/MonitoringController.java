@@ -47,7 +47,7 @@ public class MonitoringController {
 
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
 		//model.addAttribute("managerId", sessionVO.getManagerId());
-		System.out.println(sessionVO.getTeamId());
+		System.out.println(model.containsAttribute("serverList"));
 		model.addAttribute("serverList", monitoringService.getServerList(sessionVO.getTeamId()));
 		//model.addAttribute("codeList", service.getCodeList(1));
 		model.addAttribute("errorLogList", monitoringService.getErrorLogList(sessionVO.getTeamId()));
@@ -58,10 +58,17 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoringServer", method = RequestMethod.GET)
 	public String monitoringServer(Integer serverId, Model model)
 		throws Exception {
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("serverId", serverId);
+		map.put("index", 6);
+		model.addAttribute("day", monitoringService.getErrorLineStat(map));
+		
 		model.addAttribute("today", monitoringService.getDate());
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
-		//model.addAttribute("", service.getServerLineStat(serverId));
-		//model.addAttribute("", service.getServerBarStat(serverId));
+
+		//model.addAttribute("", service.getErrorBarStat(serverId));
 		return "monitoringServer";
 	}
 

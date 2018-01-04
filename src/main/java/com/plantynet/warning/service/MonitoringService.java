@@ -1,5 +1,6 @@
 package com.plantynet.warning.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.plantynet.warning.vo.MonitoringVO;
@@ -13,6 +14,6 @@ public interface MonitoringService {
     List<MonitoringVO> getGlobalBarStat(Integer teamId);
     List<MonitoringVO> getErrorLogList(Integer teamId);
     List<MonitoringVO> getServerInfo(int serverId);
-    List<MonitoringVO> getErrorLineStat(int serverId);
+    List<MonitoringVO> getErrorLineStat(HashMap<String, Object> map);
     List<MonitoringVO> getErrorBarStat(int serverId);
 }

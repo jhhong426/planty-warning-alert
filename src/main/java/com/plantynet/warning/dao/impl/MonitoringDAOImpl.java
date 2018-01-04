@@ -1,5 +1,6 @@
 package com.plantynet.warning.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -44,8 +45,8 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     	return sqlSession.selectOne(namespace+".getServerInfo", serverId);
     }
     @Override
-    public List<MonitoringVO> getErrorLineStat(int serverId){
-    	return sqlSession.selectList(namespace+".getErrorLineStat", serverId);
+    public List<MonitoringVO> getErrorLineStat(HashMap<String,Object> map){
+    	return sqlSession.selectList(namespace+".getErrorLineStat", map);
     }
     @Override
     public List<MonitoringVO> getErrorBarStat(int serverId){

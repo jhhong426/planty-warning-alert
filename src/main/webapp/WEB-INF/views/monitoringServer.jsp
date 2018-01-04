@@ -44,6 +44,18 @@
 
 <script>
 
+var DateParsing = function(arg) {
+	var splitArg = arg.split("-");
+	var stringArg = new Array();
+	stringArg[0] = parseInt(splitArg[0]);
+	stringArg[1] = parseInt(splitArg[1]);
+	stringArg[2] = parseInt(splitArg[2]);
+
+	return stringArg;
+};
+
+alert(#{day});
+
 Highcharts.chart('line-chart', {
     chart: {
         type: 'spline'
@@ -89,7 +101,7 @@ Highcharts.chart('line-chart', {
         // of 1970/71 in order to be compared on the same x axis. Note
         // that in JavaScript, months start at 0 for January, 1 for February etc.
         data: [
-            [Date.UTC(2017, 11, 1), 0],
+        	[Date.UTC(2017, 11, 2), 28],
             [Date.UTC(2017, 11, 2), 28],
             [Date.UTC(2017, 11, 3), 25],
             [Date.UTC(2017, 11, 4), 2],
