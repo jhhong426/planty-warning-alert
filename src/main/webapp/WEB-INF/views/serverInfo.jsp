@@ -75,10 +75,10 @@
 							<h4>${event.rgsde}</h4>
 						</div>
 						<div class="col-md-1 text-center" style="position:relative; left:6px;">
-							<button id="btnUpdateEvent" type="button" class="btn btn-default btn-sm" onclick="">수정</button>
+							<button id="btnUpdateEvent" type="button" class="btn btn-default btn-sm btnUpdateEvent" onclick="">수정</button>
 						</div>
 						<div class="col-md-1 text-center" style="position:relative; left:6px;">
-							<button data-eventId="${event.eventId}" id="btnDeleteEvent" type="button" class="btn btn-default btn-sm" onclick="">삭제</button>
+							<button data-eventId="${event.eventId}" id="btnDeleteEvent" type="button" class="btn btn-default btn-sm btnDeleteEvent" onclick="">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -108,9 +108,9 @@
 					    
 					    <td class="col-md-3 text-center" style="border:1px gray solid;">${eventMngInfo.rgsde}</td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="btnUpdateEvntMngr" type="button" class="btn btn-default btn-xs" onclick="">수정</button></td>
+					    	<button id="btnUpdateEvntMngr" type="button" class="btn btn-default btn-xs btnUpdateEvntMngr" onclick="">수정</button></td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="btnDeleteEvntMngr" type="button" class="btn btn-default btn-xs" onclick="">삭제</button></td>
+					    	<button data-managerId="${eventMngInfo.managerId}" data-eventId="${eventMngInfo.eventId}" id="btnDeleteEvntMngr" type="button" class="btn btn-default btn-xs btnDeleteEvntMngr" onclick="">삭제</button></td>
 					  </tr>
 					  </c:if>
 					  </c:forEach>
@@ -238,19 +238,19 @@
 			          <h4>장애코드 등록</h4>
 			        </div>
 			        <div class="modal-body" style="padding:40px 50px;">
-			          <form role="form" id="frmAddEvent" action="/" method="post">
+			          <form role="form" id="frmAddEvent" action="/plusEvent" method="post">
 				          <table class="table" style="width:400px;" align="center">
 							<tbody>
 								<tr>
 									<th style="text-align:center">장애코드</th>
 										<td>
-											<input type="text" name="eventCode" style="width:250px; text-align:center">
+											<input id="inputAddEventCode" type="text" name="eventCode" style="width:250px; text-align:center">
 										</td>
 								</tr>
 								<tr>
 									<th style="text-align:center">상세설명</th>
 										<td>
-											<input type="text" name="description" value="" style="width:250px; text-align:center">
+											<input id="inputAddDescription" type="text" name="description" value="" style="width:250px; text-align:center">
 										</td>
 								</tr>
 								<tr>
@@ -264,8 +264,8 @@
 						</table>
 			          </form>
 			          <div class="modal-footer center-block" style="width:500px; padding:10px;">
-						<button id="" type="submit" style="float:left" class="btn btn-success col-md-offset-5">등록</button>
-				        <button type="submit" style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
+						<button id="btnAddEventGo" style="float:left" class="btn btn-success col-md-offset-5">등록</button>
+				        <button style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
 					  </div>
 			        </div>
 			      </div>
@@ -281,7 +281,7 @@
 			          <h4>장애담당자 등록</h4>
 			        </div>
 			        <div class="modal-body" style="padding:40px 50px;">
-			          <form role="form" id="frmAddEvntMngr" action="" method="post">
+			          <form role="form" id="frmAddEvntMngr" action="/plusEvntMngr" method="post">
 				          <table class="table" style="width:400px;" align="center">
 							<tbody>
 								<tr>
@@ -323,8 +323,8 @@
 						</table>
 			          </form>
 			          <div class="modal-footer center-block" style="width:500px; padding:10px;">
-						<button id="" type="submit" style="float:left" class="btn btn-success col-md-offset-5">등록</button>
-				        <button type="submit" style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
+						<button id="btnAddEvntMngrGo"  style="float:left" class="btn btn-success col-md-offset-5">등록</button>
+				        <button style="float:left" class="btn btn-default col-md-offset-1" data-dismiss="modal">취소</button>
 					  </div>
 			        </div>
 			      </div>
@@ -351,11 +351,14 @@
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
+
+$(document).ready(function(){
+    
 	// box-body default로 닫혀있게하는 설정
 	$(".box-default").addClass("collapsed-box");
 	
 	//form ajax submit 처리 함수 
-    function ajaxPost(frm, msg){
+    function ajaxPost(frm, sMsg, eMsg){
         
         var _data = $(frm).serialize();
         var _url = $(frm).attr("action");
@@ -367,16 +370,19 @@
            success : function(result){
                if(result.flag){
                    window.location.reload();
-                   alert(msg);
+                   alert(sMsg);
+               }
+               else{
+                   alert(eMsg);
                }
            }
         });
     }
 	
-	/////////////////////////////// 장애 코드 수정 및 삭제 script ///////////////////////////////
+	/////////////////////////////// 장애 코드 등록,수정 및 삭제 script ///////////////////////////////
 	
 	//장애 코드 수정 팝업 띄우기
-	$("#btnUpdateEvent").each(function(){
+	$(".btnUpdateEvent").each(function(){
 	    $(this).click(function(){
 	       $("#inputUptEventId").val($(this).parents("#container").children().eq(0).children("#eventId").val());
 	       $("#inputUptEventCode").val($(this).parents("#container").children().eq(0).children("#eventCode").text());
@@ -389,10 +395,10 @@
 	$("#btnUpdateEventGo").click(function(){
 	    
 	    var frm = $("#frmUpdateEvent");
-	    ajaxPost(frm,"수정되었습니다.");
+	    ajaxPost(frm,"수정되었습니다.","");
 	});
 	//장애 코드 삭제
-	$("#btnDeleteEvent").each(function(){
+	$(".btnDeleteEvent").each(function(){
 	   $(this).click(function(){
 	       
 	       if(confirm("정말 삭제 하시겠습니까?")){
@@ -417,10 +423,29 @@
 	   });
 	});
 	
+	//장애 코드 등록 팝업 띄우기
+	$("#btnAddEvent").click(function(){
+	    $("#inputAddEventCode").val('');
+	    $("#inputAddDescription").val('');
+        $("#errorRegisterPopup").modal();
+    });
+	
+	//장애코드 등록
+	$("#btnAddEventGo").click(function(){
+	    
+	    if($("#inputAddEventCode").val() == '' || $("#inputAddDescription").val() == ''){
+	        alert("모든 항목을 입력해주세요.");
+	    }
+	    else{
+	        var frm = $("#frmAddEvent");
+	        ajaxPost(frm,"정상 등록 되었습니다.","이미 등록된 에러코드 입니다.");
+	    }
+	});
+	
 /////////////////////////////// 담당자 수정 및 삭제  script ///////////////////////////////
 
     //담당자 수정 데이터 입력 후 띄우기
-	$("#btnUpdateEvntMngr").each(function(){
+	$(".btnUpdateEvntMngr").each(function(){
 	   $(this).click(function(){
 	       var eventId = $(this).parents("tr").children().eq(0).val();
 	       var eventCode = $(this).parents("tr").children().eq(1).val();
@@ -445,44 +470,50 @@
 	//담당자 수정 완료 시 form submit
 	$("#btnUpdateEvntMngrGo").click(function(){
 	    var frm = $("#frmUpdateEvntMngr");
-	    ajaxPost(frm,"수정 되었습니다.");
+	    ajaxPost(frm,"수정 되었습니다.","");
 	});
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 장애코드 수정 팝업창 띄우기
-	$(document).ready(function(){
-	    $("#btnUpdate").click(function(){
-	        $("#errorUpdatePopup").modal();
+	//담당자 삭제
+	$(".btnDeleteEvntMngr").each(function(){
+	       $(this).click(function(){
+	           
+	           if(confirm("정말 삭제 하시겠습니까?")){
+	               
+	               var managerId = $(this).attr("data-managerId");
+	               var eventId = $(this).attr("data-eventId");
+	               
+	               var _data = {
+	                       "managerId" : managerId,
+	                       "eventId" : eventId
+	               };
+	               
+	               $.ajax({
+	                   type : "post",
+	                   url : "/deleteEvntMngr",
+	                   data : _data,
+	                   success : function(result){
+	                       if(result.flag){
+	                           window.location.reload();
+	                           alert("삭제 되었습니다.");
+	                       }
+	                   }
+	               });
+	           }
+	       });
 	    });
-	});
 	
-	// 장애담당자 수정 팝업창 띄우기
-	$(document).ready(function(){
-	    $("#btnAdminUpdate").click(function(){
-	        $("#errorAdminUpdatePopup").modal();
-	    });
-	});
+	//담당자 등록 팝업 띄우기
+	$("#btnAddEvntMngr").click(function(){
+        $("#errorAdminRegisterPopup").modal();
+    });
 	
-	// 장애코드 등록 팝업창 띄우기
-	$(document).ready(function(){
-	    $("#btnRegister").click(function(){
-	        $("#errorRegisterPopup").modal();
-	    });
-	});
-	
-	// 장애담당자 등록 팝업창 띄우기
-	$(document).ready(function(){
-	    $("#btnAdminRegister").click(function(){
-	        $("#errorAdminRegisterPopup").modal();
-	    });
-	});
-	
+	//담당자 등록
+    $("#btnAddEvntMngrGo").click(function(){
+        var frm = $("#frmAddEvntMngr");
+        ajaxPost(frm,"정상 등록 되었습니다.","이미 등록된 담당자 입니다.");
+        
+    });
+});
+
 </script>
 

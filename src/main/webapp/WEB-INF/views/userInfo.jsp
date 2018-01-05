@@ -171,7 +171,7 @@
 	        var _data = $("#frmChangePw").serialize();
 	        
 	        if($("#orginPassword").val() == '' || $("#changePassword").val() == ''){
-	            alert("비밀번호를 입력하세요.");
+	            alert("모든 항목을 입력해주세요.");
 	        }
 	        else{
 	            $.ajax({
@@ -204,7 +204,7 @@
 	    // 사용자 정보 수정 관련 script
 	    $("#btnChangeInfo").click(function(){
 	       if($("#managerNm").val() == '' || $("#pOne").val() == '' || $("#pTwo").val() == '' || $("#pThree").val() == '' || $("#eOne").val() == '' || $("#eTwo").val() == ''){
-	           alert("빈칸에 값을 입력해주세요.");
+	           alert("모든 항목을 입력해주세요.");
 	       }
 	       else{
 	           var managerId = $("#managerId").val();

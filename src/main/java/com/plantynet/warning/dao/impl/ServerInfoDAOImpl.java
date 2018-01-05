@@ -57,4 +57,34 @@ public class ServerInfoDAOImpl implements ServerInfoDAO
         session.update(namespace+".updateEvntMngr", vo);
     }
 
+    @Override
+    public void deleteEvntMntr(ManagerInChargeVO vo)
+    {
+        session.update(namespace+".deleteEvntMngr", vo);
+    }
+
+    @Override
+    public int checkPlusEvent(EventVO vo)
+    {
+        return session.selectOne(namespace+".checkPlusEvent", vo);
+    }
+
+    @Override
+    public void plusEvent(EventVO vo)
+    {
+        session.insert(namespace+".plusEvent", vo);
+    }
+
+    @Override
+    public int checkPlusEvntMngr(ManagerInChargeVO vo)
+    {
+        return session.selectOne(namespace+".checkPlusEvntMngr", vo);
+    }
+
+    @Override
+    public void plusEvntMngr(ManagerInChargeVO vo)
+    {
+        session.insert(namespace+".plusEvntMngr", vo);
+    }
+
 }

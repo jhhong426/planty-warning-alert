@@ -19,4 +19,14 @@ public interface ServerInfoDAO
     public void deleteEvent(int eventId);
     
     public void updateEvntMngr(ManagerInChargeVO vo);
+    
+    public void deleteEvntMntr(ManagerInChargeVO vo);
+    
+    public int checkPlusEvent(EventVO vo);
+    
+    public void plusEvent(EventVO vo);
+    
+    public int checkPlusEvntMngr(ManagerInChargeVO vo);
+    
+    public void plusEvntMngr(ManagerInChargeVO vo);
 }
