@@ -135,6 +135,54 @@ public class ServerInfoController {
         
     }
 	
+	@ResponseBody
+    @RequestMapping(value="/deleteEvntMngr", method=RequestMethod.POST)
+    public Map<String, Boolean> deleteEvntMngr(ManagerInChargeVO vo){
+        Map<String, Boolean> map = new HashMap<>();
+        
+        serverInfoService.deleteEvntMntr(vo);
+        map.put("flag", true);
+        
+        return map;
+        
+    }
+	
+	@ResponseBody
+    @RequestMapping(value="/plusEvent", method=RequestMethod.POST)
+    public Map<String, Boolean> plusEvent(EventVO vo){
+        Map<String, Boolean> map = new HashMap<>();
+        
+        if(serverInfoService.plusEvent(vo))
+        {
+            map.put("flag", true);
+        }
+        else
+        {
+            map.put("flag", false);
+        }
+        
+        return map;
+        
+    }
+	
+	@ResponseBody
+    @RequestMapping(value="/plusEvntMngr", method=RequestMethod.POST)
+    public Map<String, Boolean> plusEvntMngr(ManagerInChargeVO vo){
+        Map<String, Boolean> map = new HashMap<>();
+        
+        if(serverInfoService.plusEvntMngr(vo))
+        {
+            map.put("flag", true);
+        }
+        else
+        {
+            map.put("flag", false);
+        }
+        
+        return map;
+        
+    }
+	
 	
 	
 	

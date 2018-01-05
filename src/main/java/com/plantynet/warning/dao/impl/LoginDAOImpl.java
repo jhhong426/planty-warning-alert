@@ -25,6 +25,11 @@ public class LoginDAOImpl implements LoginDAO {
 		return sqlSession.selectOne(namespace+".getManagerByLoginId",id);
 	}
 
+	@Override
+	public String getTeamNmByTeamId(int teamId) {
+		return sqlSession.selectOne(namespace+".getTeamNmByTeamId",teamId);
+	}
+
 
 	
 //	public void create(BoardVO vo) throws Exception {

@@ -68,4 +68,38 @@ public class SeverInfoServiceImpl implements ServerInfoService
         serverInfoDao.updateEvntMngr(vo);
     }
 
+    @Override
+    public void deleteEvntMntr(ManagerInChargeVO vo)
+    {
+        serverInfoDao.deleteEvntMntr(vo);
+    }
+
+    @Override
+    public boolean plusEvent(EventVO vo)
+    {
+        if(serverInfoDao.checkPlusEvent(vo) == 0)
+        {
+            serverInfoDao.plusEvent(vo);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean plusEvntMngr(ManagerInChargeVO vo)
+    {
+        if(serverInfoDao.checkPlusEvntMngr(vo) == 0)
+        {
+            serverInfoDao.plusEvntMngr(vo);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

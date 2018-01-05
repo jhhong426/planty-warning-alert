@@ -19,4 +19,10 @@ public interface ServerInfoService
     public void deleteEvent(int eventId);
     
     public void updateEvntMngr(ManagerInChargeVO vo);
+    
+    public void deleteEvntMntr(ManagerInChargeVO vo);
+    
+    public boolean plusEvent(EventVO vo);
+    
+    public boolean plusEvntMngr(ManagerInChargeVO vo);
 }
