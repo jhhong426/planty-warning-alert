@@ -12,23 +12,16 @@
 <link href="/resources/bootstrap/css/style.css" rel="stylesheet">
 
 <style>
-@font-face { 
-	font-family: 'NanumGothic'; 
-	src: url("http://NanumFont_TTF_ALL/NanumGothic.ttf") format('truetype'); 
-} 
-h2 { 
-	font-family: NanumGothic; 
-}
 .background {
-background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
-background-size:cover;
-width:100%;
-height:100%;
-position: relative;
-z-index:1;
-float:left;
-overflow:hidden;
-}
+	background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
+	background-size:cover;
+	width:100%;
+	height:100%;
+	position: relative;
+	z-index:1;
+	float:left;
+	overflow:hidden;
+	}
 </style>
 
 <html>
