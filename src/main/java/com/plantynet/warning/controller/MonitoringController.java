@@ -90,12 +90,42 @@ public class MonitoringController {
 			Map<String, Object> map = new HashMap<String,Object>();
 			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getCodeList(serverId);
 			map.put("result", list);
+			System.out.println(map);
+
+		return map;
+	}
+	
+	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
+	/*
+	@ResponseBody
+	@RequestMapping(value = "/monitoring/topServer", method = RequestMethod.POST)
+	public Map<String, Object> topServer(@RequestParam("rgsde") int rgsde, HttpSession session) 
+		throws Exception {
+			
+			Map<String, Object> map = new HashMap<String,Object>();
+			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopServer(rgsde);
+			map.put("result", list);
+			System.out.println(map);
 
 
-//        Map<String, Integer> serverIdMap = new HashMap<>();
-//        List<MonitoringVO> list = new ArrayList<>();
-//        list = (List<MonitoringVO>) service.getCodeList(serverId);
-//        System.out.println(list);
+		return map;
+	}
+	*/
+		
+	
+	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
+	@ResponseBody
+	@RequestMapping(value = "/monitoringServer/topServer", method = RequestMethod.POST)
+	public Map<String, Object> topServer(@RequestParam("serverId") int serverId, @RequestParam("rgsde") int rgsde,  HttpSession session) 
+		throws Exception {
+		
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("serverId", serverId);
+			map.put("rgsde", rgsde);
+			//List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopCode(map);
+			//map.put("result", list);
+			System.out.println(map);
+
 
 		return map;
 	}

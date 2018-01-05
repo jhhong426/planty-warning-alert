@@ -21,20 +21,24 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     	return sqlSession.selectOne(namespace+".getDate");
     }
     @Override
+    public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map){
+    	return sqlSession.selectList(namespace+".getGlobalLineStat", map);
+    }
+    @Override
+    public List<MonitoringVO> getTopServer(HashMap<String, Object> map){
+    	return sqlSession.selectList(namespace+".getTopServer", map);
+    }
+    @Override
+    public List<MonitoringVO> getGlobalBarStat(Integer teamId){
+    	return sqlSession.selectList(namespace+".getGlobalBarStat", teamId);
+    }
+    @Override
     public List<MonitoringVO> getServerList(Integer teamId){
     	return sqlSession.selectList(namespace+".getServerList", teamId);
     }
     @Override
     public List<MonitoringVO> getCodeList(int serverId){
     	return sqlSession.selectList(namespace+".getCodeList", serverId);
-    }
-    @Override
-    public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map){
-    	return sqlSession.selectList(namespace+".getGlobalLineStat", map);
-    }
-    @Override
-    public List<MonitoringVO> getGlobalBarStat(Integer teamId){
-    	return sqlSession.selectList(namespace+".getGlobalBarStat", teamId);
     }
     @Override
     public List<MonitoringVO> getErrorLogList(Integer teamId){
@@ -47,6 +51,10 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     @Override
     public List<MonitoringVO> getErrorLineStat(HashMap<String,Object> map){
     	return sqlSession.selectList(namespace+".getErrorLineStat", map);
+    }
+    @Override
+    public List<MonitoringVO> getTopCode(HashMap<String,Object> map){
+    	return sqlSession.selectList(namespace+".getTopCode", map);
     }
     @Override
     public List<MonitoringVO> getErrorLineHover(HashMap<String,Object> map){

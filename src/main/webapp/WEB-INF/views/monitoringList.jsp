@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
-<link rel="stylesheet" href="/resources/demos/style.css">  
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
 <%@include file="include/header.jsp"%>
@@ -19,17 +18,18 @@
 		
 		<div class="box">
 			<div class="row">
-				<h4 class="col-md-1" align="right"><strong>&emsp;기&emsp;&emsp;간 : </strong></h4>
-				<div class="col-md-5">
-					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="20px" style="text-align:center;">
+				<br>
+				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:30%">
+					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 					&emsp;~&emsp;
-					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="20px" style="text-align:center;">
+					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 				</div>
-				<div class="col-md-6"></div>
+				<div class="" style="float:left; width:60%"></div>
 			</div>
 			<div class="row">
-				<h4 class="col-md-1" align="right"><strong>&emsp;서&ensp;버&ensp;명 : </strong></h4>
-				<div class="col-md-2">
+				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;서&ensp;버&ensp;명 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:30%">
 					<select id="serverCategory" name="serverCategory" class="form-control form-group-inline"
 						onchange="ServerChange(this.value);" style="display: inline-block">
 						<option value="">전체</option>
@@ -38,20 +38,23 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="col-md-9"></div>
+				<div class="" style="float:left; width:60%"></div>
 			</div>
 			<div class="row">
-				<h4 class="col-md-1" align="right"><strong>&emsp;장애코드 : </strong></h4>
-				<div class="col-md-2" id="codeDynamicCategory">
+				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;장애코드 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:30%" id="codeDynamicCategory">
 					<select id="codeCategory" class="form-control form-group-inline"
 						style="display: inline-block">
 						<option value="">전체</option>
 					</select>
 				</div>
-				<div class="col-md-1">
+				<div class="" style="float:left; width:5%">
+					<p></p>
+				</div>
+				<div class="" style="float:left; width:5%">
 					<button style="height:35px" onclick="Search()"><strong>조회</strong></button>
 				</div>
-				<div class="col-md-8"></div>
+				<div class="" style="float:left; width:50%"></div>
 			</div>
 			
        		<div class="box-body">
@@ -92,12 +95,6 @@
 
 <%@include file="include/footer.jsp"%>
 
-<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
@@ -125,7 +122,7 @@ $(document).ready(function() {
 				'infoEmpty'    : "에러 알림 건수 :  _TOTAL_ 개",
 				'infoFiltered' : " ",
 				"lengthMenu"   : "출력 개수 :  _MENU_",
-				'paginate' : {
+				'paginate' : { 
 					"first" : "<<",
 	          		  "previous" : "<",
 	          		  "last"  : ">>",
@@ -165,7 +162,7 @@ function ServerChange(serverIdNum) {
             data: { serverId : serverIdNum },
             dataType: "json",
             success: function(data){
-                $(data).each(function(i){
+                $(data.result).each(function(i){
                 	var str = "<option value='" + data.result[i].eventId + "'>" + data.result[i].eventCode + "</option>";
                 	$("#codeCategory").append(str);
                 }) 
@@ -204,9 +201,18 @@ function Search() {
 		return false;
 	});
 	
-	$('#errorList').DataTable().column(0).search($('#serverCategory').val());
-	$('#errorList').DataTable().column(2).search($('#codeCategory').val());
-
+	if($('#serverCategory option:selected').text() == '전체') {
+		$('#errorList').DataTable().column(0).search('');
+	}
+	else {
+		$('#errorList').DataTable().column(0).search($('#serverCategory option:selected').text());
+	}
+	
+	if($('#codeCategory option:selected').text() == '전체') {
+		$('#errorList').DataTable().column(2).search('');
+	} else {
+		$('#errorList').DataTable().column(2).search($('#codeCategory option:selected').text());
+	}
 	
 	$("#errorList").DataTable().draw();
 }

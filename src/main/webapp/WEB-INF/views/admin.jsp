@@ -125,11 +125,19 @@
 	 
 	function check(){
 		if( $("#managerNm").val()=="" || $("#phoneNo1").val()=="" || $("#phoneNo2").val()=="" || $("#phoneNo3").val()=="" || $("#email1").val()=="" || $("#email2").val()=="" || $("#loginId").val()==""|| $("#loginPassword").val()==""){
-			alert("모든 입력칸을 채워야합니다");
+			alert("모든항목을 입력해주세요");
 			return false;
-		}else{
-			return true;	
 		}
+		
+		var loginId = $("#loginId").val();
+		
+		<c:forEach items="${list}" var="item">
+			if(loginId == "${item.loginId}"){
+				alert("ID와 동일한 값이 있습니다.");
+				return false;
+			}
+		</c:forEach>
+		return true;
 	}
 	
 	function deleteConfirm(){

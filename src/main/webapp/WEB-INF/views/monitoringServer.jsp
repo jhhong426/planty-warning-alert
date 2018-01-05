@@ -53,11 +53,12 @@ var DateParsing = function(arg) {
 	return stringArg;
 };
 
-<c:forEach var="item" items="${errorList}">
+<c:forEach var="item" items="${code}">
 var list = new Array();
 list.push("${item.eventCode}");
 list.push(${item.count});
 </c:forEach>
+
 
 <c:forEach var="item" items="${day0}">
 var nowY=DateParsing("${item.logde}")[0];
@@ -102,9 +103,18 @@ var D6=DateParsing("${item.logde}")[2];
 var Cnt6=${item.count};
 </c:forEach>
 
+
+var temp = ['10/31','11/01','11/02','11/03','11/04','11/05','11/06'];
+var value = [1,2,3,4,5,6,7];
+
 Highcharts.chart('line-chart', {
     chart: {
-        type: 'spline'
+        type: 'spline',
+        events:{
+    		load : function (){
+    			this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);
+    		}
+        }
     },
     title: {
         text: '<strong>장애 일간 통계</strong>'
@@ -118,6 +128,7 @@ Highcharts.chart('line-chart', {
             day: '%e',
     		month: '%m'
         },
+        //categories : temp,
         title: {
             text: 'Date'
         }
@@ -129,12 +140,12 @@ Highcharts.chart('line-chart', {
         min: 0
     },
     tooltip: {
-        headerFormat: '<b>{series.name}</b><br>',
-        pointFormat: '{point.x:%m월%e일}: <br>{point.y:.0f}'
-        	
-        	<c:forEach var="item" items="${code}">
-       		 + '<br>${item.eventCode} : ${item.count}'
-    		</c:forEach>
+    	animation: false,
+    	enabled : true,
+    	formatter : function() {
+
+    		return this.x;
+    	}
     },
 
     plotOptions: {
@@ -142,47 +153,41 @@ Highcharts.chart('line-chart', {
             marker: {
                 enabled: true
             }
+        },
+        series : {
+        	stickyTracking: false,
+            events: {
+                click: function(evt) {
+                	
+                	$.ajax({
+                        type: "POST",
+                        url: "/monitoringServer/topServer",
+                        async:false,
+                        data: { rgsde : this.x },
+                        dataType: "json",
+                        success: function(data){
+                            return '0'
+                        },  
+                        error:function(){
+                            alert("불러오는 중 에러가 발생하였습니다. 다시 시도해주세요.");
+                            return;
+                        }
+                    });	
+                	
+                	this.chart.myTooltip.options.enabled = true;
+                    this.chart.myTooltip.refresh(evt.point, evt);
+                },
+                mouseOut: function() {
+                    this.chart.myTooltip.hide();
+                    this.chart.myTooltip.options.enabled = false;
+                }                       
+            }
         }
     },
 
     series: [{
         name: 'TOP 5',
-        // Define the data points. All series have a dummy year
-        // of 1970/71 in order to be compared on the same x axis. Note
-        // that in JavaScript, months start at 0 for January, 1 for February etc.
         data: [
-        	/*
-        	<c:forEach items="i" varStatus="status" begin="0" end="6">
-        		<c:forEach var="item" items="${day}${status.index}">
-        			<c:out value=''>[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), 8],</c:out>
-        		</c:forEach>
-        	</c:forEach>
-        	*/
-        	
-        	/*
-        	<c:forEach var="item" items="${day6}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
-			</c:forEach>
-			<c:forEach var="item" items="${day5}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
-			</c:forEach>
-			<c:forEach var="item" items="${day4}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
-			</c:forEach>
-			<c:forEach var="item" items="${day3}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
-			</c:forEach>
-			<c:forEach var="item" items="${day2}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
-			</c:forEach>
-			<c:forEach var="item" items="${day1}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
-			</c:forEach>
-			<c:forEach var="item" items="${day0}">
-				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"]
-			</c:forEach>
-			*/
-
 			[Date.UTC(Y6,M6,D6), Cnt6],
 			[Date.UTC(Y5,M5,D5), Cnt5],
 			[Date.UTC(Y4,M4,D4), Cnt4],
@@ -190,8 +195,7 @@ Highcharts.chart('line-chart', {
 			[Date.UTC(Y2,M2,D2), Cnt2],
 			[Date.UTC(Y1,M1,D1), Cnt1],
 			[Date.UTC(nowY,nowM,nowD), nowCnt]
-
-        ]
+		]
     }]
 });
 

@@ -1,6 +1,7 @@
 package com.plantynet.warning.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -31,20 +32,24 @@ public class UserInfoController
         SessionVO sessionVo = (SessionVO) session.getAttribute("sessionVO");
         ManagerVO managerVo = userInfoService.getUserInfo(sessionVo.getManagerId());
         
+        
         String phoneNo = managerVo.getPhoneNo();
         String email = managerVo.getEmail();
         
         String phoneNoOne = phoneNo.substring(0,3);
         String phoneNoTwo = phoneNo.substring(3,7);
         String phoneNoThree = phoneNo.substring(7,11);
-        
         String[] splitEmail = email.split("@");
-        
         
         model.addAttribute("phoneNoOne", phoneNoOne);
         model.addAttribute("phoneNoTwo", phoneNoTwo);
         model.addAttribute("phoneNoThree", phoneNoThree);
         model.addAttribute("splitEmail", splitEmail);
+        
+        StringBuffer buffer = new StringBuffer(managerVo.getPhoneNo());
+        buffer.insert(3, "-");
+        buffer.insert(8, "-");
+        managerVo.setPhoneNo(buffer.toString());
         
         model.addAttribute("userInfo", managerVo);
         

@@ -5,16 +5,22 @@
 
 <%@include file="include/header.jsp"%>
 
+<style type="text/css"> 
+	 a:link { color: black; text-decoration: none;}
+	 a:visited { color: black; text-decoration: none;}
+	 a:hover { color: black; text-decoration: none;}
+</style>
+
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h2><strong>&emsp;모니터링</strong></h2>
 		
 		<div class="box">
 			<div class="box-header">
-				<div id="date-text" style="float:left; width:20%">
+				<div id="date-text" style="float:left; width:25%">
 					<h4><strong>통계 기간 : </strong>${today}</h4>
 				</div>
-				<div id="button" style="float:left; width:80%">
+				<div id="button" style="float:left; width:75%">
 					<a href = "/monitoringList"><button style="height:40px"><strong>상세목록</strong></button></a>
 				</div>
 			</div>
@@ -55,43 +61,43 @@ function DateParsing(arg) {
 
 <c:forEach var="item" items="${day0}">
 var nowY=DateParsing("${item.rgsde}")[0];
-var nowM=DateParsing("${item.rgsde}")[1];
+var nowM=DateParsing("${item.rgsde}")[1] - 1;
 var nowD=DateParsing("${item.rgsde}")[2];
 var nowCnt=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day1}">
 var Y1=DateParsing("${item.rgsde}")[0];
-var M1=DateParsing("${item.rgsde}")[1];
+var M1=DateParsing("${item.rgsde}")[1] - 1;
 var D1=DateParsing("${item.rgsde}")[2];
 var Cnt1=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day2}">
 var Y2=DateParsing("${item.rgsde}")[0];
-var M2=DateParsing("${item.rgsde}")[1];
+var M2=DateParsing("${item.rgsde}")[1] - 1;
 var D2=DateParsing("${item.rgsde}")[2];
 var Cnt2=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day3}">
 var Y3=DateParsing("${item.rgsde}")[0];
-var M3=DateParsing("${item.rgsde}")[1];
+var M3=DateParsing("${item.rgsde}")[1] - 1;
 var D3=DateParsing("${item.rgsde}")[2];
 var Cnt3=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day4}">
 var Y4=DateParsing("${item.rgsde}")[0];
-var M4=DateParsing("${item.rgsde}")[1];
+var M4=DateParsing("${item.rgsde}")[1] - 1;
 var D4=DateParsing("${item.rgsde}")[2];
 var Cnt4=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day5}">
 var Y5=DateParsing("${item.rgsde}")[0];
-var M5=DateParsing("${item.rgsde}")[1];
+var M5=DateParsing("${item.rgsde}")[1] - 1;
 var D5=DateParsing("${item.rgsde}")[2];
 var Cnt5=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day6}">
 var Y6=DateParsing("${item.rgsde}")[0];
-var M6=DateParsing("${item.rgsde}")[1];
+var M6=DateParsing("${item.rgsde}")[1] - 1;
 var D6=DateParsing("${item.rgsde}")[2];
 var Cnt6=${item.count};
 </c:forEach>

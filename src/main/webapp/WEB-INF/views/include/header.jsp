@@ -7,7 +7,7 @@
   <head>
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <title>장애 알림 시스템</title>
+    <title>장애 알림 관리 시스템</title>
     <!-- Bootstrap 3.3.4 -->
     <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
     <!-- Font Awesome Icons -->
@@ -24,6 +24,19 @@
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 	<!-- 데이터테이블 스킨 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    
+		@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+		@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+		
+		
+		#title{
+		    font-family: ‘Nanum Pen Script’ ;
+		    color:gray;
+		    font-size: 35px;
+		    margin-left:230px;
+		}
+    </style>
     <!-- jQuery 2.1.4 -->
     <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
@@ -31,15 +44,15 @@
 
 <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
-	<header class="main-header">
-	    <a href="/monitoring" style="float:left;padding-top:-10px;" >
-	      <img src="\resources\dist\img\photo1.png" alt="" width="230px" height="70px">
-	    </a>
-	    <h1 style="color:white">&ensp;장애 알림 관리 시스템</h1>
+	<header class="main-header"">
+	    <span id="title">&ensp;장애 알림 관리 시스템</span>
     </header>
 	<aside class="main-sidebar">
 		<section class="sidebar" style="height: 951.444px;">
-			<br><br><br><br>
+			<a href="/monitoring" style="float:left;" >
+                 <img src="/resources/dist/img/logo.PNG" alt="" width="230px" height="70px" style="margin-top:-40px;">
+             </a>
+             <br><br>
 			<li>
 				<a>${sessionScope.sessionVO.managerNm}님 환영합니다!</a>
 			</li>

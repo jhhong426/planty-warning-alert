@@ -22,20 +22,24 @@ public class MonitoringServiceImpl implements MonitoringService{
 		return monitoringDAO.getDate();
 	}
 	@Override
+	public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map) {
+		return monitoringDAO.getGlobalLineStat(map);
+	}
+	@Override
+	public List<MonitoringVO> getTopServer(HashMap<String, Object> map) {
+		return monitoringDAO.getTopServer(map);
+	}
+	@Override
+	public List<MonitoringVO> getGlobalBarStat(Integer teamId) {
+		return monitoringDAO.getGlobalBarStat(teamId);
+	}
+	@Override
 	public List<MonitoringVO> getServerList(Integer teamId) {
 		return monitoringDAO.getServerList(teamId);
 	}
 	@Override
 	public List<MonitoringVO> getCodeList(int serverId) {
 		return monitoringDAO.getCodeList(serverId);
-	}
-	@Override
-	public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map) {
-		return monitoringDAO.getGlobalLineStat(map);
-	}
-	@Override
-	public List<MonitoringVO> getGlobalBarStat(Integer teamId) {
-		return monitoringDAO.getGlobalBarStat(teamId);
 	}
 	@Override
 	public List<MonitoringVO> getErrorLogList(Integer teamId) {
@@ -50,13 +54,18 @@ public class MonitoringServiceImpl implements MonitoringService{
 		return monitoringDAO.getErrorLineStat(map);
 	}
 	@Override
-	public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map) {
-		return monitoringDAO.getErrorLineHover(map);
+	public List<MonitoringVO> getTopCode(HashMap<String, Object> map) {
+		return monitoringDAO.getTopCode(map);
 	}
 	@Override
 	public List<MonitoringVO> getErrorBarStat(int serverId) {
 		return monitoringDAO.getErrorBarStat(serverId);
 	}
+	@Override
+	public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map) {
+		return monitoringDAO.getErrorLineHover(map);
+	}
+	
     
 
     
