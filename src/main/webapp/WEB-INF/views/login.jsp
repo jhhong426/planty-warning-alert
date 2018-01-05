@@ -24,15 +24,15 @@
 }
 
 .background {
-background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
-background-size:cover;
-width:100%;
-height:100%;
-position: relative;
-z-index:1;
-float:left;
-overflow:hidden;
-}
+	background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
+	background-size:cover;
+	width:100%;
+	height:100%;
+	position: relative;
+	z-index:1;
+	float:left;
+	overflow:hidden;
+	}
 </style>
 
 <html>
@@ -66,6 +66,7 @@ overflow:hidden;
                   		</div>
                   		<br>
                   		<p style="text-align:center; font-size:12pt"><strong>Copyrights &copy; 2018 <a href="http://www.plantynet.com">Plantynet</a></strong> co. &ensp; All Rights Reserved.</p>
+
                   		<p style="text-align:center; color: red;">${loginFail}</p>
             		</div>
             		</form>
