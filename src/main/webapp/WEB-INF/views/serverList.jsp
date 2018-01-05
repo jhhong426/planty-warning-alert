@@ -267,6 +267,12 @@
 	function isConflict(){
 		var ip = $("#registerIp").val();
 		var serverNm = $("#registerServerNm").val();
+		
+		if(ip == "" || serverNm == ""){
+			alert("모든항목을 입력해주세요");
+			return false;
+		}
+		
 		<c:forEach items="${serverList}" var="item">
 			if(ip == "${item.ip}" && serverNm == "${item.serverNm}"){
 				alert("ip와 서버명이 동일한 값이 있습니다.");
