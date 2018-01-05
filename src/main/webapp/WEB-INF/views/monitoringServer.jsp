@@ -59,7 +59,6 @@ list.push("${item.eventCode}");
 list.push(${item.count});
 </c:forEach>
 
-
 <c:forEach var="item" items="${day0}">
 var nowY=DateParsing("${item.logde}")[0];
 var nowM=DateParsing("${item.logde}")[1];
