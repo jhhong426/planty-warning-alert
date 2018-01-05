@@ -31,10 +31,7 @@ public class UserInfoController
     {
         SessionVO sessionVo = (SessionVO) session.getAttribute("sessionVO");
         ManagerVO managerVo = userInfoService.getUserInfo(sessionVo.getManagerId());
-        StringBuffer buffer = new StringBuffer(managerVo.getPhoneNo());
-		buffer.insert(3, "-");
-		buffer.insert(8, "-");
-		managerVo.setPhoneNo(buffer.toString());
+        
         
         String phoneNo = managerVo.getPhoneNo();
         String email = managerVo.getEmail();
@@ -48,6 +45,11 @@ public class UserInfoController
         model.addAttribute("phoneNoTwo", phoneNoTwo);
         model.addAttribute("phoneNoThree", phoneNoThree);
         model.addAttribute("splitEmail", splitEmail);
+        
+        StringBuffer buffer = new StringBuffer(managerVo.getPhoneNo());
+        buffer.insert(3, "-");
+        buffer.insert(8, "-");
+        managerVo.setPhoneNo(buffer.toString());
         
         model.addAttribute("userInfo", managerVo);
         
