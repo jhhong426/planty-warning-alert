@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id = "deleteAdmin">
-		UPDATE MANAGER SET sttus= "ACT00"  WHERE manager_id = #{managerId} 
+		UPDATE MANAGER SET sttus= "ACT02"  WHERE manager_id = #{managerId} 
 	</update>
 
 	

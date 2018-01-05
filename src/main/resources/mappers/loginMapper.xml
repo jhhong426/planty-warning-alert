@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id = "getTeamNmByTeamId" resultType="String">
-		select team_nm from TEAM where sttus = "AL001" and team_id = #{teamId}
+		select team_nm from TEAM where sttus = "ACT01" and team_id = #{teamId}
 	</select>
 
 	

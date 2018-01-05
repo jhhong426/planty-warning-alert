@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id = "deleteServer">
-		UPDATE SERVER SET sttus= "ACT00"  WHERE server_id = #{serverId}
+		UPDATE SERVER SET sttus= "ACT02"  WHERE server_id = #{serverId}
 	</update>
 	
 	<update id = "updateServer">
