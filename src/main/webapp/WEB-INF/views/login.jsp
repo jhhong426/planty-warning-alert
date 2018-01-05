@@ -54,7 +54,7 @@
                   			<button type="submit" id="btn-login" class="btn btn-block" style="width:425px; height:50px; background-color:#19304D; color:white; font-size:18px"><span class="glyphicon glyphicon-off" style="color:white"></span> 로그인</button>
                   		</div>
                   		<br>
-                  		<p style="text-align:center; font-size:12pt"><strong>Copyrights &copy; 2018 <a href="#">Plantynet</a></strong> co. &ensp; All Rights Reserved.</p>
+                  		<p style="text-align:center; font-size:12pt"><strong>Copyrights &copy; 2018 <a href="http://plantynet.com">Plantynet</a></strong> co. &ensp; All Rights Reserved.</p>
                   		<p style="text-align:center; color: red;">${loginFail}</p>
             		</div>
             		</form>
