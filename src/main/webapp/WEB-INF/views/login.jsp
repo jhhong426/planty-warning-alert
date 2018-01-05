@@ -12,6 +12,17 @@
 <link href="/resources/bootstrap/css/style.css" rel="stylesheet">
 
 <style>
+    
+@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+
+#title{
+    font-family: ‘Nanum Pen Script’ ;
+    color:#ffffff;
+    font-size: 25px;
+}
+
 .background {
 	background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
 	background-size:cover;
@@ -34,8 +45,8 @@
 				<br>
 			</div> 
  				<div class="formWrapper center-block" style="width:500px; height:450px; background-color:#ffffff">
-        			<div class="box-header" style="width:500px; height:110px; background-color:#19304D; display:flex; align-items:center; justify-content:center;">
-        				<h2 style="color:#ffffff;">장애 알림 관리 시스템</h2>
+        			<div class="box-header" style="width:500px; height:110px; background-color:#222d32; display:flex; align-items:center; justify-content:center;">
+        				<span id="title">장애 알림 관리 시스템</span>
         			</div>
             		<form name="frmLogin" class="form-horizontal" action="" method="post" onsubmit="return check();" >
             		<div class="box-body" style="padding:35px 50px;">
@@ -51,10 +62,11 @@
 			            </div>
                   		<br>
                   		<div class="row">
-                  			<button type="submit" id="btn-login" class="btn btn-block" style="width:425px; height:50px; background-color:#19304D; color:white; font-size:18px"><span class="glyphicon glyphicon-off" style="color:white"></span> 로그인</button>
+                  			<button type="submit" id="btn-login" class="btn btn-block" style="width:425px; height:50px; background-color:#222d32; color:white; font-size:18px"><span class="glyphicon glyphicon-off" style="color:white"></span> 로그인</button>
                   		</div>
                   		<br>
-                  		<p style="text-align:center; font-size:12pt"><strong>Copyrights &copy; 2018 <a href="http://plantynet.com">Plantynet</a></strong> co. &ensp; All Rights Reserved.</p>
+                  		<p style="text-align:center; font-size:12pt"><strong>Copyrights &copy; 2018 <a href="http://www.plantynet.com">Plantynet</a></strong> co. &ensp; All Rights Reserved.</p>
+
                   		<p style="text-align:center; color: red;">${loginFail}</p>
             		</div>
             		</form>
