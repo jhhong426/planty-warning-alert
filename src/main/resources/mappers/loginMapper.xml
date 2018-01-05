@@ -14,11 +14,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
 	<select id="login" resultType="int">
-		select count(*) from MANAGER where login_id = #{id} and login_password =password(#{password}) and sttus = "ACT01";
+		select count(*) from MANAGER where login_id = #{id} and login_password =password(#{password}) and sttus = "ACT01"
 	</select>
 	
 	<select id="getManagerByLoginId" resultType="com.plantynet.warning.vo.ManagerVO" resultMap="managerVO">
-		select * from MANAGER where login_id = #{id};
+		select * from MANAGER where login_id = #{id}
+	</select>
+	
+	<select id = "getTeamNmByTeamId" resultType="String">
+		select team_nm from TEAM where sttus = "AL001" and team_id = #{teamId}
 	</select>
 
 	

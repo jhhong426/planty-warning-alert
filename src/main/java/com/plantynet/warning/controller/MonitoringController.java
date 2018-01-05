@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.service.ServerInfoService;
-import com.plantynet.warning.vo.ManagerVO;
 import com.plantynet.warning.vo.MonitoringVO;
 import com.plantynet.warning.vo.SessionVO;
 
@@ -47,7 +46,7 @@ public class MonitoringController {
 		
 
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-		
+		//model.addAttribute("managerId", sessionVO.getManagerId());
 		model.addAttribute("serverList", monitoringService.getServerList(sessionVO.getTeamId()));
 		//model.addAttribute("codeList", service.getCodeList(1));
 		model.addAttribute("errorLogList", monitoringService.getErrorLogList(sessionVO.getTeamId()));
@@ -58,10 +57,20 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoringServer", method = RequestMethod.GET)
 	public String monitoringServer(Integer serverId, Model model)
 		throws Exception {
+		
 		model.addAttribute("today", monitoringService.getDate());
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("serverId", serverId);
+
+		for (int i=0; i<7; i++){
+			map.put("index", i);
+			model.addAttribute("day"+String.valueOf(i), monitoringService.getErrorLineStat(map));
+		}
+
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
-		//model.addAttribute("", service.getServerLineStat(serverId));
-		//model.addAttribute("", service.getServerBarStat(serverId));
+		model.addAttribute("errorList", monitoringService.getErrorBarStat(serverId));
+		System.out.println(monitoringService.getErrorBarStat(serverId));
 		return "monitoringServer";
 	}
 
