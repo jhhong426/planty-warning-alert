@@ -34,6 +34,7 @@
 	       <mapping path="/**/"/>
 	       <exclude-mapping path="/"></exclude-mapping>
 	       <exclude-mapping path="/login"></exclude-mapping>
+	       <exclude-mapping path="/api/*"></exclude-mapping>
 	       <exclude-mapping path="/resources/**/"></exclude-mapping>
 	       <beans:ref bean="authInterceptor"></beans:ref>
 	   </interceptor>

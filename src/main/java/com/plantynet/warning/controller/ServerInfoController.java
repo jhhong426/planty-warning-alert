@@ -86,10 +86,14 @@ public class ServerInfoController {
     }
     
 	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
-	public String serverInfoGET(Model model, HttpSession session, Integer id) {
+	public String serverInfoGET(Model model,HttpServletRequest request, HttpSession session, Integer id) {
 	    
-	    SessionVO sessionVo = (SessionVO) session.getAttribute("sessionVO");
-	    
+	    SessionVO sessionVo = (SessionVO) session.getAttribute("sessionVO");   
+	    String prePath = request.getHeader("referer");
+	    if(prePath == null)
+	    {
+	        return "errorPage";
+	    }
 	    model.addAttribute("managerList", adminService.getManagerListByTeamId(sessionVo.getTeamId()));
 	    model.addAttribute("serverInfo", serverInfoService.getServerInfo(id));
 	    model.addAttribute("eventList", serverInfoService.getServerEventList(id));
@@ -182,20 +186,5 @@ public class ServerInfoController {
         return map;
         
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
