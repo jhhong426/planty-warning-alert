@@ -15,7 +15,7 @@
     </resultMap>
 
 	<select id="getDate" resultType="String">
-        SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -7 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
+        SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
     </select>
 
 	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
@@ -69,7 +69,7 @@
         WHERE rgsde > (CURDATE() - INTERVAL 7 DAY)
         AND server_id=#{serverId}
         GROUP BY event_code
-        ORDER BY count
+        ORDER BY count DESC
         LIMIT 5
     </select>
 

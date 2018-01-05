@@ -2,61 +2,67 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- Bootstrap 3.3.4 -->
 <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
-<!-- Font Awesome Icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<!-- Ionicons -->
-<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-<!-- Theme style -->
-<link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-<link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-<!-- Custom Style -->
-<link href="/resources/bootstrap/css/style.css" rel="stylesheet">
-<!-- Datatable CSS -->
-<link rel="stylesheet" href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-<!-- 데이터테이블 스킨 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- jQuery 2.1.4 -->
-<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+<link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+<link href="/resources/bootstrap/css/style.css" rel="stylesheet">
 
+<style>
+@font-face { 
+	font-family: 'NanumGothic'; 
+	src: url("http://NanumFont_TTF_ALL/NanumGothic.ttf") format('truetype'); 
+} 
+h2 { 
+	font-family: NanumGothic; 
+}
+.background {
+background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
+background-size:cover;
+width:100%;
+height:100%;
+position: relative;
+z-index:1;
+float:left;
+overflow:hidden;
+}
+</style>
 
-
+<html>
+<body>
 <div class="" style="min-height: 951.444px;">
-	<div class="box" style="min-height:951.444px;">
-		<div class="container" style="margin-top:150px;">
+	<div class="box background" style="min-height:951.444px;">
+		<div class="container" style="margin-top:25px;">
 			<div class="row">
- 				<div class="formWrapper center-block" style="width:400px; height:300px; background-color:#D8D8D8; border-radius:10px;">
-       				<br>
-        			<h2 class="text-center" style="color:#000000">장애 알림 시스템</h2>
+				<img class="center-block" alt="" src="/resources/dist/img/logo_login.PNG">
+				<br>
+			</div> 
+ 				<div class="formWrapper center-block" style="width:500px; height:450px; background-color:#ffffff">
+        			<div class="box-header" style="width:500px; height:110px; background-color:#19304D; display:flex; align-items:center; justify-content:center;">
+        				<h2 style="color:#ffffff;">장애 알림 관리 시스템</h2>
+        			</div>
             		<form name="frmLogin" class="form-horizontal" action="" method="post" onsubmit="return check();" >
-            		<div class="box-body">
-						<div class="input-group" style="margin-bottom: 25px">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    						<span class="input-group-addon">
-    						<i class="glyphicon glyphicon-user"></i>
-    						</span>
-  				   			<input id="login-id" type="text" class="form-control" name="id" value="" placeholder="Input ID">                                        
-			    		</div>
-               			<div class="input-group" style="margin-bottom: 25px">
-                			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    						<span class="input-group-addon">
-    						<i class="glyphicon glyphicon-lock"></i>
-    						</span>
-  				    		<input id="login-password" type="password" class="form-control" name="password" value="" placeholder="Input Password">                                        
-			    		</div>
+            		<div class="box-body" style="padding:35px 50px;">
+			    		<div class="form-group">
+			            	<label for="id"><span class="glyphicon glyphicon-user"></span>&ensp;ID</label>
+			            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			            	<input id="login-id" type="text" class="form-control" name="id" placeholder="아이디">
+			            </div>
+               			<div class="form-group">
+			            	<label for="password"><span class="glyphicon glyphicon-lock"></span>&ensp;Password</label>
+			            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			            	<input id="login-password" type="password" class="form-control" name="password" placeholder="비밀번호">
+			            </div>
                   		<br>
-                  		<button type="submit" id="btn-login" class="btn btn-default btn-lg btn-block">Login</button>
-                  		<p style= "color: red;">${loginFail}</p>
-                  		<%-- <h1 style= "color: red;">${logout}</h1> --%>
-                  		
+                  		<div class="row">
+                  			<button type="submit" id="btn-login" class="btn btn-block" style="width:425px; height:50px; background-color:#19304D; color:white; font-size:18px"><span class="glyphicon glyphicon-off" style="color:white"></span> 로그인</button>
+                  		</div>
+                  		<br>
+                  		<p style="text-align:center; font-size:12pt"><strong>Copyrights &copy; 2018 <a href="#">Plantynet</a></strong> co. &ensp; All Rights Reserved.</p>
+                  		<p style="text-align:center; color: red;">${loginFail}</p>
             		</div>
             		</form>
  				</div>
@@ -64,6 +70,13 @@
 		</div>
 	</div>
 </div>
+
+
+</body>
+</html>
+
+
+
 
 
 <script>
@@ -77,8 +90,8 @@ function check(){
 }
 </script>
 
-
-
-<%@include file="include/footer.jsp"%>
-
-   
+<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>

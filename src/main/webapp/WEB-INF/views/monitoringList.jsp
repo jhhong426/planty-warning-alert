@@ -125,7 +125,7 @@ $(document).ready(function() {
 				'infoEmpty'    : "에러 알림 건수 :  _TOTAL_ 개",
 				'infoFiltered' : " ",
 				"lengthMenu"   : "출력 개수 :  _MENU_",
-				'paginate' : {
+				'paginate' : { 
 					"first" : "<<",
 	          		  "previous" : "<",
 	          		  "last"  : ">>",

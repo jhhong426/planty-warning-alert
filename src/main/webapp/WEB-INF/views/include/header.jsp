@@ -32,14 +32,14 @@
 <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
 	<header class="main-header">
-	    <a href="/monitoring" style="float:left;padding-top:-10px;" >
-	      <img src="\resources\dist\img\photo1.png" alt="" width="230px" height="70px">
-	    </a>
-	    <h1 style="color:white">&ensp;장애 알림 관리 시스템</h1>
+	    <h2 style="color:gray; margin-left:230px;">&ensp;장애 알림 관리 시스템</h2>
     </header>
 	<aside class="main-sidebar">
 		<section class="sidebar" style="height: 951.444px;">
-			<br><br><br><br>
+			<a href="/monitoring" style="float:left;" >
+                 <img src="/resources/dist/img/logo.PNG" alt="" width="230px" height="70px" style="margin-top:-40px;">
+             </a>
+             <br><br>
 			<li>
 				<a>${sessionScope.sessionVO.managerNm}님 환영합니다!</a>
 			</li>

@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
-
-
 <%@include file="include/header.jsp"%>
 
 <div class="content-wrapper" style="min-height: 951.444px;">
@@ -53,6 +52,12 @@ var DateParsing = function(arg) {
 
 	return stringArg;
 };
+
+<c:forEach var="item" items="${errorList}">
+var list = new Array();
+list.push("${item.eventCode}");
+list.push(${item.count});
+</c:forEach>
 
 <c:forEach var="item" items="${day0}">
 var nowY=DateParsing("${item.logde}")[0];
@@ -227,28 +232,16 @@ Highcharts.chart('bar-chart', {
     series: [{
         name: '에러코드',
         colorByPoint: true,
-        data: [{
-            name: 'ER001',
-            y: 56,
-            drilldown: 'ER001'
-        }, {
-            name: 'ER002',
-            y: 24,
-            drilldown: 'ER002'
-        }, {
-            name: 'ER003',
-            y: 10,
-            drilldown: 'ER003'
-        }, {
-            name: 'ER004',
-            y: 4,
-            drilldown: 'ER004'
-        }, {
-            name: 'ER005',
-            y: 1,
-            drilldown: 'ER005'
-        }]
-    }],
+        data: [
+        	<c:forEach var="item" items="${errorList}" varStatus="status">
+        	{
+	        	name: '${item.eventCode}',
+	            y: ${item.count},
+	            //drilldown: '${item.eventCode}'
+        	}
+        	<c:if test="${!status.last}">, </c:if>
+        	</c:forEach>]
+    }],/*
     drilldown: {
         series: [{
             name: 'ER001',
@@ -432,7 +425,7 @@ Highcharts.chart('bar-chart', {
                 ]
             ]
         }]
-    }
+    }*/
 });
 
 </script>

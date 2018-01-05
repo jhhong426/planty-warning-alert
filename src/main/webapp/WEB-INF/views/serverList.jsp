@@ -16,7 +16,8 @@
 <div class="content-wrapper" style="min-height:951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h3><strong>&emsp;서버 목록</strong></h3>
-
+            <div class="box">
+            <div class="box-body">
                <div class="row">
                  <div class="col-md-2">
                    <select id="serverCategory" class="form-control form-group-inline" onchange="selectChange()" style="display:inline-block">
@@ -150,6 +151,8 @@
 				      </div>
 			    	</div>
 			  	  </div> 
+			</div>
+		  </div>
 			 
 	</div>
 </div>
