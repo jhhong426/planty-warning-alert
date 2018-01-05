@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: JYT
 Build-Jdk: 1.8.0_121
-=======
-Built-By: ts930
-Build-Jdk: 1.8.0_141
->>>>>>> 8cc2fa4ac3ffee04d3f3ec5fb4d4482019caf189
 Created-By: Maven Integration for Eclipse
 
