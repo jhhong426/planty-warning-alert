@@ -29,7 +29,7 @@
 	<context:component-scan base-package="com.plantynet.warning.controller" />
 	
 	<!-- 로그인 페이지를 제외한 나머지 intercept 후 세션 값 없으면 로그인 화면으로 redirect -->
-	<!-- <interceptors>
+	<interceptors>
 	   <interceptor>
 	       <mapping path="/**/"/>
 	       <exclude-mapping path="/"></exclude-mapping>
@@ -37,7 +37,7 @@
 	       <exclude-mapping path="/resources/**/"></exclude-mapping>
 	       <beans:ref bean="authInterceptor"></beans:ref>
 	   </interceptor>
-	</interceptors> -->
+	</interceptors>
 	
 	
 </beans:beans>

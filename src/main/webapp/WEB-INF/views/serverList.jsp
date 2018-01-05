@@ -31,7 +31,7 @@
                  	<button id="btnSearch" class="btn btn-default" onclick="searchClicked()"><i class="fa fa-search"></i></button>
                  </div>
                  <div class="col-md-1">
-                 	<button id="btnRegister" type="button" onclick="registerClicked();" class="btn btn-default">등록</button>
+                 	<button id="btnRegister" type="button" class="btn btn-default">등록</button>
                  </div>
                </div>
                
@@ -79,19 +79,19 @@
 									<tr>
 										<th style="text-align:center">&ensp;서&ensp;버&ensp;명</th>
 											<td>
-												<input type="text" name="serverNm" value="" style="width:375px; text-align:center">
+												<input id="registerServerNm" name="serverNm" value="" style="width:375px; text-align:center">
 											</td>
 									</tr>
 									<tr>
 										<th style="text-align:center">&emsp;&emsp;I P&ensp;&ensp;</th>
 											<td>
-												<input type="text" name="ip"  style="width:375px; text-align:center">
+												<input id="registerIp" name="ip"  style="width:375px; text-align:center">
 											</td>
 									</tr>
 									<tr>
 										<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
 								         	<td>
-								         		<input type="text" name="" value="플랜티넷팀" style="width:375px; text-align:center" disabled>
+								         		<input type="text" name="" value="${sessionScope.sessionVO.teamNm}" style="width:375px; text-align:center" disabled>
 								        	</td>
 									</tr>
 								</tbody>
@@ -265,7 +265,15 @@
 	}
 	
 	function isConflict(){
-		alert("작동");
+		var ip = $("#registerIp").val();
+		var serverNm = $("#registerServerNm").val();
+		<c:forEach items="${serverList}" var="item">
+			if(ip == "${item.ip}" && serverNm == "${item.serverNm}"){
+				alert("ip와 서버명이 동일한 값이 있습니다.");
+				return false;
+			}
+		</c:forEach>
+		return true;
 	}
 	
 </script>
