@@ -50,7 +50,7 @@
 	<aside class="main-sidebar">
 		<section class="sidebar" style="height: 951.444px;">
 			<a href="/monitoring" style="float:left;" >
-                 <img src="/resources/dist/img/logo.png" alt="" width="230px" height="70px" style="margin-top:-40px;">
+                 <img src="/resources/dist/img/logo.PNG" alt="" width="230px" height="70px" style="margin-top:-40px;">
              </a>
              <br><br>
 			<li>
