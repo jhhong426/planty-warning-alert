@@ -69,7 +69,7 @@ public class LoginController {
 			return "redirect:admin";
 		} else {
 			System.out.println("로그인 실패");
-			model.addAttribute("loginFail", "일치하는 정보가 없습니다.");
+			model.addAttribute("loginFail", "일치하는 정보가 없습니다");
 			return "login";
 		}
 	}
