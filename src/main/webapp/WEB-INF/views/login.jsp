@@ -20,7 +20,7 @@ h2 {
 	font-family: NanumGothic; 
 }
 .background {
-background-image: url("/resources/dist/img/ubuntu.png");
+background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
 background-size:cover;
 width:100%;
 height:100%;
@@ -35,13 +35,11 @@ overflow:hidden;
 <body>
 <div class="" style="min-height: 951.444px;">
 	<div class="box background" style="min-height:951.444px;">
-		 <!-- border:1px black solid; -->
-		<!-- <div class="box-test center-block" style="width:300px; height:100px; margin-top:25px;">
-			<img alt="" src="/resources/dist/img/logo_login.PNG">
-		</div> -->
-		
-		<div class="container" style="margin-top:180px;">
+		<div class="container" style="margin-top:25px;">
 			<div class="row">
+				<img class="center-block" alt="" src="/resources/dist/img/logo_login.PNG">
+				<br>
+			</div> 
  				<div class="formWrapper center-block" style="width:500px; height:450px; background-color:#ffffff">
         			<div class="box-header" style="width:500px; height:110px; background-color:#19304D; display:flex; align-items:center; justify-content:center;">
         				<h2 style="color:#ffffff;">장애 알림 관리 시스템</h2>
