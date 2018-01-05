@@ -5,7 +5,7 @@ public class ManagerVO {
 
 
 	private int managerId;
-	private int teamId;
+	private Integer teamId;
 	private String teamNm;
 	private String managerNm;
 	private String loginId;
@@ -44,11 +44,11 @@ public class ManagerVO {
 		this.managerId = managerId;
 	}
 
-	public int getTeamId() {
+	public Integer getTeamId() {
 		return teamId;
 	}
 
-	public void setTeamId(int teamId) {
+	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
 	}
 

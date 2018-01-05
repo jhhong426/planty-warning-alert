@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
-
-
 <%@include file="include/header.jsp"%>
 
 <div class="content-wrapper" style="min-height: 951.444px;">
@@ -12,9 +11,9 @@
 		
 		<div class="box">
 			<div class="box-header">
-				<h4><strong>&emsp;통계기간 : </strong> ${today}</h4>
-				<h4><strong>&emsp;서&emsp;&emsp;버 : </strong> ${serverInfo.serverNm}</h4>
-				<h4><strong>&emsp;&ensp;I&emsp;&emsp;&ensp;P : </strong>${serverInfo.ip}</h4>
+				<h4><strong>통계 기간 : ${today}</strong></h4>
+				<h4><strong>서      버 : ${serverInfo.serverNm}</strong></h4>
+				<h4><strong>I    P : ${serverInfo.ip}</strong></h4>
 			</div>
 			
            <div class="box-body">
@@ -43,6 +42,66 @@
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
 <script>
+
+var DateParsing = function(arg) {
+	var splitArg = arg.split("-");
+	var stringArg = new Array();
+	stringArg[0] = parseInt(splitArg[0]);
+	stringArg[1] = parseInt(splitArg[1]);
+	stringArg[2] = parseInt(splitArg[2]);
+
+	return stringArg;
+};
+
+<c:forEach var="item" items="${errorList}">
+var list = new Array();
+list.push("${item.eventCode}");
+list.push(${item.count});
+</c:forEach>
+
+
+<c:forEach var="item" items="${day0}">
+var nowY=DateParsing("${item.logde}")[0];
+var nowM=DateParsing("${item.logde}")[1];
+var nowD=DateParsing("${item.logde}")[2];
+var nowCnt=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day1}">
+var Y1=DateParsing("${item.logde}")[0];
+var M1=DateParsing("${item.logde}")[1];
+var D1=DateParsing("${item.logde}")[2];
+var Cnt1=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day2}">
+var Y2=DateParsing("${item.logde}")[0];
+var M2=DateParsing("${item.logde}")[1];
+var D2=DateParsing("${item.logde}")[2];
+var Cnt2=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day3}">
+var Y3=DateParsing("${item.logde}")[0];
+var M3=DateParsing("${item.logde}")[1];
+var D3=DateParsing("${item.logde}")[2];
+var Cnt3=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day4}">
+var Y4=DateParsing("${item.logde}")[0];
+var M4=DateParsing("${item.logde}")[1];
+var D4=DateParsing("${item.logde}")[2];
+var Cnt4=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day5}">
+var Y5=DateParsing("${item.logde}")[0];
+var M5=DateParsing("${item.logde}")[1];
+var D5=DateParsing("${item.logde}")[2];
+var Cnt5=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day6}">
+var Y6=DateParsing("${item.logde}")[0];
+var M6=DateParsing("${item.logde}")[1];
+var D6=DateParsing("${item.logde}")[2];
+var Cnt6=${item.count};
+</c:forEach>
 
 Highcharts.chart('line-chart', {
     chart: {
@@ -89,13 +148,46 @@ Highcharts.chart('line-chart', {
         // of 1970/71 in order to be compared on the same x axis. Note
         // that in JavaScript, months start at 0 for January, 1 for February etc.
         data: [
-            [Date.UTC(2017, 11, 1), 0],
-            [Date.UTC(2017, 11, 2), 28],
-            [Date.UTC(2017, 11, 3), 25],
-            [Date.UTC(2017, 11, 4), 2],
-            [Date.UTC(2017, 11, 5), 28],
-            [Date.UTC(2017, 11, 6), 28],
-            [Date.UTC(2017, 11, 7), 47] 
+        	/*
+        	<c:forEach items="i" varStatus="status" begin="0" end="6">
+        		<c:forEach var="item" items="${day}${status.index}">
+        			<c:out value=''>[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), 8],</c:out>
+        		</c:forEach>
+        	</c:forEach>
+        	*/
+        	
+        	/*
+        	<c:forEach var="item" items="${day6}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
+			</c:forEach>
+			<c:forEach var="item" items="${day5}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
+			</c:forEach>
+			<c:forEach var="item" items="${day4}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
+			</c:forEach>
+			<c:forEach var="item" items="${day3}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
+			</c:forEach>
+			<c:forEach var="item" items="${day2}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
+			</c:forEach>
+			<c:forEach var="item" items="${day1}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"],
+			</c:forEach>
+			<c:forEach var="item" items="${day0}">
+				[Date.UTC(DateParsing("${item.logde}")[0], DateParsing("${item.logde}")[1], DateParsing("${item.logde}")[2]), "${item.count}"]
+			</c:forEach>
+			*/
+
+			[Date.UTC(Y6,M6,D6), Cnt6],
+			[Date.UTC(Y5,M5,D5), Cnt5],
+			[Date.UTC(Y4,M4,D4), Cnt4],
+			[Date.UTC(Y3,M3,D3), Cnt3],
+			[Date.UTC(Y2,M2,D2), Cnt2],
+			[Date.UTC(Y1,M1,D1), Cnt1],
+			[Date.UTC(nowY,nowM,nowD), nowCnt]
+
         ]
     }]
 });
@@ -141,28 +233,16 @@ Highcharts.chart('bar-chart', {
     series: [{
         name: '에러코드',
         colorByPoint: true,
-        data: [{
-            name: 'ER001',
-            y: 56,
-            drilldown: 'ER001'
-        }, {
-            name: 'ER002',
-            y: 24,
-            drilldown: 'ER002'
-        }, {
-            name: 'ER003',
-            y: 10,
-            drilldown: 'ER003'
-        }, {
-            name: 'ER004',
-            y: 4,
-            drilldown: 'ER004'
-        }, {
-            name: 'ER005',
-            y: 1,
-            drilldown: 'ER005'
-        }]
-    }],
+        data: [
+        	<c:forEach var="item" items="${errorList}" varStatus="status">
+        	{
+	        	name: '${item.eventCode}',
+	            y: ${item.count},
+	            //drilldown: '${item.eventCode}'
+        	}
+        	<c:if test="${!status.last}">, </c:if>
+        	</c:forEach>]
+    }],/*
     drilldown: {
         series: [{
             name: 'ER001',
@@ -346,7 +426,7 @@ Highcharts.chart('bar-chart', {
                 ]
             ]
         }]
-    }
+    }*/
 });
 
 </script>
