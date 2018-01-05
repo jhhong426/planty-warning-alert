@@ -59,46 +59,45 @@ list.push("${item.eventCode}");
 list.push(${item.count});
 </c:forEach>
 
-
 <c:forEach var="item" items="${day0}">
 var nowY=DateParsing("${item.logde}")[0];
-var nowM=DateParsing("${item.logde}")[1];
+var nowM=DateParsing("${item.logde}")[1] - 1;
 var nowD=DateParsing("${item.logde}")[2];
 var nowCnt=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day1}">
 var Y1=DateParsing("${item.logde}")[0];
-var M1=DateParsing("${item.logde}")[1];
+var M1=DateParsing("${item.logde}")[1] - 1;
 var D1=DateParsing("${item.logde}")[2];
 var Cnt1=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day2}">
 var Y2=DateParsing("${item.logde}")[0];
-var M2=DateParsing("${item.logde}")[1];
+var M2=DateParsing("${item.logde}")[1] - 1;
 var D2=DateParsing("${item.logde}")[2];
 var Cnt2=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day3}">
 var Y3=DateParsing("${item.logde}")[0];
-var M3=DateParsing("${item.logde}")[1];
+var M3=DateParsing("${item.logde}")[1] - 1;
 var D3=DateParsing("${item.logde}")[2];
 var Cnt3=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day4}">
 var Y4=DateParsing("${item.logde}")[0];
-var M4=DateParsing("${item.logde}")[1];
+var M4=DateParsing("${item.logde}")[1] - 1;
 var D4=DateParsing("${item.logde}")[2];
 var Cnt4=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day5}">
 var Y5=DateParsing("${item.logde}")[0];
-var M5=DateParsing("${item.logde}")[1];
+var M5=DateParsing("${item.logde}")[1] - 1;
 var D5=DateParsing("${item.logde}")[2];
 var Cnt5=${item.count};
 </c:forEach>
 <c:forEach var="item" items="${day6}">
 var Y6=DateParsing("${item.logde}")[0];
-var M6=DateParsing("${item.logde}")[1];
+var M6=DateParsing("${item.logde}")[1] - 1;
 var D6=DateParsing("${item.logde}")[2];
 var Cnt6=${item.count};
 </c:forEach>
@@ -131,7 +130,11 @@ Highcharts.chart('line-chart', {
     },
     tooltip: {
         headerFormat: '<b>{series.name}</b><br>',
-        pointFormat: '{point.x:%m월%e일}: <br> {point.y:.2f} m <br>1<br>2<br>3'
+        pointFormat: '{point.x:%m월%e일}: <br>{point.y:.0f}'
+        	
+        	<c:forEach var="item" items="${code}">
+       		 + '<br>${item.eventCode} : ${item.count}'
+    		</c:forEach>
     },
 
     plotOptions: {
@@ -242,7 +245,7 @@ Highcharts.chart('bar-chart', {
         	}
         	<c:if test="${!status.last}">, </c:if>
         	</c:forEach>]
-    }],/*
+    }]/*,
     drilldown: {
         series: [{
             name: 'ER001',

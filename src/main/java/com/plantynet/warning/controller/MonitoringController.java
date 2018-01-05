@@ -33,9 +33,19 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoring", method = RequestMethod.GET)
 	public String monitoring(Model model, HttpSession session) 
 		throws Exception {
+		
+		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
+		
 		model.addAttribute("today", monitoringService.getDate());
-		//model.addAttribute("", service.getGlobalLineStat(teamId));
-		//model.addAttribute("", service.getGlobalBarStat(teamId));
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("teamId", sessionVO.getTeamId());
+		
+		for (int i=0; i<7; i++){
+			map.put("index", i);
+			model.addAttribute("day"+String.valueOf(i), monitoringService.getGlobalLineStat(map));
+		}
+		model.addAttribute("serverList", monitoringService.getGlobalBarStat(sessionVO.getTeamId()));
 		return "monitoring";
 	}
 	
@@ -43,12 +53,10 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoringList", method = RequestMethod.GET)
 	public String monitoringList(Model model, HttpSession session) 
 		throws Exception {
-		
 
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-		//model.addAttribute("managerId", sessionVO.getManagerId());
+		
 		model.addAttribute("serverList", monitoringService.getServerList(sessionVO.getTeamId()));
-		//model.addAttribute("codeList", service.getCodeList(1));
 		model.addAttribute("errorLogList", monitoringService.getErrorLogList(sessionVO.getTeamId()));
 		return "monitoringList";
 	}
@@ -66,11 +74,11 @@ public class MonitoringController {
 		for (int i=0; i<7; i++){
 			map.put("index", i);
 			model.addAttribute("day"+String.valueOf(i), monitoringService.getErrorLineStat(map));
+			model.addAttribute("code"+String.valueOf(i), monitoringService.getErrorLineHover(map));
 		}
 
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
 		model.addAttribute("errorList", monitoringService.getErrorBarStat(serverId));
-		System.out.println(monitoringService.getErrorBarStat(serverId));
 		return "monitoringServer";
 	}
 
@@ -82,14 +90,12 @@ public class MonitoringController {
 			Map<String, Object> map = new HashMap<String,Object>();
 			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getCodeList(serverId);
 			map.put("result", list);
-			
-			
+
 
 //        Map<String, Integer> serverIdMap = new HashMap<>();
 //        List<MonitoringVO> list = new ArrayList<>();
 //        list = (List<MonitoringVO>) service.getCodeList(serverId);
 //        System.out.println(list);
-
 
 		return map;
 	}

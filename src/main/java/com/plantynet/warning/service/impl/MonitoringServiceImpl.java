@@ -30,8 +30,8 @@ public class MonitoringServiceImpl implements MonitoringService{
 		return monitoringDAO.getCodeList(serverId);
 	}
 	@Override
-	public List<MonitoringVO> getGlobalLineStat(Integer teamId) {
-		return monitoringDAO.getGlobalLineStat(teamId);
+	public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map) {
+		return monitoringDAO.getGlobalLineStat(map);
 	}
 	@Override
 	public List<MonitoringVO> getGlobalBarStat(Integer teamId) {
@@ -48,6 +48,10 @@ public class MonitoringServiceImpl implements MonitoringService{
 	@Override
 	public List<MonitoringVO> getErrorLineStat(HashMap<String, Object> map) {
 		return monitoringDAO.getErrorLineStat(map);
+	}
+	@Override
+	public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map) {
+		return monitoringDAO.getErrorLineHover(map);
 	}
 	@Override
 	public List<MonitoringVO> getErrorBarStat(int serverId) {

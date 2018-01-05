@@ -45,12 +45,56 @@
 
 <script>
 
-function DateParser(arg) {
+function DateParsing(arg) {
 	var splitArg = arg.split("-");
 	var stringArg = splitArg[0] + splitArg[1] + splitArg[2];
 	var intArg = parseInt(stringArg);
 	return intArg;
 };
+
+
+<c:forEach var="item" items="${day0}">
+var nowY=DateParsing("${item.rgsde}")[0];
+var nowM=DateParsing("${item.rgsde}")[1];
+var nowD=DateParsing("${item.rgsde}")[2];
+var nowCnt=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day1}">
+var Y1=DateParsing("${item.rgsde}")[0];
+var M1=DateParsing("${item.rgsde}")[1];
+var D1=DateParsing("${item.rgsde}")[2];
+var Cnt1=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day2}">
+var Y2=DateParsing("${item.rgsde}")[0];
+var M2=DateParsing("${item.rgsde}")[1];
+var D2=DateParsing("${item.rgsde}")[2];
+var Cnt2=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day3}">
+var Y3=DateParsing("${item.rgsde}")[0];
+var M3=DateParsing("${item.rgsde}")[1];
+var D3=DateParsing("${item.rgsde}")[2];
+var Cnt3=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day4}">
+var Y4=DateParsing("${item.rgsde}")[0];
+var M4=DateParsing("${item.rgsde}")[1];
+var D4=DateParsing("${item.rgsde}")[2];
+var Cnt4=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day5}">
+var Y5=DateParsing("${item.rgsde}")[0];
+var M5=DateParsing("${item.rgsde}")[1];
+var D5=DateParsing("${item.rgsde}")[2];
+var Cnt5=${item.count};
+</c:forEach>
+<c:forEach var="item" items="${day6}">
+var Y6=DateParsing("${item.rgsde}")[0];
+var M6=DateParsing("${item.rgsde}")[1];
+var D6=DateParsing("${item.rgsde}")[2];
+var Cnt6=${item.count};
+</c:forEach>
 
 Highcharts.chart('line-chart', {
     chart: {
@@ -96,13 +140,13 @@ Highcharts.chart('line-chart', {
         // [Date.UTC(년, 월(0~11), 일), 값]
 
         data: [
-            [Date.UTC(2017, 11, 1), 0],
-            [Date.UTC(2017, 11, 2), 28],
-            [Date.UTC(2017, 11, 3), 25],
-            [Date.UTC(2017, 11, 4), 2],
-            [Date.UTC(2017, 11, 5), 28],
-            [Date.UTC(2017, 11, 6), 28],
-            [Date.UTC(2017, 11, 7), 47] 
+        	[Date.UTC(Y6,M6-1,D6), Cnt6],
+			[Date.UTC(Y5,M5-1,D5), Cnt5],
+			[Date.UTC(Y4,M4-1,D4), Cnt4],
+			[Date.UTC(Y3,M3-1,D3), Cnt3],
+			[Date.UTC(Y2,M2-1,D2), Cnt2],
+			[Date.UTC(Y1,M1-1,D1), Cnt1],
+			[Date.UTC(nowY,nowM,nowD), nowCnt]
         ]
     }]
 });
@@ -148,28 +192,17 @@ Highcharts.chart('bar-chart', {
     series: [{
         name: '에러코드',
         colorByPoint: true,
-        data: [{
-            name: 'ER001',
-            y: 56,
-            drilldown: 'ER001'
-        }, {
-            name: 'ER002',
-            y: 24,
-            drilldown: 'ER002'
-        }, {
-            name: 'ER003',
-            y: 10,
-            drilldown: 'ER003'
-        }, {
-            name: 'ER004',
-            y: 4,
-            drilldown: 'ER004'
-        }, {
-            name: 'ER005',
-            y: 1,
-            drilldown: 'ER005'
-        }]
-    }],
+        data: [
+        	<c:forEach var="item" items="${serverList}" varStatus="status">
+	    	{
+	        	name: '${item.eventCode}',
+	            y: ${item.count},
+	            //drilldown: '${item.eventCode}'
+	    	}
+	    	<c:if test="${!status.last}">, </c:if>
+	    	</c:forEach>
+	    	]
+    }]/*,
     drilldown: {
         series: [{
             name: 'ER001',
@@ -353,7 +386,7 @@ Highcharts.chart('bar-chart', {
                 ]
             ]
         }]
-    }
+    }*/
 });
 
 </script>

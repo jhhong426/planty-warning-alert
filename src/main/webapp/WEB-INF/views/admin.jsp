@@ -39,7 +39,6 @@
 			    </table>
 				<br>
 				
-				
 				<h5 class="col-md-offset-3"><strong>&emsp; &bull; &ensp;담당자 등록</strong></h5>
 				<form name="" method="post" action="/admin" onsubmit="return check()">
 				<table class="table" style="width:500px;" align="center">
@@ -65,7 +64,7 @@
 						<tr>
 							<th style="text-align:center">&ensp;소&ensp;속&ensp;팀</th>
 								<td>
-									<input type="text" name="" value="채널연구개발팀" style="width:375px; text-align:center" disabled >
+									<input type="text" name="" value="${sessionScope.sessionVO.teamNm}" style="width:375px; text-align:center" disabled >
 								</td>
 						</tr>
 						<tr>

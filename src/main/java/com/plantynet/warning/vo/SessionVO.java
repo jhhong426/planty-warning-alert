@@ -7,6 +7,7 @@ public class SessionVO {
 	private String loginId;
 	private String phoneNo;
 	private String email;
+	private String teamNm;
 	
 	public int getManagerId() {
 		return managerId;
@@ -44,4 +45,13 @@ public class SessionVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getTeamNm() {
+		return teamNm; 
+	}
+	public void setTeamNm(String teamNm) {
+		this.teamNm = teamNm;
+	}
+	
+	
+
 }
