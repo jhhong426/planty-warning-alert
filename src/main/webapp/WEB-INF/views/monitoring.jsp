@@ -5,16 +5,22 @@
 
 <%@include file="include/header.jsp"%>
 
+<style type="text/css"> 
+	 a:link { color: black; text-decoration: none;}
+	 a:visited { color: black; text-decoration: none;}
+	 a:hover { color: black; text-decoration: none;}
+</style>
+
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h2><strong>&emsp;모니터링</strong></h2>
 		
 		<div class="box">
 			<div class="box-header">
-				<div id="date-text" style="float:left; width:20%">
+				<div id="date-text" style="float:left; width:25%">
 					<h4><strong>통계 기간 : </strong>${today}</h4>
 				</div>
-				<div id="button" style="float:left; width:80%">
+				<div id="button" style="float:left; width:75%">
 					<a href = "/monitoringList"><button style="height:40px"><strong>상세목록</strong></button></a>
 				</div>
 			</div>

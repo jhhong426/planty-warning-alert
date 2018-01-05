@@ -19,17 +19,18 @@
 		
 		<div class="box">
 			<div class="row">
-				<h4 class="col-md-1" align="right"><strong>&emsp;기&emsp;&emsp;간 : </strong></h4>
-				<div class="col-md-5">
-					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="20px" style="text-align:center;">
+				<br>
+				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:30%">
+					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 					&emsp;~&emsp;
-					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="20px" style="text-align:center;">
+					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 				</div>
-				<div class="col-md-6"></div>
+				<div class="" style="float:left; width:60%"></div>
 			</div>
 			<div class="row">
-				<h4 class="col-md-1" align="right"><strong>&emsp;서&ensp;버&ensp;명 : </strong></h4>
-				<div class="col-md-2">
+				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;서&ensp;버&ensp;명 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:30%">
 					<select id="serverCategory" name="serverCategory" class="form-control form-group-inline"
 						onchange="ServerChange(this.value);" style="display: inline-block">
 						<option value="">전체</option>
@@ -38,20 +39,23 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="col-md-9"></div>
+				<div class="" style="float:left; width:60%"></div>
 			</div>
 			<div class="row">
-				<h4 class="col-md-1" align="right"><strong>&emsp;장애코드 : </strong></h4>
-				<div class="col-md-2" id="codeDynamicCategory">
+				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;장애코드 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:30%" id="codeDynamicCategory">
 					<select id="codeCategory" class="form-control form-group-inline"
 						style="display: inline-block">
 						<option value="">전체</option>
 					</select>
 				</div>
-				<div class="col-md-1">
+				<div class="" style="float:left; width:5%">
+					<p></p>
+				</div>
+				<div class="" style="float:left; width:5%">
 					<button style="height:35px" onclick="Search()"><strong>조회</strong></button>
 				</div>
-				<div class="col-md-8"></div>
+				<div class="" style="float:left; width:50%"></div>
 			</div>
 			
        		<div class="box-body">
