@@ -267,7 +267,7 @@
 		}
 	}
 	
-	function isConflict(){
+	function isConflict(){	
 		var ip = $("#registerIp").val();
 		var serverNm = $("#registerServerNm").val();
 		
@@ -277,11 +277,17 @@
 		}
 		
 		<c:forEach items="${serverList}" var="item">
-			if(ip == "${item.ip}" && serverNm == "${item.serverNm}"){
-				alert("ip와 서버명이 동일한 값이 있습니다.");
-				return false;
-			}
+		if(ip == "${item.ip}"){
+			alert("동일한 IP가 존재합니다.");
+			return false;
+		}
+		if(serverNm == "${item.serverNm}" && teamId == "${sessionScope.sessionVO.teamId}"){
+			alert("${sessionScope.sessionVO.teamId}");
+			alert("동일한 IP가 존재합니다.");
+			return false;
+		}
 		</c:forEach>
+		
 		return true;
 	}
 	

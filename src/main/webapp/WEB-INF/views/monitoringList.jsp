@@ -14,8 +14,7 @@
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
-		<h3><strong>&emsp;모니터링</strong></h3>
-		
+		<h3><strong>&emsp;모니터링 > 상세목록</strong></h3>
 		<div class="box">
 		<div class="box-body">
 			<div class="row">
