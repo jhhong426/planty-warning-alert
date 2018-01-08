@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
 <%@include file="include/header.jsp"%>
 
@@ -57,9 +56,8 @@
 				<div class="" style="float:left; width:50%"></div>
 			</div>
 			
-       		<div class="box-body">
-			
-				<table class="table table-bordered table-hover display" id="errorList" cellpadding="5" cellspacing="0" border="0" style="width:100%; margin: 0 auto 2em auto;">
+       		<div class="box-body">			
+ 				<table class="table table-bordered table-hover display" id="errorList">
 				<thead>
 					<tr>
 						<th style="text-align: center">서버명</th>
@@ -95,10 +93,19 @@
 </div>
 
 <%@include file="include/footer.jsp"%>
-
+<script src="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+<script src="/resources/plugins/fastclick/fastclick.js"></script>
+<script src="/resources/plugins/knob/jquery.knob.js"></script>
+<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="resources/dist/js/demo.js"></script>
+<script src="resources/dist/js/app.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
 
@@ -122,7 +129,6 @@ $(function() {
 
 
 $(document).ready(function() {
-	
     var errorList = $("#errorList").DataTable({
         "language"    : {
              'zeroRecords'       : "검색결과가 없습니다.",

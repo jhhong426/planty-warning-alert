@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 
 <%@include file="include/header.jsp"%>
 
-<!-- 서버 상세정보 링크 부분 a태그 css 설정 -->
 <style type="text/css"> 
 	 a:link { color: black; text-decoration: none;}
 	 a:visited { color: black; text-decoration: underline;}
@@ -46,7 +44,7 @@
 							<th style="text-align:center">삭제</th>
 						</tr>
 					</thead>
-					<tbody style="text-align:center">   <!-- 이대로 수정버튼 누르면 맨 위의 row데이터만 작동함 -->
+					<tbody style="text-align:center"> 
 						
 						<c:forEach items = "${serverList}" var = "item">
 							<tr>
