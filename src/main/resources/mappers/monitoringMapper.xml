@@ -6,6 +6,7 @@
 		<result property="ntfcId" column="ntfc_id" javaType="int"/>
         <result property="serverId" column="server_id" javaType="int"/>
         <result property="managerId" column="manager_id" javaType="int"/>
+        <result property="managerNm" column="manager_nm" javaType="String"/>
         <result property="eventId" column="event_id" javaType="int"/>
         <result property="serverNm" column="server_nm" javaType="String"/>
         <result property="eventCode" column="event_code" javaType="String"/>
@@ -14,31 +15,57 @@
         <result property="managerCttpc" column="manager_cttpc" javaType="String"/>
     </resultMap>
 
+	<!-- '일주일 전 날짜 ~ 오늘날짜 ' 출력-->
 	<select id="getDate" resultType="String">
         SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
     </select>
 
+	<!-- 카테고리에 들어갈 서버 목록 -->
 	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT server_id, server_nm
         FROM SERVER
         WHERE team_id=#{teamId}
     </select>
     
+    <!-- 카테고리에 들어갈 해당 서버의 에러코드 목록 -->
     <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT EVENT.event_id, EVENT.event_code
-        FROM EVENT, EVENT_MANAGER
-        WHERE EVENT.event_id=EVENT_MANAGER.event_id
-        AND EVENT_MANAGER.manager_id=#{managerId}
+        SELECT event_id, event_code
+        FROM EVENT
+        WHERE server_id=#{serverId}
     </select>
 
-	<select id="getGlobalLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT 
+	<!-- Global Line Chart : 사용자가 속해있는 팀의 서버에서 index일 전에 발생한 에러의 총 건수를 출력 -->
+	<select id="getGlobalLineStat" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT s.server_nm, DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY AS rgsde ,IFNULL(count(*), 0) AS count
+		FROM EVENT_HISTORY e, SERVER s
+		WHERE s.server_id = e.server_id
+		AND DATE_FORMAT(e.rgsde, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY
+		AND s.team_id=${teamId}
     </select>
     
+    <!-- Global Line Chart Tooltip : 사용자가 속해있는 팀의 서버에서 해당일에 발생한 서버 TOP5의 이름과 에러 건수를 출력 -->
+	<select id="getGlobalLineStatTooltip" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT server_id, count(*) AS count
+        FROM EVENT_HISTORY
+        WHERE DATE_FORMAT(rgsde, '%Y-%m-%d') = FROM_UNIXTIME(FLOOR(${rgsde}/1000), '%Y-%m-%d')
+        AND server_id = #{serverId}
+        GROUP BY server_id
+        ORDER BY count DESC
+        LIMIT 5
+    </select>
+    
+    <!-- Global Bar Chart : 사용자가 속해있는 팀의 서버에서 바 그래프의 데이터를 출력 -->
     <select id="getGlobalBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        
+        SELECT server_id, count(*) AS count
+        FROM EVENT_HISTORY
+        WHERE rgsde > (CURDATE() - INTERVAL 7 DAY)
+        AND server_id=#{serverId}
+        GROUP BY server_id
+        ORDER BY count DESC
+        LIMIT 5
     </select>
     
+    <!-- 전체 에러로그의 목록 출력 -->
     <select id="getErrorLogList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT n.server_id, s.server_nm, n.ip, e.event_code, m.manager_nm, n.msg, n.ntfc_mth, n.ntfcde, n.logde
         FROM SERVER s, MANAGER m, NOTIFICATION_HISTORY n, EVENT e
@@ -48,13 +75,14 @@
 		AND m.team_id=#{teamId}
     </select>
     
+    <!-- 서버의 간단한 정보 출력(지금은 사용하지 않음, 삭제예정) -->
     <select id="getServerInfo" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT server_nm, ip
         FROM SERVER
         WHERE server_id=#{serverId}
     </select>
     
-    <!-- 오늘로부터 i일 전에 한 서버(serverId)에서 발생한 모든 에러 건수 -->
+    <!-- Server Line Chart : 오늘로부터 index일 전에 한 서버(serverId)에서 발생한 모든 에러 건수 -->
     <select id="getErrorLineStat" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
 		SELECT DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY AS logde ,IFNULL(count(*), 0) AS count
 		FROM NOTIFICATION_HISTORY
@@ -62,13 +90,34 @@
 		AND server_id=${serverId}
     </select>
     
-    <!-- 오늘로부터 7일 이전까지 한 서버(serverId)에서 발생한 에러코드를 건수가 가장 많은 순서대로 5개를 추출 -->
+    <!-- Server Line Chart Tooltip : 사용자가 속해있는 팀의 서버에서 해당일에 발생한 에러 TOP5의 이름과 건수를 출력 -->
+    <select id="getErrorLineStatTooltip" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+		SELECT event_code, count(*) AS count
+        FROM NOTIFICATION_HISTORY
+        WHERE DATE_FORMAT(rgsde, '%Y-%m-%d') = FROM_UNIXTIME(FLOOR(${rgsde}/1000), '%Y-%m-%d')
+        AND server_id=${serverId}
+        GROUP BY event_id
+        ORDER BY count DESC
+        LIMIT 5
+    </select>
+    
+    <!-- Server Bar Chart : 오늘로부터 7일 이전까지 한 서버(serverId)에서 발생한 에러코드를 건수가 가장 많은 순서대로 5개를 추출 -->
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT event_code, count(*) AS count
         FROM NOTIFICATION_HISTORY
-        WHERE rgsde > (CURDATE() - INTERVAL 7 DAY)
+        WHERE rgsde > (CURDATE() - INTERVAL 6 DAY)
         AND server_id=#{serverId}
-        GROUP BY event_code
+        GROUP BY event_id
+        ORDER BY count DESC
+        LIMIT 5
+    </select>
+    
+    <select id="getErrorLineHover" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT event_code, count(*) AS count
+        FROM NOTIFICATION_HISTORY
+		WHERE DATE_FORMAT(rgsde, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY
+        AND server_id=#{serverId}
+        GROUP BY event_id
         ORDER BY count DESC
         LIMIT 5
     </select>

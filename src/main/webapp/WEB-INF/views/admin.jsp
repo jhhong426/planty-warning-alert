@@ -29,7 +29,7 @@
 					       		<td><div class="row" style="position:relative; top:4px;">${item.email}</div></td>
 					       		<td><form name="" method="post" action="/deleteAdmin" onsubmit="return deleteConfirm()" style="margin-bottom: 0px;">
 					       				<input  name="managerId" type="hidden" value="${item.managerId}">
-					       				<button type="submit"  class="btn btn-default">삭제</button>
+					       				<button type="submit"  class="btn btn-danger">삭제</button>
 					       			</form>
 					       		</td>
 				       		</tr>
@@ -84,7 +84,7 @@
 				      	</tr>   
 					</tbody>
 				</table>
-				  	<button id="btnRegister" type="submit" class="btn btn-default col-md-offset-6">등록</button>
+				  	<button id="btnRegister" type="submit" class="btn btn-success col-md-offset-6">등록</button>
 				  	<br>
 				</form>
 				<br>

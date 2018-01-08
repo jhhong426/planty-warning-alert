@@ -32,7 +32,7 @@
                  	<button id="btnSearch" class="btn btn-default" onclick="searchClicked()"><i class="fa fa-search"></i></button>
                  </div>
                  <div class="col-md-1">
-                 	<button id="btnRegister" type="button" class="btn btn-default">등록</button>
+                 	<button id="btnRegister" type="button" class="btn btn-success">등록</button>
                  </div>
                </div>
                
@@ -53,10 +53,10 @@
 					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.serverNm}</a></td>
 					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
 					       		<td>${item.rgsde}</td>
-					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-default" >수정</button></td>
+					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-primary" >수정</button></td>
 					       		<td><form name="" method="post" action="/deleteServer" onsubmit="return deleteConfirm();" style="margin-bottom: 0px;">
 					       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
-					       				<button type="submit" class="btn btn-default" >삭제</button>
+					       				<button type="submit" class="btn btn-danger" >삭제</button>
 					       			</form>
 					       		</td>
 				       		</tr>
