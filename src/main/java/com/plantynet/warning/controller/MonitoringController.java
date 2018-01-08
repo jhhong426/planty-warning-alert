@@ -87,8 +87,13 @@ public class MonitoringController {
 	public Map<String, Object> changeServer(@RequestParam("serverId") int serverId, HttpSession session) 
 		throws Exception {
 		
+	        System.out.println(serverId);
 			Map<String, Object> map = new HashMap<String,Object>();
 			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getCodeList(serverId);
+			for (MonitoringVO monitoringVO : list)
+            {
+                System.out.println(monitoringVO);
+            }
 			map.put("result", list);
 			System.out.println(map);
 

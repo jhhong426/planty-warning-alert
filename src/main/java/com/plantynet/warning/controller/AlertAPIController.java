@@ -16,7 +16,7 @@ import com.plantynet.warning.service.NotificationService;
 import com.plantynet.warning.vo.ParamVO;
 
 @Controller
-@RequestMapping("/api/*")
+@RequestMapping("/api")
 public class AlertAPIController
 {
     @Autowired

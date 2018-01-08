@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="checkPlusEvent" resultType="int">
         select count(*) from EVENT
-        where event_code = #{eventCode} and sttus = "ACT01"
+        where event_code = #{eventCode} and server_id=#{serverId} and sttus = "ACT01" 
     </select>
     
     <insert id="plusEvent">
