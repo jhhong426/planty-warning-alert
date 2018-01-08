@@ -21,7 +21,7 @@
 					<h4><strong>통계 기간 : </strong>${today}</h4>
 				</div>
 				<div id="button" style="float:left; width:75%">
-					<a href = "/monitoringList"><button style="height:40px"><strong>상세목록</strong></button></a>
+					<a href = "/monitoringList"><button style="height:40px" class="btn btn-primary"><strong>상세목록</strong></button></a>
 				</div>
 			</div>
 			
