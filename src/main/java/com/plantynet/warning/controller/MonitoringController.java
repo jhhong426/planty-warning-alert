@@ -33,9 +33,19 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoring", method = RequestMethod.GET)
 	public String monitoring(Model model, HttpSession session) 
 		throws Exception {
+		
+		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
+		
 		model.addAttribute("today", monitoringService.getDate());
-		//model.addAttribute("", service.getGlobalLineStat(teamId));
-		//model.addAttribute("", service.getGlobalBarStat(teamId));
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("teamId", sessionVO.getTeamId());
+		
+		for (int i=0; i<7; i++){
+			map.put("index", i);
+			model.addAttribute("day"+String.valueOf(i), monitoringService.getGlobalLineStat(map));
+		}
+		model.addAttribute("serverList", monitoringService.getGlobalBarStat(sessionVO.getTeamId()));
 		return "monitoring";
 	}
 	
@@ -43,12 +53,10 @@ public class MonitoringController {
 	@RequestMapping(value = "/monitoringList", method = RequestMethod.GET)
 	public String monitoringList(Model model, HttpSession session) 
 		throws Exception {
-		
 
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-		//model.addAttribute("managerId", sessionVO.getManagerId());
+		
 		model.addAttribute("serverList", monitoringService.getServerList(sessionVO.getTeamId()));
-		//model.addAttribute("codeList", service.getCodeList(1));
 		model.addAttribute("errorLogList", monitoringService.getErrorLogList(sessionVO.getTeamId()));
 		return "monitoringList";
 	}
@@ -66,11 +74,11 @@ public class MonitoringController {
 		for (int i=0; i<7; i++){
 			map.put("index", i);
 			model.addAttribute("day"+String.valueOf(i), monitoringService.getErrorLineStat(map));
+			model.addAttribute("code"+String.valueOf(i), monitoringService.getErrorLineHover(map));
 		}
 
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
 		model.addAttribute("errorList", monitoringService.getErrorBarStat(serverId));
-		System.out.println(monitoringService.getErrorBarStat(serverId));
 		return "monitoringServer";
 	}
 
@@ -87,13 +95,41 @@ public class MonitoringController {
                 System.out.println(monitoringVO);
             }
 			map.put("result", list);
-			
-			
+			System.out.println(map);
 
-//        Map<String, Integer> serverIdMap = new HashMap<>();
-//        List<MonitoringVO> list = new ArrayList<>();
-//        list = (List<MonitoringVO>) service.getCodeList(serverId);
-//        System.out.println(list);
+		return map;
+	}
+	
+	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
+	/*
+	@ResponseBody
+	@RequestMapping(value = "/monitoring/topServer", method = RequestMethod.POST)
+	public Map<String, Object> topServer(@RequestParam("rgsde") int rgsde, HttpSession session) 
+		throws Exception {
+			
+			Map<String, Object> map = new HashMap<String,Object>();
+			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopServer(rgsde);
+			map.put("result", list);
+			System.out.println(map);
+
+
+		return map;
+	}
+	*/
+		
+	
+	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
+	@ResponseBody
+	@RequestMapping(value = "/monitoringServer/topServer", method = RequestMethod.POST)
+	public Map<String, Object> topServer(@RequestParam("serverId") int serverId, @RequestParam("rgsde") int rgsde,  HttpSession session) 
+		throws Exception {
+		
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("serverId", serverId);
+			map.put("rgsde", rgsde);
+			//List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopCode(map);
+			//map.put("result", list);
+			System.out.println(map);
 
 
 		return map;
