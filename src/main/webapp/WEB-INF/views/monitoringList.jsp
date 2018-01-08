@@ -110,12 +110,20 @@
 
 $(function() {
 	$("#preDate").datepicker({
-		dateFormat : "yy-mm-dd"
-	});
+		dateFormat : "yy-mm-dd",
+		defaultDate : "today",
+		onClose : function(selectedDate){
+		    $("#postDate").datepicker("option", "minDate", selectedDate);
+		}
+	}).datepicker("setDate","today");
 	
 	$("#postDate").datepicker({
-		dateFormat : "yy-mm-dd"
-	});
+		dateFormat : "yy-mm-dd",
+		defaultDate : "today",
+		onClose : function(selectedDate){
+		    $("#preDate").datepicker("option", "maxDate", selectedDate);
+		}
+	}).datepicker("setDate","today");
 });
 
 

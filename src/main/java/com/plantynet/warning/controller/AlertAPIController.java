@@ -54,6 +54,7 @@ public class AlertAPIController
             //정상 저장 (response_code = 1)
             if(service.setNotiInfo(vo))
             {
+                service.plusEventHistory(vo);
                 map.put("response_code", 1);
                 return map;
             }
