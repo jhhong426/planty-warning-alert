@@ -14,9 +14,10 @@
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
-		<h2><strong>&emsp;모니터링</strong></h2>
+		<h3><strong>&emsp;모니터링</strong></h3>
 		
 		<div class="box">
+		<div class="box-body">
 			<div class="row">
 				<br>
 				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
@@ -59,7 +60,7 @@
 			
        		<div class="box-body">
 			
-				<table id="errorList" cellpadding="5" cellspacing="0" border="0" style="width:100%; margin: 0 auto 2em auto;">
+				<table class="table table-bordered table-hover display" id="errorList" cellpadding="5" cellspacing="0" border="0" style="width:100%; margin: 0 auto 2em auto;">
 				<thead>
 					<tr>
 						<th style="text-align: center">서버명</th>
@@ -89,6 +90,7 @@
 				</table>
 			
 		   </div>
+		</div>
 		</div>
 	</div>
 </div>
@@ -122,34 +124,32 @@ $(function() {
 
 $(document).ready(function() {
 	
-	$("#errorList").DataTable(
-		{
-			"language" : {
-				'zeroRecords'  : "검색 결과가 없습니다.",
-				'info'		   : "에러 알림 건수 :  _TOTAL_ 개",
-				'infoEmpty'    : "에러 알림 건수 :  _TOTAL_ 개",
-				'infoFiltered' : " ",
-				"lengthMenu"   : "출력 개수 :  _MENU_",
-				'paginate' : { 
-					"first" : "<<",
-	          		  "previous" : "<",
-	          		  "last"  : ">>",
-	           		  "next"  : ">"
-				}
-			},
-			"lengthMenu" : [ 15, 25, 50 ],
-			"lengthChange" : true,
-			"pagingType"   : "full_numbers",
-			"searching" : true,
-			"paging" : true,
-			"ordering" : true,
-			"info" : true,
-			"autoWidth" : false,
-			"dom" : '<"top"<"col-md-4"i><"col-md-6"B><"col-md-2"l>>'
-					+ 'rt' + '<"bottom"<"col-md-8"p><"col-md-4"B>>',
-			"order" : [ [ 4, "desc" ] ]
-		}
-	)
+    var errorList = $("#errorList").DataTable({
+        "language"    : {
+             'zeroRecords'       : "검색결과가 없습니다.",
+             'info'              : "검색결과 :  _TOTAL_ 건",
+             'infoEmpty'         : "검색결과 :  _TOTAL_ 건",
+             'infoFiltered'      : " ",
+             'lengthMenu'        : "표시 개수 :  _MENU_",
+             'paginate'          : {
+                  "first" : "<<",
+                  "previous" : "<",
+                  "last"  : ">>",
+                  "next"  : ">"
+          }
+        },
+        "scrollY"              : 400,
+        "scrollCollapse"       : true,
+        "lengthMenu"           : [ 10, 20, 30 ],
+        "pageLength"           : 10,
+        "pagingType"           : "full_numbers",
+        "dom"                  : '<"top"<"col-md-2"i><"col-md-8"B><"col-md-2"l>>' +
+                                 'rt' +
+                                 '<"bottom"<"col-md-8"p><"col-md-4"B>>',
+        "select"              : "multi",
+        "autoWidth" : false,
+        "ordering": false
+    });
 });
 
 
@@ -159,7 +159,6 @@ function ServerChange(serverIdNum) {
 	//$target.empty();
 	$("#codeCategory").empty();
 	$("#codeCategory").append("<option value=''>전체</option>");
-	alert(serverIdNum)
 	if (serverIdNum == ''){
 		return;
 	}

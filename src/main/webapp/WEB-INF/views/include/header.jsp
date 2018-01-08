@@ -69,11 +69,7 @@
             </form>
 			<br><br>
 			<ul class="sidebar-menu tree" data-widget="tree">
-				<li class="treeview">
-					<a href="/admin">
-						<span>담당자 관리</span>
-					</a>
-				</li>
+				
 				<li class="treeview">
 					<a href="/userInfo"> 
 						<span>사용자 정보</span>
@@ -89,6 +85,11 @@
 						<span>모니터링</span>
 					</a>
 				</li>
+				<li class="treeview">
+                    <a href="/admin">
+                        <span>담당자 관리</span>
+                    </a>
+                </li>
 			</ul>
 		</section>
 	</aside>
