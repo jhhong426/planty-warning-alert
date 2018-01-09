@@ -15,8 +15,7 @@
 	<div class="box" style="min-height:951.444px;">
 		<h3><strong>&emsp;서버 목록</strong></h3>
             <div class="box">
-            <div class="box-body">
-               <div class="row">
+              <div class="box-body">
                  <div class="col-md-2">
                    <select id="serverCategory" class="form-control form-group-inline" onchange="selectChange()" style="display:inline-block">
                      <option value="1">IP</option>
@@ -32,7 +31,6 @@
                  <div class="col-md-1">
                  	<button id="btnRegister" type="button" class="btn btn-success">등록</button>
                  </div>
-               </div>
                
 				<table id="server" class="table table-bordered table-hover display">
 					<thead>
@@ -46,22 +44,25 @@
 					</thead>
 					<tbody style="text-align:center"> 
 						
-						<c:forEach items = "${serverList}" var = "item">
-							<tr>
-					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.serverNm}</a></td>
-					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
-					       		<td>${item.rgsde}</td>
-					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-primary" >수정</button></td>
-					       		<td><form name="" method="post" action="/deleteServer" onsubmit="return deleteConfirm();" style="margin-bottom: 0px;">
-					       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
-					       				<button type="submit" class="btn btn-danger" >삭제</button>
-					       			</form>
-					       		</td>
-				       		</tr>
-      					</c:forEach>
-					
+					<c:forEach items = "${serverList}" var = "item">
+						<tr>
+				       		<td><a href = "/serverInfo?id=${item.serverId }">${item.serverNm}</a></td>
+				       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
+				       		<td>${item.rgsde}</td>
+				       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-primary" >수정</button></td>
+				       		<td><form name="" method="post" action="/deleteServer" onsubmit="return deleteConfirm();" style="margin-bottom: 0px;">
+				       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
+				       				<button type="submit" class="btn btn-danger" >삭제</button>
+				       			</form>
+				       		</td>
+			       		</tr>
+     					</c:forEach>
 					</tbody>
-			    </table>
+		         </table>
+			  </div>
+		  </div>
+	</div>
+</div>
 			    
 			    <!-- 서버 등록 팝업창 기능 -->
 				  <div class="modal fade" id="serverRegisterPopup" role="dialog">
@@ -149,11 +150,6 @@
 				      </div>
 			    	</div>
 			  	  </div> 
-			</div>
-		  </div>
-			 
-	</div>
-</div>
 
 
 <%@include file="include/footer.jsp"%>
