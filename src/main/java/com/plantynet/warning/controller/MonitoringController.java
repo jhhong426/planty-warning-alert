@@ -65,81 +65,60 @@ public class MonitoringController {
 		
 		model.addAttribute("serverList", monitoringService.getServerList(sessionVO.getTeamId()));
 		model.addAttribute("errorLogList", monitoringService.getErrorLogList(sessionVO.getTeamId()));
+		
 		return "monitoringList";
 	}
 	
-	//모니터링 상세 페이지
+	// 모니터링 상세 페이지
 	@RequestMapping(value = "/monitoringServer", method = RequestMethod.GET)
 	public String monitoringServer(Integer serverId, Model model)
 		throws Exception {
 		
+		// 일주일 전 날짜 ~ 오늘 날짜
 		model.addAttribute("today", monitoringService.getDate());
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("serverId", serverId);
 
-		for (int i=0; i<7; i++){
-			map.put("index", i);
-			model.addAttribute("day"+String.valueOf(i), monitoringService.getErrorLineStat(map));
-			model.addAttribute("code"+String.valueOf(i), monitoringService.getErrorLineHover(map));
-		}
-
+		// 해당 서버 정보 (서버명, IP)
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
-		model.addAttribute("errorList", monitoringService.getErrorBarStat(serverId));
+		
+		// 서버 선형 그래프
+		model.addAttribute("serverLineChart", monitoringService.getErrorLineStat(serverId));
+		
+		//서버 막대 그래프
+		model.addAttribute("serverBarChart", monitoringService.getErrorBarStat(serverId));
+		
 		return "monitoringServer";
 	}
 
+	// 모니터링 리스트 페이지의 서버 카테고리 변경 시 해당 서버의 에러코드 목록
 	@ResponseBody
 	@RequestMapping(value = "/monitoringList/changeServer", method = RequestMethod.POST)
 	public Map<String, Object> changeServer(@RequestParam("serverId") int serverId, HttpSession session) 
 		throws Exception {
-		
-	        System.out.println(serverId);
-			Map<String, Object> map = new HashMap<String,Object>();
-			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getCodeList(serverId);
-			for (MonitoringVO monitoringVO : list)
-            {
-                System.out.println(monitoringVO);
-            }
-			map.put("result", list);
-			System.out.println(map);
-
-		return map;
-	}
-	
-	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
-	/*
-	@ResponseBody
-	@RequestMapping(value = "/monitoring/topServer", method = RequestMethod.POST)
-	public Map<String, Object> topServer(@RequestParam("rgsde") int rgsde, HttpSession session) 
-		throws Exception {
 			
 			Map<String, Object> map = new HashMap<String,Object>();
-			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopServer(rgsde);
+			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getCodeList(serverId);
+			
 			map.put("result", list);
-			System.out.println(map);
-
 
 		return map;
 	}
-	*/
-		
-	
+
 	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/monitoringServer/topServer", method = RequestMethod.POST)
-	public Map<String, Object> topServer(@RequestParam("serverId") int serverId, @RequestParam("rgsde") int rgsde,  HttpSession session) 
+	@RequestMapping(value = "/monitoringServer/topCode", method = RequestMethod.POST)
+	public Map<String, Object> topCode(@RequestParam("serverId") int serverId, @RequestParam("rgsde") String rgsde,  HttpSession session) 
 		throws Exception {
 		
-			Map<String, Object> map = new HashMap<String,Object>();
-			map.put("serverId", serverId);
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			HashMap<String, Object> resultMap = new HashMap<String,Object>();
+			
 			map.put("rgsde", rgsde);
-			//List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopCode(map);
-			//map.put("result", list);
-			System.out.println(map);
+			map.put("serverId", serverId);
+			
+			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopCode(map);
+			resultMap.put("result", list);
 
-
-		return map;
+		return resultMap;
 	}
 	
 	private static String[] getDateArrays(){

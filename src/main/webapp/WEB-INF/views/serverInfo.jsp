@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
@@ -69,7 +70,16 @@
 							<h4 id="eventCode">${event.eventCode}</h4>
 						</div>
 						<div class="col-md-4 text-center">
-							<h4 id="description">${event.description}</h4>
+							<h4 id="description" title="${event.description}">
+								<c:choose>
+						         	<c:when test="${fn:length(event.description)>21}">
+						         		<c:out value="${fn:substring(event.description,0,20)}"/>...
+						            </c:when>
+						          	<c:otherwise>
+						            	<c:out value="${event.description}"/>
+						            </c:otherwise> 
+							    </c:choose> 
+							</h4>
 						</div>
 						<div class="col-md-3 text-center">
 							<h4>${event.rgsde}</h4>
@@ -129,6 +139,10 @@
 				<button id="btnAddEvntMngr" type="submit" class="btn btn-primary col-md-offset-1"> 담당자 등록 </button>
 			</div>
 		
+		    </div>
+        </div>
+	</div>
+</div>
 		
 			<!-- 장애코드 수정 팝업창 기능 -->
 			  <div class="modal fade" id="errorUpdatePopup" role="dialog">
@@ -331,10 +345,6 @@
 		    	</div>
 		  	  </div> 
 
-           </div>
-        </div>
-	</div>
-</div>
 
 
 <%@include file="include/footer.jsp"%>

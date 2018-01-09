@@ -15,7 +15,7 @@
         <result property="managerCttpc" column="manager_cttpc" javaType="String"/>
     </resultMap>
 
-	<!-- '일주일 전 날짜 ~ 오늘날짜 ' 출력-->
+	<!-- '일주일 전 날짜 ~ 오늘날짜 ' 출력  // 자바단에서 처리하므로 삭제 예정-->
 	<select id="getDate" resultType="String">
         SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
     </select>
@@ -44,7 +44,7 @@
     </select>
     
     <!-- Global Line Chart Tooltip : 사용자가 속해있는 팀의 서버에서 해당일에 발생한 서버 TOP5의 이름과 에러 건수를 출력 -->
-	<select id="getGlobalLineStatTooltip" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+	<select id="getTopServer" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT server_id, count(*) AS count
         FROM EVENT_HISTORY
         WHERE DATE_FORMAT(rgsde, '%Y-%m-%d') = FROM_UNIXTIME(FLOOR(${rgsde}/1000), '%Y-%m-%d')
@@ -74,40 +74,70 @@
 		AND n.manager_id=m.manager_id
 		AND m.team_id=#{teamId}
     </select>
-    
-    <!-- 서버의 간단한 정보 출력(지금은 사용하지 않음, 삭제예정) -->
-    <select id="getServerInfo" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT server_nm, ip
-        FROM SERVER
-        WHERE server_id=#{serverId}
-    </select>
-    
-    <!-- Server Line Chart : 오늘로부터 index일 전에 한 서버(serverId)에서 발생한 모든 에러 건수 -->
-    <select id="getErrorLineStat" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-		SELECT DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY AS logde ,IFNULL(count(*), 0) AS count
-		FROM NOTIFICATION_HISTORY
-		WHERE DATE_FORMAT(rgsde, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY
-		AND server_id=${serverId}
+
+    <!-- Server Line Chart : 오늘을 포함한 일주일 전까지 한 서버(serverId)에서 발생한 모든 에러 건수 -->
+    <select id="getErrorLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+		<![CDATA[
+		SELECT 
+			TT.date as rgsde,
+    		IFNULL(CT.cnt, 0) AS count
+		FROM 
+			(	
+			SELECT 
+				DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -ROWNUM+1 DAY), '%m/%d') AS date
+			FROM 
+				(
+				SELECT 
+                	DATE_FORMAT(NOW(), '%m/%d') as rgsde
+				) A 
+			INNER JOIN 	
+				(	
+				SELECT
+					@ROWNUM := @ROWNUM + 1 AS ROWNUM
+					FROM NOTIFICATION_HISTORY, (SELECT @ROWNUM := 0) R
+            		ORDER BY ntfc_id ASC
+            		LIMIT 7
+				) B
+			ON 1 = 1
+			) TT
+			LEFT OUTER JOIN
+				(
+				SELECT 
+        			DATE_FORMAT(rgsde, '%m/%d') AS rgsde,
+        			server_id,
+        			COUNT(*) AS cnt
+				FROM
+					EVENT_HISTORY 
+    			WHERE server_id=#{serverId}
+				GROUP BY DATE_FORMAT(rgsde, '%m/%d')	
+			) CT
+			ON TT.date = CT.rgsde	
+			WHERE TT.date >=  DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%m/%d') 
+			AND TT.date <= DATE_FORMAT(NOW(), '%m/%d')
+			ORDER BY rgsde ASC
+			]]>
     </select>
     
     <!-- Server Line Chart Tooltip : 사용자가 속해있는 팀의 서버에서 해당일에 발생한 에러 TOP5의 이름과 건수를 출력 -->
-    <select id="getErrorLineStatTooltip" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-		SELECT event_code, count(*) AS count
-        FROM NOTIFICATION_HISTORY
-        WHERE DATE_FORMAT(rgsde, '%Y-%m-%d') = FROM_UNIXTIME(FLOOR(${rgsde}/1000), '%Y-%m-%d')
-        AND server_id=${serverId}
-        GROUP BY event_id
+    <select id="getTopCode" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT h.event_id AS event_id, e.event_code AS event_code, count(*) AS count
+        FROM EVENT_HISTORY h, EVENT e
+        WHERE DATE_FORMAT(h.rgsde, '%m/%d') LIKE #{rgsde}
+        AND e.event_id=h.event_id
+        AND h.server_id=#{serverId}
+        GROUP BY h.event_id
         ORDER BY count DESC
-        LIMIT 5
+        LIMIT 5;
     </select>
     
     <!-- Server Bar Chart : 오늘로부터 7일 이전까지 한 서버(serverId)에서 발생한 에러코드를 건수가 가장 많은 순서대로 5개를 추출 -->
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_code, count(*) AS count
-        FROM NOTIFICATION_HISTORY
-        WHERE rgsde > (CURDATE() - INTERVAL 6 DAY)
-        AND server_id=#{serverId}
-        GROUP BY event_id
+        SELECT h.event_id AS event_id, e.event_code AS event_code, count(*) AS count
+        FROM EVENT_HISTORY h, EVENT e
+        WHERE h.rgsde > (CURDATE() - INTERVAL 6 DAY)
+        AND h.server_id=#{serverId}
+        AND h.event_id=e.event_id
+        GROUP BY h.event_id
         ORDER BY count DESC
         LIMIT 5
     </select>
@@ -138,6 +168,5 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
           WHERE team_id = #{teamId} 
           GROUP BY date)AS a;
     </select>
-
 
 </mapper>

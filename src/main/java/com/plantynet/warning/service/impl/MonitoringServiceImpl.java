@@ -37,6 +37,8 @@ public class MonitoringServiceImpl implements MonitoringService{
 	public List<MonitoringVO> getGlobalBarStat(Integer teamId) {
 		return monitoringDAO.getGlobalBarStat(teamId);
 	}
+	
+	// 모니터링 리스트 페이지
 	@Override
 	public List<MonitoringVO> getServerList(Integer teamId) {
 		return monitoringDAO.getServerList(teamId);
@@ -49,13 +51,11 @@ public class MonitoringServiceImpl implements MonitoringService{
 	public List<MonitoringVO> getErrorLogList(Integer teamId) {
 		return monitoringDAO.getErrorLogList(teamId);
 	}
+
+	// 모니터링 상세 페이지
 	@Override
-	public List<MonitoringVO> getServerInfo(int serverId) {
-		return monitoringDAO.getServerInfo(serverId);
-	}
-	@Override
-	public List<MonitoringVO> getErrorLineStat(HashMap<String, Object> map) {
-		return monitoringDAO.getErrorLineStat(map);
+	public List<MonitoringVO> getErrorLineStat(Integer serverId) {
+		return monitoringDAO.getErrorLineStat(serverId);
 	}
 	@Override
 	public List<MonitoringVO> getTopCode(HashMap<String, Object> map) {
@@ -78,10 +78,5 @@ public class MonitoringServiceImpl implements MonitoringService{
         return temp;
     }
 	
-    
 
-    
-    
-    
-	
 }
