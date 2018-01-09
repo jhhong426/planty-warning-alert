@@ -12,10 +12,6 @@ public interface MonitoringDAO {
     
 	public String getDate();
     
-    public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map);
-    public List<MonitoringVO> getTopServer(HashMap<String, Object> map);
-    public List<MonitoringVO> getGlobalBarStat(Integer teamId);
-    
     // 모니터링 리스트 페이지
     public List<MonitoringVO> getServerList(Integer teamId);
     public List<MonitoringVO> getCodeList(int serverId);
