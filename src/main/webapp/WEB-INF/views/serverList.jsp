@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -74,7 +74,7 @@
 				          <h4>서버 등록</h4>
 				        </div>
 				        <div class="modal-body" style="padding:40px 50px;">
-				          <form role="form" action = "/addServer" method = "get" onsubmit="return isConflict();">
+				          <form role="form" action = "/addServer" method = "post" onsubmit="return isConflict();" accept-charset="utf-8">
 					          <table class="table" style="width:500px;" align="center">
 								<tbody>
 									<tr>
@@ -86,7 +86,7 @@
 									<tr>
 										<th style="text-align:center">&emsp;&emsp;I P&ensp;&ensp;</th>
 											<td>
-												<input id="registerIp" name="ip"  style="width:375px; text-align:center">
+												<input id="registerIp" maxlength="15" name="ip"  style="width:375px; text-align:center">
 											</td>
 									</tr>
 									<tr>
@@ -271,18 +271,52 @@
 		var ip = $("#registerIp").val();
 		var serverNm = $("#registerServerNm").val();
 		
+		if(!(/\d+\.\d+\.\d+\.\d+/.test(ip)) || !(ip.match(/\d+\.\d+\.\d+\.\d+/)==ip)){
+			alert("잘못된 IP 입니다");
+			return false;
+		}
+		
 		if(ip == "" || serverNm == ""){
 			alert("모든항목을 입력해주세요");
 			return false;
 		}
 		
-		<c:forEach items="${serverList}" var="item">
-			if(ip == "${item.ip}" && serverNm == "${item.serverNm}"){
-				alert("ip와 서버명이 동일한 값이 있습니다.");
-				return false;
-			}
-		</c:forEach>
-		return true;
+		 var flag = false;
+		 $.ajax({
+	            type : "POST",
+	            url :"/checkServerList",
+	            data : {serverNm : serverNm , ip : ip},
+	            async: false,
+	            error : function(){
+	                alert('통신실패!!');
+	                return false;
+	            },
+	            success : function(data){
+	            	if(data["isIpExist"] == true){
+	            		alert("이미 존재하는 IP 입니다.");
+	            		flag = false;
+	            		return false;
+	            	}
+	            	
+	            	if(data["isServerNmExist"] == true){
+	            		alert("이미 존재하는 서버명 입니다.");
+	            		flag = false;
+	            		return false;
+	            	}
+	            	
+	            	if(data["isIpExist"] == false && data["isServerNmExist"] == false){
+	            		flag = true;
+	            		return false;
+	            	}
+	            }
+	        });
+		 
+		 if(flag == true){
+			return true;
+		}else{
+			return false
+		}		 
+		 
 	}
 	
 </script>

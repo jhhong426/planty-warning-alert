@@ -25,10 +25,12 @@ public class ServerListDAOImpl implements ServerListDAO {
 	public List<ServerVO> getServerListByIp(String ip) {
 		return sqlSession.selectList(namespace + ".getServerListByIp", ip);
 	}
+	
+
 
 	@Override
-	public List<ServerVO> getServerListByServerNm(String serverNm) {
-		return sqlSession.selectList(namespace + ".getServerListByServerNm", serverNm);
+	public List<ServerVO> getServerListByServerNmAndTeamId(ServerVO serverVO) {
+		return sqlSession.selectList(namespace + ".getServerListByServerNmAndTeamId", serverVO);
 	}
 
 	@Override
@@ -47,5 +49,16 @@ public class ServerListDAOImpl implements ServerListDAO {
 	public void updateServer(ServerVO serverVO) {
 		sqlSession.update(namespace + ".updateServer", serverVO);
 	}
+	
+	
+	public void deleteEventByServerId(int serverId) {
+		sqlSession.update(namespace + ".deleteEventByServerId", serverId);
+	}
+	
+	public void deleteEventHistoryByServerId(int serverId) {
+		sqlSession.delete(namespace + ".deleteEventHistoryByServerId", serverId);
+	}
+	
+	
 
 }
