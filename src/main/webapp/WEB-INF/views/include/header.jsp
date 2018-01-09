@@ -45,7 +45,10 @@
 <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
 	<header class="main-header"">
-	    <span id="title">&ensp;장애 알림 관리 시스템</span>
+	    <!--  <span id="title">&ensp;장애 알림 관리 시스템</span> -->
+	    <div id="title">
+	       <img src="/resources/dist/img/title.PNG" height="80px">
+	    </div>
     </header>
 	<aside class="main-sidebar">
 		<section class="sidebar" style="height: 951.444px;">
@@ -66,11 +69,7 @@
             </form>
 			<br><br>
 			<ul class="sidebar-menu tree" data-widget="tree">
-				<li class="treeview">
-					<a href="/admin">
-						<span>담당자 관리</span>
-					</a>
-				</li>
+				
 				<li class="treeview">
 					<a href="/userInfo"> 
 						<span>사용자 정보</span>
@@ -86,6 +85,11 @@
 						<span>모니터링</span>
 					</a>
 				</li>
+				<li class="treeview">
+                    <a href="/admin">
+                        <span>담당자 관리</span>
+                    </a>
+                </li>
 			</ul>
 		</section>
 	</aside>

@@ -42,5 +42,11 @@ public class NotificationServiceImpl implements NotificationService
     {
         return dao.ipAllowCheck(ip);
     }
+
+    @Override
+    public void plusEventHistory(ParamVO vo)
+    {
+        dao.plusEventHistory(vo);
+    }
     
 }

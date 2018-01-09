@@ -7,7 +7,7 @@
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
-		<h2><strong>&emsp;모니터링</strong></h2>
+		<h3><strong>&emsp;모니터링 > 상세목록 > 서버별 장애 통계</strong></h3>
 		
 		<div class="box">
 			<div class="box-header">
