@@ -24,6 +24,7 @@ import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.service.ServerInfoService;
 import com.plantynet.warning.vo.MonitoringVO;
 import com.plantynet.warning.vo.SessionVO;
+import com.plantynet.warning.vo.TeamTopFiveVO;
 
 @Controller
 public class MonitoringController {
@@ -45,13 +46,22 @@ public class MonitoringController {
 		Collection<Integer> dailyStatValue = monitoringService.getDailyStat(sessionVO);
 		String[] dailyStatDate = getDateArrays();
 		
-		for (String string : dailyStatDate)
+		
+		List<TeamTopFiveVO> topVo = monitoringService.getTeamTopFive(sessionVO);
+		ArrayList<String> topFiveSerNm = new ArrayList<>();
+		ArrayList<Integer> topFiveCnt = new ArrayList<>();
+		
+		for ( TeamTopFiveVO vo : topVo)
         {
-            System.out.println(string);
+            topFiveSerNm.add(vo.getServerNm());
+            topFiveCnt.add(vo.getCount());
         }
+		
 		
 		model.addAttribute("dailyStatValue",dailyStatValue);
 		model.addAttribute("dailyStatDate",dailyStatDate);
+		model.addAttribute("topFiveSerNm", topFiveSerNm);
+		model.addAttribute("topFiveCnt", topFiveCnt);
 		
 		return "monitoring";
 	}

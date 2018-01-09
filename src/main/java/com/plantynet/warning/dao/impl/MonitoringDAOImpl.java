@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.vo.MonitoringVO;
 import com.plantynet.warning.vo.SessionVO;
+import com.plantynet.warning.vo.TeamTopFiveVO;
 
 @Repository
 public class MonitoringDAOImpl implements MonitoringDAO{
@@ -66,5 +67,10 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     public Map<String, Integer> getDailyStat(SessionVO vo)
     {
         return sqlSession.selectOne(namespace+".getDailyStat", vo);
+    }
+    @Override
+    public List<TeamTopFiveVO> getTeamTopFive(SessionVO vo)
+    {
+        return sqlSession.selectList(namespace+".getTeamTopFive", vo);
     }
 }

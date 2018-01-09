@@ -168,5 +168,16 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
           WHERE team_id = #{teamId} 
           GROUP BY date)AS a;
     </select>
+    
+    <select id="getTeamTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+		SELECT server_nm as serverNm, count(*) as count 
+		FROM EVENT_HISTORY 
+		JOIN SERVER
+		ON EVENT_HISTORY.server_id = SERVER.server_id
+		WHERE DATE(EVENT_HISTORY.rgsde) >= DATE(SUBDATE(NOW(), INTERVAL '6' DAY)) AND EVENT_HISTORY.team_id = #{teamId}
+		GROUP BY EVENT_HISTORY.server_id
+		ORDER BY count DESC
+		LIMIT 5
+    </select>
 
 </mapper>

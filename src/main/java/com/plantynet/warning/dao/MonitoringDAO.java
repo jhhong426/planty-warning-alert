@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.plantynet.warning.vo.MonitoringVO;
 import com.plantynet.warning.vo.SessionVO;
+import com.plantynet.warning.vo.TeamTopFiveVO;
 
 public interface MonitoringDAO {
     
@@ -26,5 +27,6 @@ public interface MonitoringDAO {
     public List<MonitoringVO> getErrorBarStat(int serverId);
     
     public Map<String, Integer> getDailyStat(SessionVO vo);
+    public List<TeamTopFiveVO> getTeamTopFive(SessionVO vo);
 
 }

@@ -13,6 +13,7 @@ import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.vo.MonitoringVO;
 import com.plantynet.warning.vo.SessionVO;
+import com.plantynet.warning.vo.TeamTopFiveVO;
 import com.plantynet.warning.vo.MonitoringVO;
 
 @Service
@@ -70,9 +71,13 @@ public class MonitoringServiceImpl implements MonitoringService{
     public Collection<Integer> getDailyStat(SessionVO vo)
     {
         Map<String, Integer> map = monitoringDAO.getDailyStat(vo);
-        System.out.println(map);
         Collection<Integer> temp = map.values();
         return temp;
+    }
+    @Override
+    public List<TeamTopFiveVO> getTeamTopFive(SessionVO vo)
+    {
+        return monitoringDAO.getTeamTopFive(vo);
     }
 
 }

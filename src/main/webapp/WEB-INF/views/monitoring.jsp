@@ -71,23 +71,31 @@
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
 <script>
-
-function DateParsing(arg) {
-	var splitArg = arg.split("-");
-	var stringArg = splitArg[0] + splitArg[1] + splitArg[2];
-	var intArg = parseInt(stringArg);
-	return intArg;
-};
-
+//line 그래프의 x 값 매칭
 var lineSeriesData = [];
 <c:forEach items="${dailyStatValue}" var="item">
 lineSeriesData.push(parseInt("${item}"));
 </c:forEach>
 
-var lineDate = [];
+//line 그래프 y 값 매칭
+ var lineDate = [];
 <c:forEach items="${dailyStatDate}" var="item">
 lineDate.push("${item}");
+</c:forEach> 
+
+//bar 그래프 x 값 매칭
+var barServerNm = [];
+<c:forEach items="${topFiveSerNm}" var="item">
+barServerNm.push("${item}");
 </c:forEach>
+
+//line 그래프의 x 값 매칭
+var barSeriesData = [];
+<c:forEach items="${topFiveCnt}" var="item">
+barSeriesData.push(parseInt("${item}"));
+</c:forEach>
+
+
 
 Highcharts.chart('line-chart', {
     chart: {
@@ -95,6 +103,9 @@ Highcharts.chart('line-chart', {
     },
     title: {
         text: '장애 발생 일간 통계'
+    },
+    subtitle: {
+        text: '일간 장애 발생 총 건수'
     },
     xAxis: {
         categories: lineDate,
@@ -135,10 +146,10 @@ Highcharts.chart('bar-chart', {
         text: '주간 TOP 5'
     },
     subtitle: {
-        text: '에러코드 발생 주간 TOP 5'
+        text: '장애 발생 서버 TOP 5'
     },
     xAxis: {
-        categories : ["메롱","메롱","메롱","메롱","메롱"]
+        categories : barServerNm
     },
     yAxis: {
         title: {
@@ -165,9 +176,9 @@ Highcharts.chart('bar-chart', {
     },
 
     series: [{
-        name: '에러코드',
+        name: '발생 건수',
         colorByPoint: true,
-        data: [1,2,3,4,5]
+        data: barSeriesData
     }]
              
 });
