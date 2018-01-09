@@ -61,13 +61,10 @@ public class MonitoringServiceImpl implements MonitoringService{
 	public List<MonitoringVO> getTopCode(HashMap<String, Object> map) {
 		return monitoringDAO.getTopCode(map);
 	}
+	
 	@Override
 	public List<MonitoringVO> getErrorBarStat(int serverId) {
 		return monitoringDAO.getErrorBarStat(serverId);
-	}
-	@Override
-	public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map) {
-		return monitoringDAO.getErrorLineHover(map);
 	}
     @Override
     public Collection<Integer> getDailyStat(SessionVO vo)
@@ -77,6 +74,5 @@ public class MonitoringServiceImpl implements MonitoringService{
         Collection<Integer> temp = map.values();
         return temp;
     }
-	
 
 }

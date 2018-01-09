@@ -25,9 +25,6 @@ public interface MonitoringDAO {
     public List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     public List<MonitoringVO> getErrorBarStat(int serverId);
     
-    // 사용, 그러나 변경 후삭제 예정
-    public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map);
-    
     public Map<String, Integer> getDailyStat(SessionVO vo);
 
 }

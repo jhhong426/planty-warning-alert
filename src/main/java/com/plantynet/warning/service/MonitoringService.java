@@ -27,8 +27,6 @@ public interface MonitoringService {
     List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     List<MonitoringVO> getErrorBarStat(int serverId);
     
-    List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map);
-    
     public Collection<Integer> getDailyStat(SessionVO vo);
 
 }
