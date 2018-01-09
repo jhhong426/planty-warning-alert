@@ -173,9 +173,7 @@ var errorList = $("#errorList").DataTable({
 
 
 function ServerChange(serverIdNum) {
-	//var $target = $("select[name='codeCategory']")
-	
-	//$target.empty();
+
 	$("#codeCategory").empty();
 	$("#codeCategory").append("<option value=''>전체</option>");
 
@@ -251,7 +249,7 @@ function Search() {
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 		var min = parseInt(dateParsing($('#preDate').val()));
 		var max = parseInt(dateParsing($('#postDate').val()));
-		var age = parseFloat(dateParsing(data[6])) || 0;   // use data for the age column
+		var age = parseFloat(dateParsing(data[6])) || 0; 
 
 		if ((isNaN(min) && isNaN(max)) || (isNaN(min) && age <= max)
 				|| (min <= age && isNaN(max))

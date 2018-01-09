@@ -13,19 +13,13 @@ public interface MonitoringDAO {
     public List<MonitoringVO> getTopServer(HashMap<String, Object> map);
     public List<MonitoringVO> getGlobalBarStat(Integer teamId);
     
+    // 모니터링 리스트 페이지
     public List<MonitoringVO> getServerList(Integer teamId);
     public List<MonitoringVO> getCodeList(int serverId);
     public List<MonitoringVO> getErrorLogList(Integer teamId);
     
-    // 사용 안함
-    public List<MonitoringVO> getServerInfo(int serverId);
-    
+    // 모니터링 상세 페이지
     public List<MonitoringVO> getErrorLineStat(Integer serverId);
     public List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     public List<MonitoringVO> getErrorBarStat(int serverId);
-    
-    // 사용, 그러나 변경 후삭제 예정
-    public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map);
-    
-    
 }
