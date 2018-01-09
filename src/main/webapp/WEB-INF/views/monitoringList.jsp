@@ -19,13 +19,12 @@
 		<div class="box-body">
 			<div class="row">
 				<br>
-				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:30%">
+				<h4 class="" style="float:left; width:20%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:50%">
 					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 					&emsp;~&emsp;
 					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 				</div>
-				<div class="" style="float:left; width:60%"></div>
 			</div>
 			<div class="row">
 				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;서&ensp;버&ensp;명 &ensp;: </strong></h4>

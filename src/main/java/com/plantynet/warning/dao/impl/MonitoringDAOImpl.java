@@ -2,12 +2,14 @@ package com.plantynet.warning.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SessionVO;
 
 @Repository
 public class MonitoringDAOImpl implements MonitoringDAO{
@@ -63,5 +65,10 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     @Override
     public List<MonitoringVO> getErrorBarStat(int serverId){
     	return sqlSession.selectList(namespace+".getErrorBarStat", serverId);
+    }
+    @Override
+    public Map<String, Integer> getDailyStat(SessionVO vo)
+    {
+        return sqlSession.selectOne(namespace+".getDailyStat", vo);
     }
 }

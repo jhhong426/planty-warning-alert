@@ -121,6 +121,23 @@
         ORDER BY count DESC
         LIMIT 5
     </select>
+    
+    
+    <select id="getDailyStat" resultType="java.util.Map">
+SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '5' DAY)) THEN cnt END),0) as "02",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '4' DAY)) THEN cnt END),0) as "03",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '3' DAY)) THEN cnt END),0) as "04",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '2' DAY)) THEN cnt END),0) as "05",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '1' DAY)) THEN cnt END),0) as "06",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '0' DAY)) THEN cnt END),0) as "07"
+         FROM 
+         (SELECT DATE(rgsde) AS date,
+                 count(rgsde) cnt
+          FROM EVENT_HISTORY
+          WHERE team_id = #{teamId} 
+          GROUP BY date)AS a;
+    </select>
 
 
 </mapper>

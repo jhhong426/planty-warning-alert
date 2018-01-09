@@ -2,8 +2,10 @@ package com.plantynet.warning.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SessionVO;
 
 public interface MonitoringDAO {
     
@@ -26,6 +28,8 @@ public interface MonitoringDAO {
     
     // 사용, 그러나 변경 후삭제 예정
     public List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map);
+    
+    public Map<String, Integer> getDailyStat(SessionVO vo);
     
     
 }
