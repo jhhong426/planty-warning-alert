@@ -17,8 +17,8 @@
 					<h4><strong>서&emsp;&emsp;버&ensp;:&ensp;</strong>${serverInfo.serverNm}</h4>
 					<h4><strong>&ensp;I&emsp;&emsp;&ensp;P&ensp; :&ensp;</strong>${serverInfo.ip}</h4>
 				</div>
-				<div class="" style="float:right; width:5%">
-					<a href = "/monitoringList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>목록으로</strong></button>
+				<div class="" style="float:left; width:5%">
+					<a href = "/serverList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>서버 목록으로</strong></button></a>
 				</div>
 			</div>
 			
