@@ -2,12 +2,15 @@ package com.plantynet.warning.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SessionVO;
+import com.plantynet.warning.vo.TeamTopFiveVO;
 
 @Repository
 public class MonitoringDAOImpl implements MonitoringDAO{
@@ -19,18 +22,6 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     @Override
     public String getDate(){
     	return sqlSession.selectOne(namespace+".getDate");
-    }
-    @Override
-    public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map){
-    	return sqlSession.selectList(namespace+".getGlobalLineStat", map);
-    }
-    @Override
-    public List<MonitoringVO> getTopServer(HashMap<String, Object> map){
-    	return sqlSession.selectList(namespace+".getTopServer", map);
-    }
-    @Override
-    public List<MonitoringVO> getGlobalBarStat(Integer teamId){
-    	return sqlSession.selectList(namespace+".getGlobalBarStat", teamId);
     }
     
     // 모니터링 리스트 페이지
@@ -59,5 +50,15 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     @Override
     public List<MonitoringVO> getErrorBarStat(int serverId){
     	return sqlSession.selectList(namespace+".getErrorBarStat", serverId);
+    }
+    @Override
+    public Map<String, Integer> getDailyStat(SessionVO vo)
+    {
+        return sqlSession.selectOne(namespace+".getDailyStat", vo);
+    }
+    @Override
+    public List<TeamTopFiveVO> getTeamTopFive(SessionVO vo)
+    {
+        return sqlSession.selectList(namespace+".getTeamTopFive", vo);
     }
 }

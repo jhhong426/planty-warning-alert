@@ -2,6 +2,7 @@ package com.plantynet.warning.controller;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,13 +46,35 @@ public class ServerInfoController {
         return "serverList";
     }
     
-    @RequestMapping(value = "/searchServer", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkServerList", method = RequestMethod.POST)
+    public @ResponseBody HashMap<String,Boolean> checkServerList(Model model,HttpSession session, ServerVO serverVO){
+    	HashMap<String,Boolean> map = new HashMap<>();
+    	System.out.println("ip:"+serverVO.getIp() + "\nserverNm:" + serverVO.getServerNm());
+    	SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
+    	serverVO.setTeamId(sessionVO.getTeamId());
+    	List<ServerVO> serverListByIp = serverListService.getServerListByIp(serverVO.getIp());
+    	List<ServerVO> serverListByServerNm = serverListService.getServerListByServerNmAndTeamId(serverVO);
+    	if(serverListByIp.size()==0) {
+    		map.put("isIpExist", false);
+    	}else {
+    		map.put("isIpExist", true);
+    	}
+    	
+    	if(serverListByServerNm.size()==0) {
+    		map.put("isServerNmExist", false);
+    	}else {
+    		map.put("isServerNmExist", true);
+    	}
+    	return map;
+    }
+    
+   /* @RequestMapping(value = "/searchServer", method = RequestMethod.GET)
     public String serverListBy(Model model,@RequestParam("method") String method,@RequestParam("keyword")String keyword){
     	List<ServerVO> serverList;
     	if(method.equals("serverNm")) {
     		serverList = serverListService.getServerListByServerNm(keyword);
     	}else if(method.equals("ip")) {
-    		serverList =serverListService.getServerListByIp(keyword);
+    		serverList =serverListService.getServerListByIpInTeam(keyword);
     	}else {
     		System.out.println("값이 이상한데 .? \n메소드:"+method + "\n 키워드:"+keyword);
     		serverList = null;
@@ -59,15 +82,16 @@ public class ServerInfoController {
     	System.out.println(method +keyword);
     	model.addAttribute("serverList",serverList);
         return "serverList";
-    }
+    }*/
     
-    @RequestMapping(value = "/addServer", method = RequestMethod.GET)
+    @RequestMapping(value = "/addServer", method = RequestMethod.POST)
     public String addServer(Model model, ServerVO serverVO,HttpSession session ){
     	System.out.println("삽입 수행\n ip:"+serverVO.getIp()+"\n serverNm :"+serverVO.getServerNm());
     	SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
     	int teamId = sessionVO.getTeamId();
     	serverVO.setTeamId(teamId);
     	serverListService.addServer(serverVO);
+    	System.out.println("서버 추가 완료");
         return "redirect:/serverList";
     }
     

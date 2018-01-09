@@ -71,9 +71,9 @@
 						<tr>
 							<th style="text-align:center">&ensp;휴&ensp;대&ensp;폰</th>
 					         	<td>
-					         		<input id = "phoneNo1" type="text" name="phoneNo1" value="010" style="width:90px; text-align:center"> -
-					             	<input id = "phoneNo2" type="text" name="phoneNo2" style="width:130px; text-align:center"> -
-					             	<input id = "phoneNo3" type="text" name="phoneNo3" style="width:130px; text-align:center">
+					         		<input id = "phoneNo1" type="text" name="phoneNo1"  value="010" style="width:90px; text-align:center" maxlength="4"> -
+					             	<input id = "phoneNo2" type="text" name="phoneNo2" style="width:130px; text-align:center" maxlength="4"> -
+					             	<input id = "phoneNo3" type="text" name="phoneNo3" style="width:130px; text-align:center" maxlength="4">
 					        	</td>
 						</tr>      
 						<tr>
@@ -127,6 +127,11 @@
 	function check(){
 		if( $("#managerNm").val()=="" || $("#phoneNo1").val()=="" || $("#phoneNo2").val()=="" || $("#phoneNo3").val()=="" || $("#email1").val()=="" || $("#email2").val()=="" || $("#loginId").val()==""|| $("#loginPassword").val()==""){
 			alert("모든항목을 입력해주세요");
+			return false;
+		}
+		
+		if(/\D/.test($("#phoneNo1").val()) || /\D/.test($("#phoneNo2").val()) || /\D+/.test($("#phoneNo3").val()) ){
+			alert("휴대폰 번호가 올바르지 않습니다.");
 			return false;
 		}
 		

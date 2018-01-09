@@ -2,6 +2,11 @@ package com.plantynet.warning.controller;
 
 import org.springframework.ui.Model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +24,7 @@ import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.service.ServerInfoService;
 import com.plantynet.warning.vo.MonitoringVO;
 import com.plantynet.warning.vo.SessionVO;
+import com.plantynet.warning.vo.TeamTopFiveVO;
 
 @Controller
 public class MonitoringController {
@@ -37,14 +43,26 @@ public class MonitoringController {
 		
 		model.addAttribute("today", monitoringService.getDate());
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("teamId", sessionVO.getTeamId());
+		Collection<Integer> dailyStatValue = monitoringService.getDailyStat(sessionVO);
+		String[] dailyStatDate = getDateArrays();
 		
-		for (int i=0; i<7; i++){
-			map.put("index", i);
-			model.addAttribute("day"+String.valueOf(i), monitoringService.getGlobalLineStat(map));
-		}
-		model.addAttribute("serverList", monitoringService.getGlobalBarStat(sessionVO.getTeamId()));
+		
+		List<TeamTopFiveVO> topVo = monitoringService.getTeamTopFive(sessionVO);
+		ArrayList<String> topFiveSerNm = new ArrayList<>();
+		ArrayList<Integer> topFiveCnt = new ArrayList<>();
+		
+		for ( TeamTopFiveVO vo : topVo)
+        {
+            topFiveSerNm.add(vo.getServerNm());
+            topFiveCnt.add(vo.getCount());
+        }
+		
+		
+		model.addAttribute("dailyStatValue",dailyStatValue);
+		model.addAttribute("dailyStatDate",dailyStatDate);
+		model.addAttribute("topFiveSerNm", topFiveSerNm);
+		model.addAttribute("topFiveCnt", topFiveCnt);
+		
 		return "monitoring";
 	}
 	
@@ -111,6 +129,22 @@ public class MonitoringController {
 			resultMap.put("result", list);
 
 		return resultMap;
+	}
+	
+	private static String[] getDateArrays(){
+	    
+	    String[] dateArray = new String[7];
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd");
+        
+        Calendar cal = Calendar.getInstance();
+        
+        for (int i = 6; i >= 0; i--)
+        {
+            dateArray[i] = formatter.format(cal.getTime());
+            cal.add(Calendar.DATE, -1);
+        }
+        
+        return dateArray;
 	}
 	
 }

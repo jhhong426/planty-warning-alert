@@ -17,7 +17,11 @@
 					<h4><strong>서&emsp;&emsp;버&ensp;:&ensp;</strong>${serverInfo.serverNm}</h4>
 					<h4><strong>&ensp;I&emsp;&emsp;&ensp;P&ensp; :&ensp;</strong>${serverInfo.ip}</h4>
 				</div>
+				<div class="" style="float:left; width:5%">
+					<a href = "/serverList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>서버 목록으로</strong></button></a>
+				</div>
 			</div>
+			
 			
             <div class="box-body">
 				<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
@@ -49,8 +53,8 @@ var date = new Array();
 var eventCount = new Array();
 
 <c:forEach var="item" items="${serverLineChart}" varStatus="status">
-	date[${status.index}] = "${item.rgsde}";
-	eventCount[${status.index}] = parseInt("${item.count}");
+	date[<c:out value="${status.index}" />] = "${item.rgsde}";
+	eventCount[<c:out value="${status.index}" />] = parseInt("${item.count}");
 </c:forEach>
 
 // 선형 그래프
@@ -68,22 +72,56 @@ var eventCount = new Array();
 $('#line-chart').highcharts( {
     chart: {
         type: 'spline',
-        zoomType: 'x'  
     },
     title: {
-        text: '<strong>장애 일간 통계</strong>'
+        text: '장애 일간 통계',
+        style: {
+        	color: 'black',
+        	fontWeight: 'bold',
+        	fontSize: '24px'
+        }
     },
     xAxis: {
         categories : date,
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold'
+            }
+        },
         title: {
-            text: '월/일'
+            text: '월/일',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '18px'
+            }
         }
     },
     yAxis: {
         title: {
-            text: '서버 발생 총 건수 (건)'
+            text: '서버 발생 총 건수 (건)',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '15px'
+            }
+        },
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: '15px'
+            }
         },
         min: 0
+    },
+    plotOptions: {
+    	spline: {
+    		dataLabels: {
+    			enabled: true
+    		}
+    	}
     },
     tooltip: {
     	formatter : function() {
@@ -93,7 +131,7 @@ $('#line-chart').highcharts( {
                 type: "POST",
                 url: "/monitoringServer/topCode",
                 async:false,
-                data: { serverId : ${serverInfo.serverId}, rgsde : this.x },
+                data: { serverId : <c:out value="${serverInfo.serverId}" />, rgsde : this.x },
                 dataType: "json",
                 success: function(data){
                 	
@@ -118,7 +156,10 @@ $('#line-chart').highcharts( {
     	}
     },
     series: [{
-        name: 'TOP 5',
+    	showInLegend: false,
+    	label: {
+    		enabled: false
+    	},
         data: eventCount
     }]
 });
@@ -129,15 +170,46 @@ Highcharts.chart('bar-chart', {
         type: 'column'
     },
     title: {
-        text: '<strong>장애 TOP 5</strong>'
+        text: '장애 TOP 5',
+        style: {
+        	color: 'black',
+        	fontWeight: 'bold',
+        	fontSize: '24px'
+        }
     },
     xAxis: {
-        type: 'category'
+    	title: {
+            text: '에러코드',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '18px'
+            }
+        },
+    	type: 'category',
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold'
+            }
+        }
     },
     yAxis: {
         title: {
-            text: '발생 건수'
-        }
+            text: '발생 건수 (건)',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '15px'
+            }
+        },
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: '15px'
+            }
+        },
     },
     legend: {
         enabled: false
@@ -161,10 +233,10 @@ Highcharts.chart('bar-chart', {
         data: [
         	<c:forEach var="item" items="${serverBarChart}" varStatus="status">
         	{
-	        	name: '${item.eventCode}',
-	            y: ${item.count}
+	        	name: '<c:out value="${item.eventCode}" />',
+	            y: <c:out value="${item.count}" />
         	}
-        	<c:if test="${!status.last}">, </c:if>
+        	<c:if test="${!status.last}"><c:out value=","/> </c:if>
         	</c:forEach>
         	]
     }]

@@ -22,9 +22,10 @@ public class ServerListServiceImpl implements ServerListService {
 	public List<ServerVO> getServerListByIp(String ip) {
 		return dao.getServerListByIp(ip);
 	}
+	
 
-	public List<ServerVO> getServerListByServerNm(String ServerNm) {
-		return dao.getServerListByServerNm(ServerNm);
+	public List<ServerVO> getServerListByServerNmAndTeamId(ServerVO serverVO) {
+		return dao.getServerListByServerNmAndTeamId(serverVO);
 	}
 
 	public void addServer(ServerVO serverVo) {
@@ -33,6 +34,9 @@ public class ServerListServiceImpl implements ServerListService {
 
 	public void deleteServer(int serverId) {
 		dao.deleteServer(serverId);
+		dao.deleteEventHistoryByServerId(serverId);
+		dao.deleteEventByServerId(serverId);
+		
 	}
 
 	public void updateServer(ServerVO servervo) {
