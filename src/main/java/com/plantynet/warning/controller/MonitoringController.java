@@ -68,15 +68,14 @@ public class MonitoringController {
 		
 		model.addAttribute("today", monitoringService.getDate());
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("serverId", serverId);
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		//map.put("serverId", serverId);
 
-		for (int i=0; i<7; i++){
-			map.put("index", i);
-			model.addAttribute("day"+String.valueOf(i), monitoringService.getErrorLineStat(map));
-			model.addAttribute("code"+String.valueOf(i), monitoringService.getErrorLineHover(map));
-		}
+		model.addAttribute("date", monitoringService.getErrorLineStat(serverId));
+		System.out.println(model);
+		
 
+		//model.addAttribute("code"+String.valueOf(i), monitoringService.getErrorLineHover(map));
 		model.addAttribute("serverInfo", serverInfoService.getServerInfo(serverId));
 		model.addAttribute("errorList", monitoringService.getErrorBarStat(serverId));
 		return "monitoringServer";
@@ -120,19 +119,21 @@ public class MonitoringController {
 	
 	// MonitoringServer.jsp의 Line-Chart Tooltip 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/monitoringServer/topServer", method = RequestMethod.POST)
-	public Map<String, Object> topServer(@RequestParam("serverId") int serverId, @RequestParam("rgsde") int rgsde,  HttpSession session) 
+	@RequestMapping(value = "/monitoringServer/topCode", method = RequestMethod.POST)
+	public Map<String, Object> topCode(@RequestParam("serverId") int serverId, @RequestParam("rgsde") String rgsde,  HttpSession session) 
 		throws Exception {
 		
-			Map<String, Object> map = new HashMap<String,Object>();
-			map.put("serverId", serverId);
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			HashMap<String, Object> resultMap = new HashMap<String,Object>();
 			map.put("rgsde", rgsde);
-			//List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopCode(map);
-			//map.put("result", list);
+			map.put("serverId", serverId);
 			System.out.println(map);
+			List<MonitoringVO> list = (List<MonitoringVO>) monitoringService.getTopCode(map);
+			resultMap.put("result", list);
+			System.out.println(resultMap);
 
 
-		return map;
+		return resultMap;
 	}
 	
 }

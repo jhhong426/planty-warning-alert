@@ -20,7 +20,7 @@ public interface MonitoringDAO {
     // 사용 안함
     public List<MonitoringVO> getServerInfo(int serverId);
     
-    public List<MonitoringVO> getErrorLineStat(HashMap<String, Object> map);
+    public List<MonitoringVO> getErrorLineStat(Integer serverId);
     public List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     public List<MonitoringVO> getErrorBarStat(int serverId);
     

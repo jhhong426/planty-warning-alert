@@ -49,8 +49,8 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     	return sqlSession.selectOne(namespace+".getServerInfo", serverId);
     }
     @Override
-    public List<MonitoringVO> getErrorLineStat(HashMap<String,Object> map){
-    	return sqlSession.selectList(namespace+".getErrorLineStat", map);
+    public List<MonitoringVO> getErrorLineStat(Integer serverId){
+    	return sqlSession.selectList(namespace+".getErrorLineStat", serverId);
     }
     @Override
     public List<MonitoringVO> getTopCode(HashMap<String,Object> map){

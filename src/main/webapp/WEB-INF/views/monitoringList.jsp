@@ -178,6 +178,7 @@ function ServerChange(serverIdNum) {
 	//$target.empty();
 	$("#codeCategory").empty();
 	$("#codeCategory").append("<option value=''>전체</option>");
+
 	if (serverIdNum == ''){
 		return;
 	}

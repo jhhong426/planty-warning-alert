@@ -19,7 +19,7 @@ public interface MonitoringService {
     
     List<MonitoringVO> getServerInfo(int serverId); //안씀, 삭제예정
     
-    List<MonitoringVO> getErrorLineStat(HashMap<String, Object> map);
+    List<MonitoringVO> getErrorLineStat(Integer serverId);
     List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     List<MonitoringVO> getErrorBarStat(int serverId);
     

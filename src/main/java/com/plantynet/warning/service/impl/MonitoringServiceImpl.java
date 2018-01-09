@@ -50,8 +50,8 @@ public class MonitoringServiceImpl implements MonitoringService{
 		return monitoringDAO.getServerInfo(serverId);
 	}
 	@Override
-	public List<MonitoringVO> getErrorLineStat(HashMap<String, Object> map) {
-		return monitoringDAO.getErrorLineStat(map);
+	public List<MonitoringVO> getErrorLineStat(Integer serverId) {
+		return monitoringDAO.getErrorLineStat(serverId);
 	}
 	@Override
 	public List<MonitoringVO> getTopCode(HashMap<String, Object> map) {
