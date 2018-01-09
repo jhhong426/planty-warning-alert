@@ -43,4 +43,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT count(*) from SERVER
         WHERE ip = #{ip}
     </select>
+    
+    <insert id="plusEventHistory">
+	    insert into EVENT_HISTORY (server_id, event_id, team_id , rgsde)
+		select SERVER.server_id, EVENT.event_id, SERVER.team_id, current_timestamp()
+		from SERVER join EVENT 
+		ON SERVER.server_id = EVENT.server_id
+		where ip = #{ip} and event_code = #{eventCode}
+    </insert>
 </mapper>

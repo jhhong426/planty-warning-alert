@@ -6,6 +6,7 @@
 		<result property="ntfcId" column="ntfc_id" javaType="int"/>
         <result property="serverId" column="server_id" javaType="int"/>
         <result property="managerId" column="manager_id" javaType="int"/>
+        <result property="managerNm" column="manager_nm" javaType="String"/>
         <result property="eventId" column="event_id" javaType="int"/>
         <result property="serverNm" column="server_nm" javaType="String"/>
         <result property="eventCode" column="event_code" javaType="String"/>
@@ -14,31 +15,26 @@
         <result property="managerCttpc" column="manager_cttpc" javaType="String"/>
     </resultMap>
 
+	<!-- '일주일 전 날짜 ~ 오늘날짜 ' 출력  -->
 	<select id="getDate" resultType="String">
         SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
     </select>
 
+	<!-- 카테고리에 들어갈 서버 목록 -->
 	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT server_id, server_nm
         FROM SERVER
         WHERE team_id=#{teamId}
     </select>
     
+    <!-- 카테고리에 들어갈 해당 서버의 에러코드 목록 -->
     <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT EVENT.event_id, EVENT.event_code
-        FROM EVENT, EVENT_MANAGER
-        WHERE EVENT.event_id=EVENT_MANAGER.event_id
-        AND EVENT_MANAGER.manager_id=#{managerId}
-    </select>
-
-	<select id="getGlobalLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT 
+        SELECT event_id, event_code
+        FROM EVENT
+        WHERE server_id=#{serverId}
     </select>
     
-    <select id="getGlobalBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        
-    </select>
-    
+    <!-- 전체 에러로그의 목록 출력 -->
     <select id="getErrorLogList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT n.server_id, s.server_nm, n.ip, e.event_code, m.manager_nm, n.msg, n.ntfc_mth, n.ntfcde, n.logde
         FROM SERVER s, MANAGER m, NOTIFICATION_HISTORY n, EVENT e
@@ -47,31 +43,99 @@
 		AND n.manager_id=m.manager_id
 		AND m.team_id=#{teamId}
     </select>
-    
-    <select id="getServerInfo" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT server_nm, ip
-        FROM SERVER
-        WHERE server_id=#{serverId}
+
+    <!-- Server Line Chart : 오늘을 포함한 일주일 전까지 한 서버(serverId)에서 발생한 모든 에러 건수 -->
+    <select id="getErrorLineStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+		<![CDATA[
+		SELECT 
+			TT.date as rgsde,
+    		IFNULL(CT.cnt, 0) AS count
+		FROM 
+			(	
+			SELECT 
+				DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -ROWNUM+1 DAY), '%m/%d') AS date
+			FROM 
+				(
+				SELECT 
+                	DATE_FORMAT(NOW(), '%m/%d') as rgsde
+				) A 
+			INNER JOIN 	
+				(	
+				SELECT
+					@ROWNUM := @ROWNUM + 1 AS ROWNUM
+					FROM NOTIFICATION_HISTORY, (SELECT @ROWNUM := 0) R
+            		ORDER BY ntfc_id ASC
+            		LIMIT 7
+				) B
+			ON 1 = 1
+			) TT
+			LEFT OUTER JOIN
+				(
+				SELECT 
+        			DATE_FORMAT(rgsde, '%m/%d') AS rgsde,
+        			server_id,
+        			COUNT(*) AS cnt
+				FROM
+					EVENT_HISTORY 
+    			WHERE server_id=#{serverId}
+				GROUP BY DATE_FORMAT(rgsde, '%m/%d')	
+			) CT
+			ON TT.date = CT.rgsde	
+			WHERE TT.date >=  DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%m/%d') 
+			AND TT.date <= DATE_FORMAT(NOW(), '%m/%d')
+			ORDER BY rgsde ASC
+			]]>
     </select>
     
-    <!-- 오늘로부터 i일 전에 한 서버(serverId)에서 발생한 모든 에러 건수 -->
-    <select id="getErrorLineStat" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-		SELECT DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY AS logde ,IFNULL(count(*), 0) AS count
-		FROM NOTIFICATION_HISTORY
-		WHERE DATE_FORMAT(rgsde, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY
-		AND server_id=${serverId}
+    <!-- Server Line Chart Tooltip : 사용자가 속해있는 팀의 서버에서 해당일에 발생한 에러 TOP5의 이름과 건수를 출력 -->
+    <select id="getTopCode" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT h.event_id AS event_id, e.event_code AS event_code, count(*) AS count
+        FROM EVENT_HISTORY h, EVENT e
+        WHERE DATE_FORMAT(h.rgsde, '%m/%d') LIKE #{rgsde}
+        AND e.event_id=h.event_id
+        AND h.server_id=#{serverId}
+        GROUP BY h.event_id
+        ORDER BY count DESC
+        LIMIT 5;
     </select>
     
-    <!-- 오늘로부터 7일 이전까지 한 서버(serverId)에서 발생한 에러코드를 건수가 가장 많은 순서대로 5개를 추출 -->
+    <!-- Server Bar Chart : 오늘로부터 7일 이전까지 한 서버(serverId)에서 발생한 에러코드를 건수가 가장 많은 순서대로 5개를 추출 -->
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_code, count(*) AS count
-        FROM NOTIFICATION_HISTORY
-        WHERE rgsde > (CURDATE() - INTERVAL 7 DAY)
-        AND server_id=#{serverId}
-        GROUP BY event_code
+        SELECT h.event_id AS event_id, e.event_code AS event_code, count(*) AS count
+        FROM EVENT_HISTORY h, EVENT e
+        WHERE h.rgsde > (CURDATE() - INTERVAL 6 DAY)
+        AND h.server_id=#{serverId}
+        AND h.event_id=e.event_id
+        GROUP BY h.event_id
         ORDER BY count DESC
         LIMIT 5
+    </select> 
+    
+    <select id="getDailyStat" resultType="java.util.Map">
+SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '5' DAY)) THEN cnt END),0) as "02",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '4' DAY)) THEN cnt END),0) as "03",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '3' DAY)) THEN cnt END),0) as "04",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '2' DAY)) THEN cnt END),0) as "05",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '1' DAY)) THEN cnt END),0) as "06",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '0' DAY)) THEN cnt END),0) as "07"
+         FROM 
+         (SELECT DATE(rgsde) AS date,
+                 count(rgsde) cnt
+          FROM EVENT_HISTORY
+          WHERE team_id = #{teamId} 
+          GROUP BY date)AS a;
     </select>
-
+    
+    <select id="getTeamTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+		SELECT server_nm as serverNm, count(*) as count 
+		FROM EVENT_HISTORY 
+		JOIN SERVER
+		ON EVENT_HISTORY.server_id = SERVER.server_id
+		WHERE DATE(EVENT_HISTORY.rgsde) >= DATE(SUBDATE(NOW(), INTERVAL '6' DAY)) AND EVENT_HISTORY.team_id = #{teamId}
+		GROUP BY EVENT_HISTORY.server_id
+		ORDER BY count DESC
+		LIMIT 5
+    </select>
 
 </mapper>

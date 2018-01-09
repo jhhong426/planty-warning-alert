@@ -36,5 +36,11 @@ public class NotificationDAOImpl implements NotificationDAO
     {
         return sqlSession.selectOne(namespace+".ipAllowCheck",ip);
     }
+
+    @Override
+    public void plusEventHistory(ParamVO vo)
+    {
+        sqlSession.insert(namespace+".plusEventHistory",vo);
+    }
     
 }

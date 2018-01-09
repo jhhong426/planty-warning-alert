@@ -16,7 +16,7 @@ import com.plantynet.warning.service.NotificationService;
 import com.plantynet.warning.vo.ParamVO;
 
 @Controller
-@RequestMapping("/api/*")
+@RequestMapping("/api")
 public class AlertAPIController
 {
     @Autowired
@@ -54,6 +54,7 @@ public class AlertAPIController
             //정상 저장 (response_code = 1)
             if(service.setNotiInfo(vo))
             {
+                service.plusEventHistory(vo);
                 map.put("response_code", 1);
                 return map;
             }

@@ -66,7 +66,7 @@ public class LoginController {
 			System.out.println(loginDAO.getTeamNmByTeamId(vo.getTeamId()));
 			session.setAttribute("sessionVO", sessionVO);
 
-			return "redirect:admin";
+			return "redirect:/monitoring";
 		} else {
 			System.out.println("로그인 실패");
 			model.addAttribute("loginFail", "일치하는 정보가 없습니다");

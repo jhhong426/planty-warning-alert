@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 
 <%@include file="include/header.jsp"%>
 
-<!-- 서버 상세정보 링크 부분 a태그 css 설정 -->
 <style type="text/css"> 
 	 a:link { color: black; text-decoration: none;}
 	 a:visited { color: black; text-decoration: underline;}
@@ -17,8 +15,7 @@
 	<div class="box" style="min-height:951.444px;">
 		<h3><strong>&emsp;서버 목록</strong></h3>
             <div class="box">
-            <div class="box-body">
-               <div class="row">
+              <div class="box-body">
                  <div class="col-md-2">
                    <select id="serverCategory" class="form-control form-group-inline" onchange="selectChange()" style="display:inline-block">
                      <option value="1">IP</option>
@@ -32,9 +29,8 @@
                  	<button id="btnSearch" class="btn btn-default" onclick="searchClicked()"><i class="fa fa-search"></i></button>
                  </div>
                  <div class="col-md-1">
-                 	<button id="btnRegister" type="button" class="btn btn-default">등록</button>
+                 	<button id="btnRegister" type="button" class="btn btn-success">등록</button>
                  </div>
-               </div>
                
 				<table id="server" class="table table-bordered table-hover display">
 					<thead>
@@ -46,24 +42,27 @@
 							<th style="text-align:center">삭제</th>
 						</tr>
 					</thead>
-					<tbody style="text-align:center">   <!-- 이대로 수정버튼 누르면 맨 위의 row데이터만 작동함 -->
+					<tbody style="text-align:center"> 
 						
-						<c:forEach items = "${serverList}" var = "item">
-							<tr>
-					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.serverNm}</a></td>
-					       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
-					       		<td>${item.rgsde}</td>
-					       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-default" >수정</button></td>
-					       		<td><form name="" method="post" action="/deleteServer" onsubmit="return deleteConfirm();" style="margin-bottom: 0px;">
-					       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
-					       				<button type="submit" class="btn btn-default" >삭제</button>
-					       			</form>
-					       		</td>
-				       		</tr>
-      					</c:forEach>
-					
+					<c:forEach items = "${serverList}" var = "item">
+						<tr>
+				       		<td><a href = "/serverInfo?id=${item.serverId }">${item.serverNm}</a></td>
+				       		<td><a href = "/serverInfo?id=${item.serverId }">${item.ip}</a></td>
+				       		<td>${item.rgsde}</td>
+				       		<td><button onclick="updateBtnClicked('${item.serverId}','${item.serverNm}','${item.ip}')" type="button" class="btn btn-primary" >수정</button></td>
+				       		<td><form name="" method="post" action="/deleteServer" onsubmit="return deleteConfirm();" style="margin-bottom: 0px;">
+				       				<input id="serverId" name="serverId" type="hidden" value="${item.serverId}">
+				       				<button type="submit" class="btn btn-danger" >삭제</button>
+				       			</form>
+				       		</td>
+			       		</tr>
+     					</c:forEach>
 					</tbody>
-			    </table>
+		         </table>
+			  </div>
+		  </div>
+	</div>
+</div>
 			    
 			    <!-- 서버 등록 팝업창 기능 -->
 				  <div class="modal fade" id="serverRegisterPopup" role="dialog">
@@ -151,11 +150,6 @@
 				      </div>
 			    	</div>
 			  	  </div> 
-			</div>
-		  </div>
-			 
-	</div>
-</div>
 
 
 <%@include file="include/footer.jsp"%>
@@ -267,7 +261,7 @@
 		}
 	}
 	
-	function isConflict(){
+	function isConflict(){	
 		var ip = $("#registerIp").val();
 		var serverNm = $("#registerServerNm").val();
 		
@@ -317,6 +311,7 @@
 			return false
 		}		 
 		 
+
 	}
 	
 </script>
