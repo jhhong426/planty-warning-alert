@@ -72,7 +72,6 @@ var eventCount = new Array();
 $('#line-chart').highcharts( {
     chart: {
         type: 'spline',
-        zoomType: 'x' ,
     },
     title: {
         text: '장애 일간 통계',
@@ -116,6 +115,13 @@ $('#line-chart').highcharts( {
             }
         },
         min: 0
+    },
+    plotOptions: {
+    	line: {
+    		dataLabels: {
+    			enabled: true
+    		}
+    	}
     },
     tooltip: {
     	formatter : function() {
