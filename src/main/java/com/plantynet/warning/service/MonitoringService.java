@@ -13,17 +13,13 @@ public interface MonitoringService {
     List<MonitoringVO> getTopServer(HashMap<String, Object> map);
     List<MonitoringVO> getGlobalBarStat(Integer teamId);
     
+    // 모니터링 리스트 페이지
     List<MonitoringVO> getServerList(Integer teamId);
     List<MonitoringVO> getCodeList(int serverId);
     List<MonitoringVO> getErrorLogList(Integer teamId);
     
-    List<MonitoringVO> getServerInfo(int serverId); //안씀, 삭제예정
-    
+    // 모니터링 상세 페이지
     List<MonitoringVO> getErrorLineStat(Integer serverId);
     List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     List<MonitoringVO> getErrorBarStat(int serverId);
-    
-    List<MonitoringVO> getErrorLineHover(HashMap<String, Object> map);
-    
-    
 }

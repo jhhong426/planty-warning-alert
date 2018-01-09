@@ -7,7 +7,7 @@
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
-		<h2><strong>&emsp;모니터링</strong></h2>
+		<h3><strong>&emsp;모니터링 > 상세목록 > 서버별 장애 통계</strong></h3>
 		
 		<div class="box">
 			<div class="box-header">
@@ -47,7 +47,7 @@
 var date = new Array();
 var eventCount = new Array();
 
-<c:forEach var="item" items="${date}" varStatus="status">
+<c:forEach var="item" items="${serverLineChart}" varStatus="status">
 	date[${status.index}] = "${item.rgsde}";
 	eventCount[${status.index}] = parseInt("${item.count}");
 </c:forEach>
@@ -106,7 +106,6 @@ $('#line-chart').highcharts( {
                         	str += "<br>" + data.result[i].eventCode + " : " + data.result[i].count.toString();
                         }) 
                 	}
-                	
                 },
                 error:function(){
                     alert("불러오는 도중 에러가 발생하였습니다. 다시 시도해주세요.");
@@ -117,14 +116,13 @@ $('#line-chart').highcharts( {
     		return str;
     	}
     },
-
     series: [{
         name: 'TOP 5',
         data: eventCount
     }]
 });
 
-// 막대 그래프 (주석 부분은 DrillDown)
+// 막대 그래프 
 Highcharts.chart('bar-chart', {
 	chart: {
         type: 'column'
@@ -139,7 +137,6 @@ Highcharts.chart('bar-chart', {
         title: {
             text: '발생 건수'
         }
-
     },
     legend: {
         enabled: false
@@ -153,209 +150,23 @@ Highcharts.chart('bar-chart', {
             }
         }
     },
-
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
         pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> 건<br/>'
     },
-
     series: [{
         name: '<b>에러코드</b>',
         colorByPoint: true,
         data: [
-        	<c:forEach var="item" items="${errorList}" varStatus="status">
+        	<c:forEach var="item" items="${serverBarChart}" varStatus="status">
         	{
 	        	name: '${item.eventCode}',
 	            y: ${item.count},
-	            //drilldown: '${item.eventCode}'
         	}
         	<c:if test="${!status.last}">, </c:if>
-        	</c:forEach>]
-    }]/*,
-    drilldown: {
-        series: [{
-            name: 'ER001',
-            id: 'ER001',
-            data: [
-                [
-                    'v11.0',
-                    24.13
-                ],
-                [
-                    'v8.0',
-                    17.2
-                ],
-                [
-                    'v9.0',
-                    8.11
-                ],
-                [
-                    'v10.0',
-                    5.33
-                ],
-                [
-                    'v6.0',
-                    1.06
-                ],
-                [
-                    'v7.0',
-                    0.5
-                ]
-            ]
-        }, {
-            name: 'ER002',
-            id: 'ER002',
-            data: [
-                [
-                    'v40.0',
-                    5
-                ],
-                [
-                    'v41.0',
-                    4.32
-                ],
-                [
-                    'v42.0',
-                    3.68
-                ],
-                [
-                    'v39.0',
-                    2.96
-                ],
-                [
-                    'v36.0',
-                    2.53
-                ],
-                [
-                    'v43.0',
-                    1.45
-                ],
-                [
-                    'v31.0',
-                    1.24
-                ],
-                [
-                    'v35.0',
-                    0.85
-                ],
-                [
-                    'v38.0',
-                    0.6
-                ],
-                [
-                    'v32.0',
-                    0.55
-                ],
-                [
-                    'v37.0',
-                    0.38
-                ],
-                [
-                    'v33.0',
-                    0.19
-                ],
-                [
-                    'v34.0',
-                    0.14
-                ],
-                [
-                    'v30.0',
-                    0.14
-                ]
-            ]
-        }, {
-            name: 'ER003',
-            id: 'ER003',
-            data: [
-                [
-                    'v35',
-                    2.76
-                ],
-                [
-                    'v36',
-                    2.32
-                ],
-                [
-                    'v37',
-                    2.31
-                ],
-                [
-                    'v34',
-                    1.27
-                ],
-                [
-                    'v38',
-                    1.02
-                ],
-                [
-                    'v31',
-                    0.33
-                ],
-                [
-                    'v33',
-                    0.22
-                ],
-                [
-                    'v32',
-                    0.15
-                ]
-            ]
-        }, {
-            name: 'ER004',
-            id: 'ER004',
-            data: [
-                [
-                    'v8.0',
-                    2.56
-                ],
-                [
-                    'v7.1',
-                    0.77
-                ],
-                [
-                    'v5.1',
-                    0.42
-                ],
-                [
-                    'v5.0',
-                    0.3
-                ],
-                [
-                    'v6.1',
-                    0.29
-                ],
-                [
-                    'v7.0',
-                    0.26
-                ],
-                [
-                    'v6.2',
-                    0.17
-                ]
-            ]
-        }, {
-            name: 'ER005',
-            id: 'ER005',
-            data: [
-                [
-                    'v12.x',
-                    0.34
-                ],
-                [
-                    'v28',
-                    0.24
-                ],
-                [
-                    'v27',
-                    0.17
-                ],
-                [
-                    'v29',
-                    0.16
-                ]
-            ]
-        }]
-    }*/
+        	</c:forEach>
+        	]
+    }]
 });
 
 </script>

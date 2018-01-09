@@ -13,4 +13,6 @@ public interface NotificationDAO
     
     public int ipAllowCheck(String ip);
     
+    public void plusEventHistory(ParamVO vo);
+    
 }

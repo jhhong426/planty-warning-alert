@@ -32,6 +32,8 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     public List<MonitoringVO> getGlobalBarStat(Integer teamId){
     	return sqlSession.selectList(namespace+".getGlobalBarStat", teamId);
     }
+    
+    // 모니터링 리스트 페이지
     @Override
     public List<MonitoringVO> getServerList(Integer teamId){
     	return sqlSession.selectList(namespace+".getServerList", teamId);
@@ -44,10 +46,8 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     public List<MonitoringVO> getErrorLogList(Integer teamId){
     	return sqlSession.selectList(namespace+".getErrorLogList", teamId);
     }
-    @Override
-    public List<MonitoringVO> getServerInfo(int serverId){
-    	return sqlSession.selectOne(namespace+".getServerInfo", serverId);
-    }
+
+    // 모니터링 상세 페이지
     @Override
     public List<MonitoringVO> getErrorLineStat(Integer serverId){
     	return sqlSession.selectList(namespace+".getErrorLineStat", serverId);
@@ -55,10 +55,6 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     @Override
     public List<MonitoringVO> getTopCode(HashMap<String,Object> map){
     	return sqlSession.selectList(namespace+".getTopCode", map);
-    }
-    @Override
-    public List<MonitoringVO> getErrorLineHover(HashMap<String,Object> map){
-    	return sqlSession.selectList(namespace+".getErrorLineHover", map);
     }
     @Override
     public List<MonitoringVO> getErrorBarStat(int serverId){

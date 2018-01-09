@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
 <%@include file="include/header.jsp"%>
 
@@ -14,9 +13,9 @@
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
-		<h2><strong>&emsp;모니터링</strong></h2>
-		
+		<h3><strong>&emsp;모니터링 > 상세목록</strong></h3>
 		<div class="box">
+		<div class="box-body">
 			<div class="row">
 				<br>
 				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
@@ -29,7 +28,7 @@
 			</div>
 			<div class="row">
 				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;서&ensp;버&ensp;명 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:30%">
+				<div class="" style="float:left; width:25%">
 					<select id="serverCategory" name="serverCategory" class="form-control form-group-inline"
 						onchange="ServerChange(this.value);" style="display: inline-block">
 						<option value="">전체</option>
@@ -38,11 +37,11 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="" style="float:left; width:60%"></div>
+				<div class="" style="float:left; width:65%"></div>
 			</div>
 			<div class="row">
 				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;장애코드 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:30%" id="codeDynamicCategory">
+				<div class="" style="float:left; width:25%" id="codeDynamicCategory">
 					<select id="codeCategory" class="form-control form-group-inline"
 						style="display: inline-block">
 						<option value="">전체</option>
@@ -52,14 +51,13 @@
 					<p></p>
 				</div>
 				<div class="" style="float:left; width:5%">
-					<button style="height:35px" onclick="Search()"><strong>조회</strong></button>
+					<button style="height:35px" onclick="Search()" class="btn btn-primary"><strong>조회</strong></button>
 				</div>
-				<div class="" style="float:left; width:50%"></div>
+				<div class="" style="float:left; width:55%"></div>
 			</div>
 			
-       		<div class="box-body">
-			
-				<table id="errorList" cellpadding="5" cellspacing="0" border="0" style="width:100%; margin: 0 auto 2em auto;">
+       		<div class="box-body">			
+ 				<table class="table table-bordered table-hover display" id="errorList">
 				<thead>
 					<tr>
 						<th style="text-align: center">서버명</th>
@@ -90,68 +88,81 @@
 			
 		   </div>
 		</div>
+		</div>
 	</div>
 </div>
 
 <%@include file="include/footer.jsp"%>
-
+<script src="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+<script src="/resources/plugins/fastclick/fastclick.js"></script>
+<script src="/resources/plugins/knob/jquery.knob.js"></script>
+<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="resources/dist/js/demo.js"></script>
+<script src="resources/dist/js/app.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
 
 $(function() {
 	$("#preDate").datepicker({
-		dateFormat : "yy-mm-dd"
-	});
+		dateFormat : "yy-mm-dd",
+		defaultDate : "today",
+		onClose : function(selectedDate){
+		    $("#postDate").datepicker("option", "minDate", selectedDate);
+		}
+	}).datepicker("setDate","today");
 	
 	$("#postDate").datepicker({
-		dateFormat : "yy-mm-dd"
-	});
+		dateFormat : "yy-mm-dd",
+		defaultDate : "today",
+		onClose : function(selectedDate){
+		    $("#preDate").datepicker("option", "maxDate", selectedDate);
+		}
+	}).datepicker("setDate","today");
 });
 
 
 $(document).ready(function() {
-	
-	$("#errorList").DataTable(
-		{
-			"language" : {
-				'zeroRecords'  : "검색 결과가 없습니다.",
-				'info'		   : "에러 알림 건수 :  _TOTAL_ 개",
-				'infoEmpty'    : "에러 알림 건수 :  _TOTAL_ 개",
-				'infoFiltered' : " ",
-				"lengthMenu"   : "출력 개수 :  _MENU_",
-				'paginate' : { 
-					"first" : "<<",
-	          		  "previous" : "<",
-	          		  "last"  : ">>",
-	           		  "next"  : ">"
-				}
-			},
-			"lengthMenu" : [ 15, 25, 50 ],
-			"lengthChange" : true,
-			"pagingType"   : "full_numbers",
-			"searching" : true,
-			"paging" : true,
-			"ordering" : true,
-			"info" : true,
-			"autoWidth" : false,
-			"dom" : '<"top"<"col-md-4"i><"col-md-6"B><"col-md-2"l>>'
-					+ 'rt' + '<"bottom"<"col-md-8"p><"col-md-4"B>>',
-			"order" : [ [ 4, "desc" ] ]
-		}
-	)
+    var errorList = $("#errorList").DataTable({
+        "language"    : {
+             'zeroRecords'       : "검색결과가 없습니다.",
+             'info'              : "검색결과 :  _TOTAL_ 건",
+             'infoEmpty'         : "검색결과 :  _TOTAL_ 건",
+             'infoFiltered'      : " ",
+             'lengthMenu'        : "표시 개수 :  _MENU_",
+             'paginate'          : {
+                  "first" : "<<",
+                  "previous" : "<",
+                  "last"  : ">>",
+                  "next"  : ">"
+          }
+        },
+        "scrollY"              : 400,
+        "scrollCollapse"       : true,
+        "lengthMenu"           : [ 10, 20, 30 ],
+        "pageLength"           : 10,
+        "pagingType"           : "full_numbers",
+        "dom"                  : '<"top"<"col-md-2"i><"col-md-8"B><"col-md-2"l>>' +
+                                 'rt' +
+                                 '<"bottom"<"col-md-8"p><"col-md-4"B>>',
+        "select"              : "multi",
+        "autoWidth" : false,
+        "ordering": false
+    });
 });
 
 
 function ServerChange(serverIdNum) {
-	//var $target = $("select[name='codeCategory']")
-	
-	//$target.empty();
+
 	$("#codeCategory").empty();
 	$("#codeCategory").append("<option value=''>전체</option>");
-	
+
 	if (serverIdNum == ''){
 		return;
 	}
@@ -192,7 +203,7 @@ function Search() {
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 		var min = parseInt(dateParsing($('#preDate').val()));
 		var max = parseInt(dateParsing($('#postDate').val()));
-		var age = parseFloat(dateParsing(data[6])) || 0; // use data for the age column
+		var age = parseFloat(dateParsing(data[6])) || 0; 
 
 		if ((isNaN(min) && isNaN(max)) || (isNaN(min) && age <= max)
 				|| (min <= age && isNaN(max))
