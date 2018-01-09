@@ -18,7 +18,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div id="date-text" style="float:left; width:25%">
-					<h4><strong>통계 기간 : </strong>${today}</h4>
+					<h4><strong>통계기간 : </strong>${today}</h4>
 				</div>
 				<div id="button" style="float:left; width:75%">
 					<a href = "/monitoringList"><button style="height:40px" class="btn btn-primary"><strong>상세목록</strong></button></a>

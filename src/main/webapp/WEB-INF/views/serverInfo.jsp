@@ -129,6 +129,10 @@
 				<button id="btnAddEvntMngr" type="submit" class="btn btn-primary col-md-offset-1"> 담당자 등록 </button>
 			</div>
 		
+		    </div>
+        </div>
+	</div>
+</div>
 		
 			<!-- 장애코드 수정 팝업창 기능 -->
 			  <div class="modal fade" id="errorUpdatePopup" role="dialog">
@@ -331,10 +335,6 @@
 		    	</div>
 		  	  </div> 
 
-           </div>
-        </div>
-	</div>
-</div>
 
 
 <%@include file="include/footer.jsp"%>

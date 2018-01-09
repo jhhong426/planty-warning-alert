@@ -25,12 +25,10 @@
 	<!-- 데이터테이블 스킨 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-    
 		@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
 		@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 		
-		
-		#title{
+		#title {
 		    font-family: ‘Nanum Pen Script’ ;
 		    color:gray;
 		    font-size: 35px;
