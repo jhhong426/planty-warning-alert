@@ -53,8 +53,8 @@ var date = new Array();
 var eventCount = new Array();
 
 <c:forEach var="item" items="${serverLineChart}" varStatus="status">
-	date[${status.index}] = "${item.rgsde}";
-	eventCount[${status.index}] = parseInt("${item.count}");
+	date[<c:out value="${status.index}" />] = "${item.rgsde}";
+	eventCount[<c:out value="${status.index}" />] = parseInt("${item.count}");
 </c:forEach>
 
 // 선형 그래프
@@ -117,7 +117,7 @@ $('#line-chart').highcharts( {
         min: 0
     },
     plotOptions: {
-    	line: {
+    	spline: {
     		dataLabels: {
     			enabled: true
     		}
@@ -131,7 +131,7 @@ $('#line-chart').highcharts( {
                 type: "POST",
                 url: "/monitoringServer/topCode",
                 async:false,
-                data: { serverId : ${serverInfo.serverId}, rgsde : this.x },
+                data: { serverId : <c:out value="${serverInfo.serverId}" />, rgsde : this.x },
                 dataType: "json",
                 success: function(data){
                 	
@@ -233,10 +233,10 @@ Highcharts.chart('bar-chart', {
         data: [
         	<c:forEach var="item" items="${serverBarChart}" varStatus="status">
         	{
-	        	name: '${item.eventCode}',
-	            y: ${item.count}
+	        	name: '<c:out value="${item.eventCode}" />',
+	            y: <c:out value="${item.count}" />
         	}
-        	<c:if test="${!status.last}">, </c:if>
+        	<c:if test="${!status.last}"><c:out value=","/> </c:if>
         	</c:forEach>
         	]
     }]
