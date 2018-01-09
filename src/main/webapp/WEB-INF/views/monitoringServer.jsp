@@ -68,20 +68,48 @@ var eventCount = new Array();
 $('#line-chart').highcharts( {
     chart: {
         type: 'spline',
-        zoomType: 'x'  
+        zoomType: 'x' ,
     },
     title: {
-        text: '<strong>장애 일간 통계</strong>'
+        text: '장애 일간 통계',
+        style: {
+        	color: 'black',
+        	fontWeight: 'bold',
+        	fontSize: '24px'
+        }
     },
     xAxis: {
         categories : date,
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold'
+            }
+        },
         title: {
-            text: '월/일'
+            text: '월/일',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '18px'
+            }
         }
     },
     yAxis: {
         title: {
-            text: '서버 발생 총 건수 (건)'
+            text: '서버 발생 총 건수 (건)',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '15px'
+            }
+        },
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: '15px'
+            }
         },
         min: 0
     },
@@ -118,7 +146,10 @@ $('#line-chart').highcharts( {
     	}
     },
     series: [{
-        name: 'TOP 5',
+    	showInLegend: false,
+    	label: {
+    		enabled: false
+    	},
         data: eventCount
     }]
 });
@@ -129,15 +160,46 @@ Highcharts.chart('bar-chart', {
         type: 'column'
     },
     title: {
-        text: '<strong>장애 TOP 5</strong>'
+        text: '장애 TOP 5',
+        style: {
+        	color: 'black',
+        	fontWeight: 'bold',
+        	fontSize: '24px'
+        }
     },
     xAxis: {
-        type: 'category'
+    	title: {
+            text: '에러코드',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '18px'
+            }
+        },
+    	type: 'category',
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold'
+            }
+        }
     },
     yAxis: {
         title: {
-            text: '발생 건수'
-        }
+            text: '발생 건수 (건)',
+            style: {
+            	color: 'black',
+            	fontWeight: 'bold',
+            	fontSize: '15px'
+            }
+        },
+        labels: {
+            style: {
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: '15px'
+            }
+        },
     },
     legend: {
         enabled: false
