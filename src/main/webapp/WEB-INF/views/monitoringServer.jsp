@@ -17,7 +17,11 @@
 					<h4><strong>서&emsp;&emsp;버&ensp;:&ensp;</strong>${serverInfo.serverNm}</h4>
 					<h4><strong>&ensp;I&emsp;&emsp;&ensp;P&ensp; :&ensp;</strong>${serverInfo.ip}</h4>
 				</div>
+				<div class="" style="float:right; width:5%">
+					<a href = "/monitoringList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>목록으로</strong></button>
+				</div>
 			</div>
+			
 			
             <div class="box-body">
 				<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>

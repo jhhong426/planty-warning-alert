@@ -2,8 +2,10 @@ package com.plantynet.warning.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SessionVO;
 
 public interface MonitoringDAO {
     
@@ -22,4 +24,7 @@ public interface MonitoringDAO {
     public List<MonitoringVO> getErrorLineStat(Integer serverId);
     public List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     public List<MonitoringVO> getErrorBarStat(int serverId);
+    
+    public Map<String, Integer> getDailyStat(SessionVO vo);
+
 }

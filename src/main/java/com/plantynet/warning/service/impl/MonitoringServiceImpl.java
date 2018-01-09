@@ -1,7 +1,10 @@
 package com.plantynet.warning.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SessionVO;
 import com.plantynet.warning.vo.MonitoringVO;
 
 @Service
@@ -57,8 +61,18 @@ public class MonitoringServiceImpl implements MonitoringService{
 	public List<MonitoringVO> getTopCode(HashMap<String, Object> map) {
 		return monitoringDAO.getTopCode(map);
 	}
+	
 	@Override
 	public List<MonitoringVO> getErrorBarStat(int serverId) {
 		return monitoringDAO.getErrorBarStat(serverId);
 	}
+    @Override
+    public Collection<Integer> getDailyStat(SessionVO vo)
+    {
+        Map<String, Integer> map = monitoringDAO.getDailyStat(vo);
+        System.out.println(map);
+        Collection<Integer> temp = map.values();
+        return temp;
+    }
+
 }

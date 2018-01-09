@@ -1,9 +1,13 @@
 package com.plantynet.warning.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SessionVO;
 
 public interface MonitoringService {
 
@@ -22,4 +26,7 @@ public interface MonitoringService {
     List<MonitoringVO> getErrorLineStat(Integer serverId);
     List<MonitoringVO> getTopCode(HashMap<String, Object> map);
     List<MonitoringVO> getErrorBarStat(int serverId);
+    
+    public Collection<Integer> getDailyStat(SessionVO vo);
+
 }

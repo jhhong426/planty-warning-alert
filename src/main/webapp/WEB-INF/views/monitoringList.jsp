@@ -19,13 +19,12 @@
 		<div class="box-body">
 			<div class="row">
 				<br>
-				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:30%">
+				<h4 class="" style="float:left; width:20%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
+				<div class="" style="float:left; width:50%">
 					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 					&emsp;~&emsp;
 					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
 				</div>
-				<div class="" style="float:left; width:60%"></div>
 			</div>
 			<div class="row">
 				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;서&ensp;버&ensp;명 &ensp;: </strong></h4>
@@ -125,6 +124,13 @@
 
 <script>
 
+$(document).keypress(function(e) { 
+	if (e.keyCode == 13) { 
+		e.preventDefault();
+		Search();
+	}
+});
+
 $(function() {
 	$("#preDate").datepicker({
 		dateFormat : "yy-mm-dd",
@@ -209,24 +215,41 @@ var dateParsing = function(arg) {
 	return intArg;
 };
  
-//검색 버튼 클릭 이벤트
+//검색 버튼이나 엔터 눌러야 검색 결과 나오도록 설정했음
+// 버튼 검색 이벤트
 $("#btnSearch").click(function(){
 	Search(); 
 });
 
-//검색 엔터 이벤트
-$("#serverCategory").keydown(function(key){
-	 if(key.keyCode == 13){
-		 Search();
-	 } 
+//엔터 검색 이벤트
+/* $("#preDate").keypress(function(e) { 
+	if (e.keyCode === 13) { 
+		e.preventDefault();
+		Search();
+	} 
 });
-$("#codeCategory").keydown(function(key){
-	 if(key.keyCode == 13){
-		 Search();
-	 } 
+$("#postDate").keypress(function(e) { 
+	if (e.keyCode === 13) { 
+		e.preventDefault();
+		Search();
+	} 
+}); */
+/*
+$("#serverCategory").keypress(function(e) { 
+	if (e.keyCode === 13) { 
+		e.preventDefault();
+		Search();
+	} 
 });
+$("#codeCategory").keypress(function(e) { 
+	if (e.keyCode === 13) { 
+		e.preventDefault();
+		Search();
+	} 
+});
+*/
 
-// 일단 전체 데이터를 보여주지 않고 조회 버튼이나 엔터 누르면 결과 나오도록 설정
+//검색
 function Search() {
 	$('#body').show();
 	errorList.columns().search("").draw();
