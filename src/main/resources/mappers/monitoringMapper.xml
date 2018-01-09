@@ -140,18 +140,7 @@
         GROUP BY h.event_id
         ORDER BY count DESC
         LIMIT 5
-    </select>
-    
-    <select id="getErrorLineHover" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_code, count(*) AS count
-        FROM NOTIFICATION_HISTORY
-		WHERE DATE_FORMAT(rgsde, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY
-        AND server_id=#{serverId}
-        GROUP BY event_id
-        ORDER BY count DESC
-        LIMIT 5
-    </select>
-    
+    </select> 
     
     <select id="getDailyStat" resultType="java.util.Map">
 SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
