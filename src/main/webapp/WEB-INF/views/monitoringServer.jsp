@@ -3,25 +3,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
+
 <%@include file="include/header.jsp"%>
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
 		<h3><strong>&emsp;모니터링 > 상세목록 > 서버별 장애 통계</strong></h3>
-		
 		<div class="box">
+		
 			<div class="box-header">
-				<h4><strong>통계 기간 : ${today}</strong></h4>
-				<h4><strong>서      버 : ${serverInfo.serverNm}</strong></h4>
-				<h4><strong>I    P : ${serverInfo.ip}</strong></h4>
+				<div id="date-text" style="float:left; width:25%">
+					<h4><strong>통계기간&ensp;:&ensp;</strong>${today}</h4>
+					<h4><strong>서&emsp;&emsp;버&ensp;:&ensp;</strong>${serverInfo.serverNm}</h4>
+					<h4><strong>&ensp;I&emsp;&emsp;&ensp;P&ensp; :&ensp;</strong>${serverInfo.ip}</h4>
+				</div>
 			</div>
 			
-           <div class="box-body">
-			
+            <div class="box-body">
 				<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
 				<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-			
-		   </div>
+		    </div>
 		</div>
 	</div>
 </div>

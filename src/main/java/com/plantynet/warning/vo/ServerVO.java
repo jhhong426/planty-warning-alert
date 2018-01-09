@@ -9,7 +9,8 @@ public class ServerVO {
 	private String serverNm;
 	private String ip;
 	private String sttus;
-	private Timestamp rgsde;
+	/*private Timestamp rgsde;*/
+	private String rgsde;
 	private String updde;
 	
 	
@@ -51,10 +52,16 @@ public class ServerVO {
 	public void setSttus(String sttus) {
 		this.sttus = sttus;
 	}
-	public Timestamp getRgsde() {
+	/*public Timestamp getRgsde() {
 		return rgsde;
 	}
 	public void setRgsde(Timestamp rgsde) {
+		this.rgsde = rgsde;
+	}*/
+	public String getRgsde() {
+		return rgsde;
+	}
+	public void setRgsde(String rgsde) {
 		this.rgsde = rgsde;
 	}
 	public String getUpdde() {
