@@ -10,7 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="serverNm" column="server_nm" javaType="String"/>
         <result property="ip" column="ip" javaType="String"/>
         <result property="sttus" column="sttus" javaType="String"/>
-        <result property="rgsde" column="rgsde" javaType="java.sql.Timestamp"/>
+        <!-- <result property="rgsde" column="rgsde" javaType="java.sql.Timestamp"/> -->
+        <result property="rgsde" column="rgsde" javaType="String"/>
         <result property="updde" column="updde" javaType="String"/>
     </resultMap>
     
@@ -39,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id = "updateServer">
-		UPDATE SERVER SET server_nm = #{serverNm}, ip= #{ip}  WHERE server_id = #{serverId}
+		UPDATE SERVER SET server_nm = #{serverNm}, ip= #{ip}, updde= current_timestamp WHERE server_id = #{serverId}
 	</update>
 	
 	<update id="deleteEventByServerId">

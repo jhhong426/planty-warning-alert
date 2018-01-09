@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
@@ -69,16 +70,25 @@
 							<h4 id="eventCode">${event.eventCode}</h4>
 						</div>
 						<div class="col-md-4 text-center">
-							<h4 id="description">${event.description}</h4>
+							<h4 id="description" title="${event.description}">
+								<c:choose>
+						         	<c:when test="${fn:length(event.description)>21}">
+						         		<c:out value="${fn:substring(event.description,0,20)}"/>...
+						            </c:when>
+						          	<c:otherwise>
+						            	<c:out value="${event.description}"/>
+						            </c:otherwise> 
+							    </c:choose> 
+							</h4>
 						</div>
 						<div class="col-md-3 text-center">
 							<h4>${event.rgsde}</h4>
 						</div>
 						<div class="col-md-1 text-center" style="position:relative; left:6px;">
-							<button id="btnUpdateEvent" type="button" class="btn btn-default btn-sm btnUpdateEvent" onclick="">수정</button>
+							<button id="btnUpdateEvent" type="button" class="btn btn-primary btn-sm btnUpdateEvent" onclick="">수정</button>
 						</div>
 						<div class="col-md-1 text-center" style="position:relative; left:6px;">
-							<button data-eventId="${event.eventId}" id="btnDeleteEvent" type="button" class="btn btn-default btn-sm btnDeleteEvent" onclick="">삭제</button>
+							<button data-eventId="${event.eventId}" id="btnDeleteEvent" type="button" class="btn btn-danger btn-sm btnDeleteEvent" onclick="">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -108,9 +118,9 @@
 					    
 					    <td class="col-md-3 text-center" style="border:1px gray solid;">${eventMngInfo.rgsde}</td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button id="btnUpdateEvntMngr" type="button" class="btn btn-default btn-xs btnUpdateEvntMngr" onclick="">수정</button></td>
+					    	<button id="btnUpdateEvntMngr" type="button" class="btn btn-primary btn-xs btnUpdateEvntMngr" onclick="">수정</button></td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
-					    	<button data-managerId="${eventMngInfo.managerId}" data-eventId="${eventMngInfo.eventId}" id="btnDeleteEvntMngr" type="button" class="btn btn-default btn-xs btnDeleteEvntMngr" onclick="">삭제</button></td>
+					    	<button data-managerId="${eventMngInfo.managerId}" data-eventId="${eventMngInfo.eventId}" id="btnDeleteEvntMngr" type="button" class="btn btn-danger btn-xs btnDeleteEvntMngr" onclick="">삭제</button></td>
 					  </tr>
 					  </c:if>
 					  </c:forEach>
@@ -125,10 +135,14 @@
 			<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 등록</strong></h5>
 
             <div class="left-block" style="width:400px; padding:10px;">
-				<button id="btnAddEvent" type="submit" class="btn btn-default col-md-offset-1">장애 코드 등록</button>
-				<button id="btnAddEvntMngr" type="submit" class="btn btn-default col-md-offset-1"> 담당자 등록 </button>
+				<button id="btnAddEvent" type="submit" class="btn btn-primary col-md-offset-1">장애 코드 등록</button>
+				<button id="btnAddEvntMngr" type="submit" class="btn btn-primary col-md-offset-1"> 담당자 등록 </button>
 			</div>
 		
+		    </div>
+        </div>
+	</div>
+</div>
 		
 			<!-- 장애코드 수정 팝업창 기능 -->
 			  <div class="modal fade" id="errorUpdatePopup" role="dialog">
@@ -331,10 +345,6 @@
 		    	</div>
 		  	  </div> 
 
-           </div>
-        </div>
-	</div>
-</div>
 
 
 <%@include file="include/footer.jsp"%>

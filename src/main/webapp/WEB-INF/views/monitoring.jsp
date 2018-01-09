@@ -13,25 +13,46 @@
 
 <div class="content-wrapper" style="min-height: 951.444px;">
 	<div class="box" style="min-height:951.444px;">
-		<h2><strong>&emsp;모니터링</strong></h2>
+		<h3><strong>&emsp;모니터링</strong></h3>
+		
+		<div class="box-body">
 		
 		<div class="box">
-			<div class="box-header">
+			<div class="box-header with-border">
 				<div id="date-text" style="float:left; width:25%">
-					<h4><strong>통계 기간 : </strong>${today}</h4>
+					<h4><strong>&emsp;통계 기간 : </strong>&emsp;${today}</h4>
 				</div>
 				<div id="button" style="float:left; width:75%">
-					<a href = "/monitoringList"><button style="height:40px"><strong>상세목록</strong></button></a>
+					<a href = "/monitoringList"><button class="btn btn-primary"><strong>상세목록</strong></button></a>
 				</div>
+				<hr>
 			</div>
 			
            <div class="box-body">
+                <div class="row">
+                     <div class="col-md-6">
+                        <div class="box box-primary">
+                          <div class="box-body">
+                                <div id="line-chart"></div>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="box box-danger">
+                          <div class="box-body">
+                                <div id="bar-chart"></div>
+                          </div>
+                        </div>
+                     </div>
+                </div>
 			
-			<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-			<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
 			
 		   </div>
 		</div>
+		
+		</div>
+		
+		
 	</div>
 </div>
 
@@ -50,43 +71,55 @@
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
 <script>
+//line 그래프의 x 값 매칭
+var lineSeriesData = [];
+<c:forEach items="${dailyStatValue}" var="item">
+lineSeriesData.push(parseInt("${item}"));
+</c:forEach>
 
-function DateParser(arg) {
-	var splitArg = arg.split("-");
-	var stringArg = splitArg[0] + splitArg[1] + splitArg[2];
-	var intArg = parseInt(stringArg);
-	return intArg;
-};
+//line 그래프 y 값 매칭
+ var lineDate = [];
+<c:forEach items="${dailyStatDate}" var="item">
+lineDate.push("${item}");
+</c:forEach> 
+
+//bar 그래프 x 값 매칭
+var barServerNm = [];
+<c:forEach items="${topFiveSerNm}" var="item">
+barServerNm.push("${item}");
+</c:forEach>
+
+//line 그래프의 x 값 매칭
+var barSeriesData = [];
+<c:forEach items="${topFiveCnt}" var="item">
+barSeriesData.push(parseInt("${item}"));
+</c:forEach>
+
+
 
 Highcharts.chart('line-chart', {
     chart: {
         type: 'spline'
     },
     title: {
-        text: '<strong>서버 장애 이력</strong>'
+        text: '장애 발생 일간 통계'
     },
     subtitle: {
-        text: 'TOP 5'
+        text: '일간 장애 발생 총 건수'
     },
     xAxis: {
-        type: 'datetime',
-        dateTimeLabelFormats: {
-            day: '%e',
-    				month: '%m'
-        },
+        categories: lineDate,
         title: {
-            text: 'Date'
+            text: '날짜'
         }
     },
     yAxis: {
         title: {
-            text: '서버 발생 총 건수 (건)'
-        },
-        min: 0
+            text: '장애 발생 총 건수 (건)'
+        }
     },
     tooltip: {
-        headerFormat: '<b>{series.name}</b><br>',
-        pointFormat: '{point.x:%m월%e일}: <br> {point.y:.2f} m <br>1<br>2<br>3'
+        
     },
 
     plotOptions: {
@@ -96,20 +129,11 @@ Highcharts.chart('line-chart', {
             }
         }
     },
-
+    
     series: [{
-        name: 'TOP 5',
-        // [Date.UTC(년, 월(0~11), 일), 값]
-
-        data: [
-            [Date.UTC(2017, 11, 1), 0],
-            [Date.UTC(2017, 11, 2), 28],
-            [Date.UTC(2017, 11, 3), 25],
-            [Date.UTC(2017, 11, 4), 2],
-            [Date.UTC(2017, 11, 5), 28],
-            [Date.UTC(2017, 11, 6), 28],
-            [Date.UTC(2017, 11, 7), 47] 
-        ]
+        showInLegend:false,
+        name: "발생 건수",
+        data: lineSeriesData
     }]
 });
 
@@ -122,10 +146,10 @@ Highcharts.chart('bar-chart', {
         text: '주간 TOP 5'
     },
     subtitle: {
-        text: '에러코드 발생 주간 TOP 5'
+        text: '장애 발생 서버 TOP 5'
     },
     xAxis: {
-        type: 'category'
+        categories : barServerNm
     },
     yAxis: {
         title: {
@@ -152,214 +176,11 @@ Highcharts.chart('bar-chart', {
     },
 
     series: [{
-        name: '에러코드',
+        name: '발생 건수',
         colorByPoint: true,
-        data: [{
-            name: 'ER001',
-            y: 56,
-            drilldown: 'ER001'
-        }, {
-            name: 'ER002',
-            y: 24,
-            drilldown: 'ER002'
-        }, {
-            name: 'ER003',
-            y: 10,
-            drilldown: 'ER003'
-        }, {
-            name: 'ER004',
-            y: 4,
-            drilldown: 'ER004'
-        }, {
-            name: 'ER005',
-            y: 1,
-            drilldown: 'ER005'
-        }]
-    }],
-    drilldown: {
-        series: [{
-            name: 'ER001',
-            id: 'ER001',
-            data: [
-                [
-                    'v11.0',
-                    24.13
-                ],
-                [
-                    'v8.0',
-                    17.2
-                ],
-                [
-                    'v9.0',
-                    8.11
-                ],
-                [
-                    'v10.0',
-                    5.33
-                ],
-                [
-                    'v6.0',
-                    1.06
-                ],
-                [
-                    'v7.0',
-                    0.5
-                ]
-            ]
-        }, {
-            name: 'ER002',
-            id: 'ER002',
-            data: [
-                [
-                    'v40.0',
-                    5
-                ],
-                [
-                    'v41.0',
-                    4.32
-                ],
-                [
-                    'v42.0',
-                    3.68
-                ],
-                [
-                    'v39.0',
-                    2.96
-                ],
-                [
-                    'v36.0',
-                    2.53
-                ],
-                [
-                    'v43.0',
-                    1.45
-                ],
-                [
-                    'v31.0',
-                    1.24
-                ],
-                [
-                    'v35.0',
-                    0.85
-                ],
-                [
-                    'v38.0',
-                    0.6
-                ],
-                [
-                    'v32.0',
-                    0.55
-                ],
-                [
-                    'v37.0',
-                    0.38
-                ],
-                [
-                    'v33.0',
-                    0.19
-                ],
-                [
-                    'v34.0',
-                    0.14
-                ],
-                [
-                    'v30.0',
-                    0.14
-                ]
-            ]
-        }, {
-            name: 'ER003',
-            id: 'ER003',
-            data: [
-                [
-                    'v35',
-                    2.76
-                ],
-                [
-                    'v36',
-                    2.32
-                ],
-                [
-                    'v37',
-                    2.31
-                ],
-                [
-                    'v34',
-                    1.27
-                ],
-                [
-                    'v38',
-                    1.02
-                ],
-                [
-                    'v31',
-                    0.33
-                ],
-                [
-                    'v33',
-                    0.22
-                ],
-                [
-                    'v32',
-                    0.15
-                ]
-            ]
-        }, {
-            name: 'ER004',
-            id: 'ER004',
-            data: [
-                [
-                    'v8.0',
-                    2.56
-                ],
-                [
-                    'v7.1',
-                    0.77
-                ],
-                [
-                    'v5.1',
-                    0.42
-                ],
-                [
-                    'v5.0',
-                    0.3
-                ],
-                [
-                    'v6.1',
-                    0.29
-                ],
-                [
-                    'v7.0',
-                    0.26
-                ],
-                [
-                    'v6.2',
-                    0.17
-                ]
-            ]
-        }, {
-            name: 'ER005',
-            id: 'ER005',
-            data: [
-                [
-                    'v12.x',
-                    0.34
-                ],
-                [
-                    'v28',
-                    0.24
-                ],
-                [
-                    'v27',
-                    0.17
-                ],
-                [
-                    'v29',
-                    0.16
-                ]
-            ]
-        }]
-    }
+        data: barSeriesData
+    }]
+             
 });
 
 </script>
