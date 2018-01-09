@@ -5,12 +5,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
 <%@include file="include/header.jsp"%>
-<div class="content-wrapper" style="min-height:951.444px;">
-	<div class="box" style="min-height:951.444px;">
+<div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
+	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;서버 목록 > 서버 상세정보</strong></h3>
 		<div class="box">
            <div class="box-body">
-            <h5 class=""><strong>&emsp; &bull; &ensp;서버 정보</strong></h5>
+            <h5><strong>&emsp; &bull; &ensp;서버 정보</strong></h5>
            	<div class="row">
            	   <form role="form">
 		          <table class="table" style="margin-left:15px;width:400px;" align="left">
@@ -350,15 +350,11 @@
 <%@include file="include/footer.jsp"%>
 
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/plugins/fastclick/fastclick.js"></script>
-<script src="/resources/plugins/knob/jquery.knob.js"></script>
-<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
-<script src="/resources/dist/js/demo.js"></script>
-<script src="/resources/dist/js/app.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="resources/dist/js/app.js"></script>
 
 <script>
 

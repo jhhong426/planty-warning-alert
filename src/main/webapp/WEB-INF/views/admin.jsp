@@ -4,8 +4,9 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 
 <%@include file="include/header.jsp"%>
-<div class="content-wrapper" style="min-height:951.444px;">
-	<div class="box" style="min-height:951.444px;">
+
+<div class="content-wrapper"  style="width:auto; height:auto; padding:0px;">
+	<div class="box"  style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;담당자 관리</strong></h3>
 		<div class="box">
            <div class="box-body">
@@ -39,7 +40,7 @@
 			    </table>
 				<br>
 				
-				<h5 class="col-md-offset-3"><strong>&emsp; &bull; &ensp;담당자 등록</strong></h5>
+				<div style="width:600px;" align="center"><h5><strong>&emsp; &bull; &ensp;담당자 등록</strong></h5></div>
 				<form name="" method="post" action="/admin" onsubmit="return check()">
 				<table class="table" style="width:500px;" align="center">
 					<tbody>

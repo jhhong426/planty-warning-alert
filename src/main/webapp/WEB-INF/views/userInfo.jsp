@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 
 <%@include file="include/header.jsp"%>
-<div class="content-wrapper" style="min-height:951.444px;">
-	<div class="box" style="min-height:951.444px;">
+<div class="content-wrapper" style="width:auto; height:100%; padding:0px;">
+	<div class="box" style="width:auto; height:100%; padding:0px;">
 		<h3><strong>&emsp;사용자 정보</strong></h3>
 		<div class="box">
            <div class="box-body">   
@@ -42,6 +42,10 @@
 					<button id="btnUpdate" type="button" class="btn btn-primary col-md-offset-4">&emsp;정보 수정 &emsp;</button>
 					<button id="btnPassword" type="submit" class="btn btn-danger col-md-offset-1">비밀번호 변경</button>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 		
 				  <!-- 사용자 정보 수정 팝업창 기능 -->
@@ -131,10 +135,6 @@
 				      </div>
 			    	</div>
 			  	  </div> 
-			</div>
-		</div>
-	</div>
-</div>
 
 <%@include file="include/footer.jsp"%>
 
@@ -144,6 +144,7 @@
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script>
+
 	$(document).ready(function(){
 	    
 	    $("#btnUpdate").click(function(){
