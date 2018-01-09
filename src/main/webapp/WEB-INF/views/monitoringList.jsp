@@ -124,6 +124,13 @@
 
 <script>
 
+$(document).keypress(function(e) { 
+	if (e.keyCode == 13) { 
+		e.preventDefault();
+		Search();
+	}
+});
+
 $(function() {
 	$("#preDate").datepicker({
 		dateFormat : "yy-mm-dd",
@@ -227,6 +234,7 @@ $("#postDate").keypress(function(e) {
 		Search();
 	} 
 }); */
+/*
 $("#serverCategory").keypress(function(e) { 
 	if (e.keyCode === 13) { 
 		e.preventDefault();
@@ -239,6 +247,7 @@ $("#codeCategory").keypress(function(e) {
 		Search();
 	} 
 });
+*/
 
 //검색
 function Search() {
