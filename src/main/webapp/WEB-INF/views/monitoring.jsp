@@ -111,7 +111,10 @@ Highcharts.chart('line-chart', {
         type: 'spline'
     },
     title: {
-        text: '장애 발생 일간 통계'
+        text: '장애 발생 일간 통계',
+       	style: {
+           	fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: '일간 장애 발생 총 건수'
@@ -187,6 +190,9 @@ Highcharts.chart('bar-chart', {
     },
     title: {
         text: '주간 TOP 5'
+       	style: {
+              fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: '장애 발생 서버 TOP 5'
