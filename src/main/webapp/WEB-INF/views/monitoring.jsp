@@ -14,23 +14,6 @@
 <div class="content-wrapper"  style="width:auto; height:100%; padding:0px;">
 	<div class="box"  style="width:auto; height:100%; padding:0px;">
 		<h3><strong>&emsp;모니터링</strong></h3>
-
-		<div class="box">
-			<div class="box-header">
-				<div id="date-text" class="col-md-4">
-					<h4><strong>통계기간 : </strong>${today}</h4>
-				</div>
-				<div id="button" class="col-md-2">
-					<a href = "/monitoringList"><button style="height:40px" class="btn btn-primary"><strong>상세목록</strong></button></a>
-				</div>
-				<div class="col-md-6"></div>
-			</div>
-			
-           <div class="box-body">
-		   	<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-			<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-
-<%-- 		<div class="box-body">
 		
 		<div class="box">
 			<div class="box-header with-border">
@@ -60,7 +43,6 @@
                         </div>
                      </div>
                 </div>
- --%>
 			
 		   </div>
 		</div>
@@ -95,7 +77,6 @@
   </div>
 	
 	
-</div>
 
 
 <%@include file="include/footer.jsp"%>

@@ -38,6 +38,13 @@
 	          </form>
 	        </div>
             <hr>
+            
+            <h5><strong>&emsp; &bull; &ensp;서버 모니터링</strong></h5>
+
+            <div class="left-block" style="width:400px; padding:10px;">
+                <a href="/monitoringServer?serverId=${serverInfo.serverId}" class="btn btn-primary col-md-offset-1">모니터링</a>
+            </div>
+            <hr>
            	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 목록</strong></h5>
            	<div class="row" style="background-color:#F2F2F2">
 				<div class="col-md-2 text-center">
@@ -70,16 +77,7 @@
 							<h4 id="eventCode">${event.eventCode}</h4>
 						</div>
 						<div class="col-md-4 text-center">
-							<h4 id="description" title="${event.description}">
-								<c:choose>
-						         	<c:when test="${fn:length(event.description)>21}">
-						         		<c:out value="${fn:substring(event.description,0,20)}"/>...
-						            </c:when>
-						          	<c:otherwise>
-						            	<c:out value="${event.description}"/>
-						            </c:otherwise> 
-							    </c:choose> 
-							</h4>
+							<h4 id="description">${event.description}</h4>
 						</div>
 						<div class="col-md-3 text-center">
 							<h4>${event.rgsde}</h4>

@@ -11,7 +11,7 @@
 	 a:hover { color: blue; text-decoration: underline;}
 </style>
 
-<div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
+<div class="content-wrapper" style="width:auto; height:100%; padding:0px;">
 	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;서버 목록</strong></h3>
             <div class="box">
