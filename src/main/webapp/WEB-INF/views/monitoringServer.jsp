@@ -21,12 +21,25 @@
 					<a href = "/serverList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>서버 목록으로</strong></button></a>
 				</div>
 			</div>
-			
-			
-            <div class="box-body">
-				<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-				<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-		    </div>
+		    
+		    <div class="box-body">
+                <div class="row">
+                     <div class="col-md-6">
+                        <div class="box box-primary">
+                          <div class="box-body">
+                                <div id="line-chart"></div>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="box box-danger">
+                          <div class="box-body">
+                                <div id="bar-chart"></div>
+                          </div>
+                        </div>
+                     </div>
+                </div>
+		   </div>
 		</div>
 	</div>
 </div>
@@ -80,40 +93,17 @@ $('#line-chart').highcharts( {
         }
     },
     subtitle: {
-        text: '~~~~'
+        text: '일간 서버 내 장애 발생 총 건수'
     },
     xAxis: {
         categories : date,
-        labels: {
-            style: {
-                color: 'black',
-                fontWeight: 'bold'
-            }
-        },
         title: {
             text: '월/일',
-            style: {
-            	color: 'black',
-            	fontWeight: 'bold',
-            	fontSize: '18px'
-            }
         }
     },
     yAxis: {
         title: {
             text: '서버 발생 총 건수 (건)',
-            style: {
-            	color: 'black',
-            	fontWeight: 'bold',
-            	fontSize: '15px'
-            }
-        },
-        labels: {
-            style: {
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: '15px'
-            }
         },
         min: 0
     },
@@ -139,7 +129,7 @@ $('#line-chart').highcharts( {
                 	str = '<b>' + 'TOP'+ data.result.length + '</b>';
                 	
                 	if (data.result.length == null || data.result.length == 0){
-                		str = '에러 발생하지 않음';
+                		str = '장애 발생하지 않음';
                 	}
                 	else {
                 		$(data.result).each(function(i){
@@ -176,38 +166,18 @@ Highcharts.chart('bar-chart', {
         	fontWeight: 'bold'
         }
     },
+    subtitle: {
+        text: '장애 발생 코드 TOP 5'
+    },
     xAxis: {
     	title: {
             text: '에러코드',
-            style: {
-            	color: 'black',
-            	fontWeight: 'bold',
-            	fontSize: '18px'
-            }
         },
     	type: 'category',
-        labels: {
-            style: {
-                color: 'black',
-                fontWeight: 'bold'
-            }
-        }
     },
     yAxis: {
         title: {
             text: '발생 건수 (건)',
-            style: {
-            	color: 'black',
-            	fontWeight: 'bold',
-            	fontSize: '15px'
-            }
-        },
-        labels: {
-            style: {
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: '15px'
-            }
         },
     },
     legend: {
