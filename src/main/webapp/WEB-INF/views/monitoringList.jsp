@@ -18,14 +18,15 @@
 		<div class="box">
 		<div class="box-body">
 			<div class="row">
-				<br>
-				<h5 class="col-md-2" align="left"><strong>&emsp;&emsp;&emsp;기&emsp;&emsp;간 &emsp;&emsp;: </strong></h5>
-				<div class="col-md-10" align="left">
-					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="10px" style="text-align:center;">
-					&emsp;~&emsp;
-					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="10px" style="text-align:center;">
-				</div>
-			</div>
+	            <br>
+	            <h5 class="col-md-2" align="left"><strong>&emsp;&emsp;&emsp;기&emsp;&emsp;간 &emsp;&emsp;: </strong></h5>
+	            <div class="col-md-10" align="left">
+	            	<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" style="width:145px; text-align:center;">
+	                &emsp;~&emsp;
+	                <input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" style="width:145px; text-align:center;">
+	            </div>
+         	</div>
+			
 			<div class="row">
 				<h5 class="col-md-2" align="left"><strong>&emsp;&emsp;&emsp;서&ensp;버&ensp;명 &emsp;&emsp;: </strong></h5>
 				<div class="col-md-2" align="left">
