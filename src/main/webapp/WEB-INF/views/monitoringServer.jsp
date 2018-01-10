@@ -6,13 +6,13 @@
 
 <%@include file="include/header.jsp"%>
 
-<div class="content-wrapper" style="min-height: 951.444px;">
-	<div class="box" style="min-height:951.444px;">
+<div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
+	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;모니터링 > 상세목록 > 서버별 장애 통계</strong></h3>
 		<div class="box">
 		
 			<div class="box-header">
-				<div id="date-text" style="float:left; width:25%">
+				<div id="date-text" class="col-md-5">
 					<h4><strong>통계기간&ensp;:&ensp;</strong>${today}</h4>
 					<h4><strong>서&emsp;&emsp;버&ensp;:&ensp;</strong>${serverInfo.serverNm}</h4>
 					<h4><strong>&ensp;I&emsp;&emsp;&ensp;P&ensp; :&ensp;</strong>${serverInfo.ip}</h4>
