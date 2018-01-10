@@ -18,7 +18,7 @@ public interface ServerInfoService
     
     public void deleteEvent(int eventId);
     
-    public void updateEvntMngr(ManagerInChargeVO vo);
+    public boolean updateEvntMngr(ManagerInChargeVO vo);
     
     public void deleteEvntMntr(ManagerInChargeVO vo);
     
