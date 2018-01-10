@@ -25,13 +25,17 @@
         SELECT server_id, server_nm
         FROM SERVER
         WHERE team_id=#{teamId}
+        AND sttus='ACT01'
     </select>
     
     <!-- 카테고리에 들어갈 해당 서버의 에러코드 목록 -->
     <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_id, event_code
-        FROM EVENT
-        WHERE server_id=#{serverId}
+        SELECT DISTINCT e.event_id AS event_id, e.event_code AS event_code
+        FROM EVENT e, EVENT_MANAGER m
+        WHERE e.server_id=#{serverId}
+        AND m.sttus='ACT01'
+        AND e.event_id=m.event_id
+        
     </select>
     
     <!-- 전체 에러로그의 목록 출력 -->
