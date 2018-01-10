@@ -227,4 +227,3 @@ Highcharts.chart('bar-chart', {
 });
 
 </script>
-
