@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="ipAllowCheck" resultType="int" parameterType="String">
         SELECT count(*) from SERVER
-        WHERE ip = #{ip}
+        WHERE ip = #{ip} and sttus = 'ACT01'
     </select>
     
     <insert id="plusEventHistory">
