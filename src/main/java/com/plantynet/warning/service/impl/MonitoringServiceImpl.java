@@ -67,5 +67,10 @@ public class MonitoringServiceImpl implements MonitoringService{
     {
         return monitoringDAO.getTeamTopFive(vo);
     }
+    @Override
+    public List<TeamTopFiveVO> getDailyTopFive(Map<String, Object> map)
+    {
+        return monitoringDAO.getDailyTopFive(map);
+    }
 
 }

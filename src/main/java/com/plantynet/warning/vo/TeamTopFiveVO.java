@@ -21,6 +21,11 @@ public class TeamTopFiveVO
     {
         this.count = count;
     }
+    @Override
+    public String toString()
+    {
+        return "TeamTopFiveVO [serverNm=" + serverNm + ", count=" + count + "]";
+    }
     
     
 }

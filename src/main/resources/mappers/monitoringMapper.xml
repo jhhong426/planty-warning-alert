@@ -25,13 +25,17 @@
         SELECT server_id, server_nm
         FROM SERVER
         WHERE team_id=#{teamId}
+        AND sttus='ACT01'
     </select>
     
     <!-- 카테고리에 들어갈 해당 서버의 에러코드 목록 -->
     <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_id, event_code
-        FROM EVENT
-        WHERE server_id=#{serverId}
+        SELECT DISTINCT e.event_id AS event_id, e.event_code AS event_code
+        FROM EVENT e, EVENT_MANAGER m
+        WHERE e.server_id=#{serverId}
+        AND m.sttus='ACT01'
+        AND e.event_id=m.event_id
+        
     </select>
     
     <!-- 전체 에러로그의 목록 출력 -->
@@ -109,7 +113,9 @@
         GROUP BY h.event_id
         ORDER BY count DESC
         LIMIT 5
-    </select> 
+    </select>
+    
+
     
     <select id="getDailyStat" resultType="java.util.Map">
 SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
@@ -136,6 +142,16 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
 		GROUP BY EVENT_HISTORY.server_id
 		ORDER BY count DESC
 		LIMIT 5
+    </select>
+    
+    <select id="getDailyTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+        select server_nm as serverNm, count(*) AS count from EVENT_HISTORY
+		JOIN SERVER
+		ON EVENT_HISTORY.server_id = SERVER.server_id
+		WHERE DATE_FORMAT(EVENT_HISTORY.rgsde,'%m/%d') LIKE #{date} AND EVENT_HISTORY.team_id = #{teamId}
+		GROUP BY EVENT_HISTORY.server_id
+		ORDER BY count DESC
+		LIMIT 5;
     </select>
 
 </mapper>

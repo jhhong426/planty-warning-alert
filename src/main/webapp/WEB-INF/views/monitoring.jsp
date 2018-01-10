@@ -29,46 +29,40 @@
            <div class="box-body">
 		   	<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
 			<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-
-<%-- 		<div class="box-body">
-		
-		<div class="box">
-			<div class="box-header with-border">
-				<div id="date-text" style="float:left; width:25%">
-					<h4><strong>&emsp;통계 기간 : </strong>&emsp;${today}</h4>
-				</div>
-				<div id="button" style="float:left; width:75%">
-					<a href = "/monitoringList"><button class="btn btn-primary"><strong>상세목록</strong></button></a>
-				</div>
-				<hr>
-			</div>
-			
-           <div class="box-body">
-                <div class="row">
-                     <div class="col-md-6">
-                        <div class="box box-primary">
-                          <div class="box-body">
-                                <div id="line-chart"></div>
-                          </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="box box-danger">
-                          <div class="box-body">
-                                <div id="bar-chart"></div>
-                          </div>
-                        </div>
-                     </div>
-                </div>
- --%>
 			
 		   </div>
 		</div>
 		
 		</div>
-		
-		
 	</div>
+	
+	<!-- 사용자 정보 수정 팝업창 기능 -->
+  <div class="modal fade" id="dailyTopFivePopup" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>일간 장애 발생 TOP 5</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+           <h3 class="text-center"><mark id="popUpDate"></mark></h3>
+           <table id="tabDailyTopFive" class="table table-bordered text-center">
+                <thead>
+                    <tr class="active">
+                      <th>서버명</th>
+                      <th>장애 발생 건수</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	
 </div>
 
 
@@ -142,6 +136,40 @@ Highcharts.chart('line-chart', {
             marker: {
                 enabled: true
             }
+        },
+        series: {
+            cursor:'pointer',
+            point: {
+                events:{
+                    click : function (){
+                        var date = this.category;
+                        $("#popUpDate").text(date);
+                        $.ajax({
+                            
+                            type :"post",
+                            url : "/monitoring/dailyTopFive",
+                            data :{"date" : date},
+                            dataType : "json",
+                            success : function(data){
+                                if(data.result.length == 0){
+                                    alert("해당 날짜에 발생한 장애가 없습니다.");
+                                }
+                                else{
+                                    var str = "";
+                                    $(data.result).each(function(){
+                                        $("#tabDailyTopFive tbody").empty();
+                                        str += "<tr><td>" + this.serverNm + "</td><td>" + this.count + "</td></tr>";
+                                        $("#tabDailyTopFive tbody").append(str);
+                                        $("#dailyTopFivePopup").modal();
+                                    }); 
+                                }
+                                
+                            }
+                        });
+                        
+                    }
+                }
+            }
         }
     },
     
@@ -164,6 +192,9 @@ Highcharts.chart('bar-chart', {
         text: '장애 발생 서버 TOP 5'
     },
     xAxis: {
+        title: {
+            text: '서버'
+        },
         categories : barServerNm
     },
     yAxis: {
@@ -186,8 +217,8 @@ Highcharts.chart('bar-chart', {
     },
 
     tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> 건<br/>'
+        headerFormat: ' ',
+        pointFormat: '<span style="color:{point.color}"">{point.category}</span><br><span>{series.name}</span>: <b>{point.y}</b> 건<br/>'
     },
 
     series: [{
