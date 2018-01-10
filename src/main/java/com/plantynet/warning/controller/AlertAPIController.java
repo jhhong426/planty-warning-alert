@@ -26,7 +26,6 @@ public class AlertAPIController
     @RequestMapping(value="/alert", method=RequestMethod.GET)
     public Map<String, Integer> setNotiInfoForAlert(HttpServletRequest req, ParamVO vo)
     {
-        System.out.println(vo);
         
         Map<String, Integer> map = new HashMap<>();
         

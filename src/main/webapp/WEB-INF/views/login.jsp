@@ -12,27 +12,25 @@
 <link href="/resources/bootstrap/css/style.css" rel="stylesheet">
 
 <style>
-    
-@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
-@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-
-
-#title{
-    font-family: ‘Nanum Pen Script’ ;
-    color:#ffffff;
-    font-size: 25px;
-}
-
-.background {
-	background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
-	background-size:cover;
-	width:100%;
-	height:100%;
-	position: relative;
-	z-index:1;
-	float:left;
-	overflow:hidden;
+	@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+	@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+	
+	#title{
+	    font-family: ‘Nanum Pen Script’ ;
+	    color:#ffffff;
+	    font-size: 25px;
 	}
+	
+	.background {
+		background: url("http://cdn1.greatfon.com/uploads/picture/934/36934/ubuntu-linux-gnu-fon-siniy.jpg?width=1920&height=1080&crop=true") center;
+		background-size:cover;
+		width:100%;
+		height:100%;
+		position: relative;
+		z-index:1;
+		float:left;
+		overflow:hidden;
+		}
 </style>
 
 <html>
@@ -76,15 +74,18 @@
 	</div>
 </div>
 
-
 </body>
 </html>
 
 
-
-
+<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
+
 function check(){
 	if( $("#login-id").val()=="" || $("#login-password").val()=="" ){
 		alert("아이디와 패스워드를 입력해 주십시오");
@@ -93,10 +94,5 @@ function check(){
 		return true;	
 	}
 }
-</script>
 
-<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+</script>

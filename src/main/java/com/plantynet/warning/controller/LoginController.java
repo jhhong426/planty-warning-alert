@@ -63,7 +63,6 @@ public class LoginController {
 			sessionVO.setPhoneNo(vo.getPhoneNo());
 			sessionVO.setEmail(vo.getEmail());
 			sessionVO.setTeamNm(loginDAO.getTeamNmByTeamId(vo.getTeamId()));
-			System.out.println(loginDAO.getTeamNmByTeamId(vo.getTeamId()));
 			session.setAttribute("sessionVO", sessionVO);
 
 			return "redirect:/monitoring";
