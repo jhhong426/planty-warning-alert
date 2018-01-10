@@ -14,21 +14,35 @@
 <div class="content-wrapper"  style="width:auto; height:100%; padding:0px;">
 	<div class="box"  style="width:auto; height:100%; padding:0px;">
 		<h3><strong>&emsp;모니터링</strong></h3>
-
+		
 		<div class="box">
-			<div class="box-header">
-				<div id="date-text" class="col-md-4">
-					<h4><strong>통계기간 : </strong>${today}</h4>
+			<div class="box-header with-border">
+				<div id="date-text" style="float:left; width:25%">
+					<h4><strong>&emsp;통계 기간 : </strong>&emsp;${today}</h4>
 				</div>
-				<div id="button" class="col-md-2">
-					<a href = "/monitoringList"><button style="height:40px" class="btn btn-primary"><strong>상세목록</strong></button></a>
+				<div id="button" style="float:left; width:75%">
+					<a href = "/monitoringList"><button class="btn btn-primary"><strong>상세목록</strong></button></a>
 				</div>
-				<div class="col-md-6"></div>
+				<hr>
 			</div>
 			
            <div class="box-body">
-		   	<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-			<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
+                <div class="row">
+                     <div class="col-md-6">
+                        <div class="box box-primary">
+                          <div class="box-body">
+                                <div id="line-chart"></div>
+                          </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="box box-danger">
+                          <div class="box-body">
+                                <div id="bar-chart"></div>
+                          </div>
+                        </div>
+                     </div>
+                </div>
 			
 		   </div>
 		</div>
@@ -63,7 +77,6 @@
   </div>
 	
 	
-</div>
 
 
 <%@include file="include/footer.jsp"%>
