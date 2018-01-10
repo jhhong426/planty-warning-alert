@@ -91,20 +91,17 @@ public class ServerInfoController {
     	int teamId = sessionVO.getTeamId();
     	serverVO.setTeamId(teamId);
     	serverListService.addServer(serverVO);
-    	System.out.println("서버 추가 완료");
         return "redirect:/serverList";
     }
     
     @RequestMapping(value = "/updateServer", method = RequestMethod.POST)
     public String updateServer(Model model, ServerVO serverVO ){
-    	System.out.println(serverVO.toString());
     	serverListService.updateServer(serverVO);
         return "redirect:/serverList";
     }
     
     @RequestMapping(value = "/deleteServer", method = RequestMethod.POST)
-    public String updateServer(Model model, @RequestParam("serverId")int serverId ){
-    	System.out.println("삭제 수행\n 서버 아이디:"+serverId);
+    public String deleteServer(Model model, @RequestParam("serverId")int serverId ){
     	serverListService.deleteServer(serverId);
         return "redirect:/serverList";
     }
@@ -153,7 +150,6 @@ public class ServerInfoController {
     @RequestMapping(value="/updateEvntMngr", method=RequestMethod.POST)
     public Map<String, Boolean> updateEvntMngr(ManagerInChargeVO vo){
         
-	    System.out.println(vo);
         Map<String, Boolean> map = new HashMap<>();
         
         if(serverInfoService.updateEvntMngr(vo))
