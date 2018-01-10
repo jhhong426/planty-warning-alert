@@ -131,7 +131,6 @@ public class ServerInfoController {
 	public Map<String, Boolean> updateEvent(EventVO vo){
 	    
 	    Map<String, Boolean> map = new HashMap<>();
-	    
 	    serverInfoService.updateEvent(vo);
 	    map.put("flag", true);
 	    
@@ -154,10 +153,17 @@ public class ServerInfoController {
     @RequestMapping(value="/updateEvntMngr", method=RequestMethod.POST)
     public Map<String, Boolean> updateEvntMngr(ManagerInChargeVO vo){
         
+	    System.out.println(vo);
         Map<String, Boolean> map = new HashMap<>();
         
-        serverInfoService.updateEvntMngr(vo);
-        map.put("flag", true);
+        if(serverInfoService.updateEvntMngr(vo))
+        {
+            map.put("flag", true);
+        }
+        else
+        {
+            map.put("flag", false);
+        }
         
         return map;
         

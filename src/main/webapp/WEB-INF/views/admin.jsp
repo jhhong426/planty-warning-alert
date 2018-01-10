@@ -5,7 +5,7 @@
 
 <%@include file="include/header.jsp"%>
 
-<div class="content-wrapper"  style="width:auto; height:auto; padding:0px;">
+<div class="content-wrapper"  style="width:auto; height:auto%; padding:0px;">
 	<div class="box"  style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;담당자 관리</strong></h3>
 		<div class="box">
@@ -118,7 +118,7 @@
         "pagingType"           : "full_numbers",
         "dom"                  : '<"top"<"col-md-12"B>>' +
                                  'rt' +
-                                 '<"bottom"<"col-md-8"p><"col-md-4"B>>',
+                                 '<"bottom"<"col-md-4"B><"col-md-8"p>>',
         "select"              : "multi",
 	    "autoWidth" : false,
 	    "ordering": false

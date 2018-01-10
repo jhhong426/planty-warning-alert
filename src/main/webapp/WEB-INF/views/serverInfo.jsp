@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
 <%@include file="include/header.jsp"%>
+
 <div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
 	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;서버 목록 > 서버 상세정보</strong></h3>
@@ -38,6 +39,13 @@
 	          </form>
 	        </div>
             <hr>
+            
+            <h5><strong>&emsp; &bull; &ensp;서버 모니터링</strong></h5>
+
+            <div class="left-block" style="width:400px; padding:10px;">
+                <a href="/monitoringServer?serverId=${serverInfo.serverId}" class="btn btn-primary col-md-offset-1">모니터링</a>
+            </div>
+            <hr>
            	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 목록</strong></h5>
            	<div class="row" style="background-color:#F2F2F2">
 				<div class="col-md-2 text-center">
@@ -70,16 +78,7 @@
 							<h4 id="eventCode">${event.eventCode}</h4>
 						</div>
 						<div class="col-md-4 text-center">
-							<h4 id="description" title="${event.description}">
-								<c:choose>
-						         	<c:when test="${fn:length(event.description)>21}">
-						         		<c:out value="${fn:substring(event.description,0,20)}"/>...
-						            </c:when>
-						          	<c:otherwise>
-						            	<c:out value="${event.description}"/>
-						            </c:otherwise> 
-							    </c:choose> 
-							</h4>
+							<h4 id="description">${event.description}</h4>
 						</div>
 						<div class="col-md-3 text-center">
 							<h4>${event.rgsde}</h4>
@@ -106,6 +105,7 @@
 					  <tr style="height:30px;">
 					    <input id="eventId2" type="hidden" value="${event.eventId }"/>
 					    <input id="eventCode2" type="hidden" value="${event.eventCode }"/>
+					    <input id="managerId" type="hidden" value="${eventMngInfo.managerId }"/>
 					    <td id="managerNm" class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.managerNm}</td>
 					    <c:choose>
 					       <c:when test = "${eventMngInfo.alertMth == 'ALM01' }">
@@ -209,6 +209,8 @@
 									<th style="text-align:center">장애코드</th>
 										<td>
 										    <input id="inputUptEventId2" type="hidden" name="eventId" value="" style="width:250px; text-align:center">
+										    <input id="inputUptManagerId2" type="hidden" name="oldManagerId" value="" style="width:250px; text-align:center">
+										    <input id="inputUptFlag" type="hidden" name="flag" value="" style="width:250px; text-align:center">
 											<input id="inputUptEventCode2" type="text" name="" value="" style="width:250px; text-align:center" disabled>
 										</td>
 								</tr>
@@ -399,7 +401,6 @@ $(document).ready(function(){
 	
 	//수정 완료 시 submit
 	$("#btnUpdateEventGo").click(function(){
-	    
 	    var frm = $("#frmUpdateEvent");
 	    ajaxPost(frm,"수정되었습니다.","");
 	});
@@ -455,19 +456,27 @@ $(document).ready(function(){
 	   $(this).click(function(){
 	       var eventId = $(this).parents("tr").children().eq(0).val();
 	       var eventCode = $(this).parents("tr").children().eq(1).val();
-	       var managerNm = $(this).parents("tr").children().eq(2).text();
-	       var alertMth = $(this).parents("tr").children().eq(3).text();
+	       var managerId = $(this).parents("tr").children().eq(2).val();
+	       var managerNm = $(this).parents("tr").children().eq(3).text();
+	       var alertMth = $(this).parents("tr").children().eq(4).text();
 	       
 	       $("#inputUptEventId2").val(eventId);
 	       $("#inputUptEventCode2").val(eventCode);
+	       $("#inputUptManagerId2").val(managerId);
 	       
-	       $("#selUptAlertMth option").filter(function(){
-	          return this.text == alertMth; 
-	       }).attr("selected", true);
+	       $('#selUptAlertMth>option').each(function () {
+	           var text = $(this).text();
+	           if (text == alertMth) {
+	               $(this).prop('selected',true);
+	           }
+	       });
 	       
-	       $("#selUptManager option").filter(function(){
-	              return this.text == managerNm; 
-	           }).attr("selected", true);
+	       $('#selUptManager>option').each(function () {
+               var text = $(this).text();
+               if (text == managerNm) {
+                   $(this).prop('selected',true);
+               }
+           });
 	       
 	       $("#errorAdminUpdatePopup").modal();
 	   });
@@ -475,8 +484,18 @@ $(document).ready(function(){
 	
 	//담당자 수정 완료 시 form submit
 	$("#btnUpdateEvntMngrGo").click(function(){
+	    var oldMngrId = $("#inputUptManagerId2").val();
+	    var newMngrId = $("#selUptManager").val();
+	    
+	    if(oldMngrId == newMngrId){
+	        $("#inputUptFlag").val("same");
+	    }
+	    else{
+	        $("#inputUptFlag").val("unsame");
+	    }
+	    
 	    var frm = $("#frmUpdateEvntMngr");
-	    ajaxPost(frm,"수정 되었습니다.","");
+	    ajaxPost(frm,"수정 되었습니다.","이미 등록된 담당자 입니다.");
 	});
 	
 	//담당자 삭제

@@ -14,30 +14,13 @@
 <div class="content-wrapper"  style="width:auto; height:100%; padding:0px;">
 	<div class="box"  style="width:auto; height:100%; padding:0px;">
 		<h3><strong>&emsp;모니터링</strong></h3>
-
-		<div class="box">
-			<div class="box-header">
-				<div id="date-text" class="col-md-4">
-					<h4><strong>통계기간 : </strong>${today}</h4>
-				</div>
-				<div id="button" class="col-md-2">
-					<a href = "/monitoringList"><button style="height:40px" class="btn btn-primary"><strong>상세목록</strong></button></a>
-				</div>
-				<div class="col-md-6"></div>
-			</div>
-			
-           <div class="box-body">
-		   	<div id="line-chart" style="float:left; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-			<div id="bar-chart" style="float:right; width:50%; min-width:310px; height: 400px; margin: 0 auto"></div>
-
-<%-- 		<div class="box-body">
 		
 		<div class="box">
 			<div class="box-header with-border">
-				<div id="date-text" style="float:left; width:25%">
+				<div id="date-text" style="float:left; width:35%">
 					<h4><strong>&emsp;통계 기간 : </strong>&emsp;${today}</h4>
 				</div>
-				<div id="button" style="float:left; width:75%">
+				<div id="button" style="float:left; width:65%">
 					<a href = "/monitoringList"><button class="btn btn-primary"><strong>상세목록</strong></button></a>
 				</div>
 				<hr>
@@ -60,42 +43,12 @@
                         </div>
                      </div>
                 </div>
- --%>
-			
 		   </div>
+		   
 		</div>
 		
 		</div>
 	</div>
-	
-	<!-- 사용자 정보 수정 팝업창 기능 -->
-  <div class="modal fade" id="dailyTopFivePopup" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>일간 장애 발생 TOP 5</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-           <h3 class="text-center"><mark id="popUpDate"></mark></h3>
-           <table id="tabDailyTopFive" class="table table-bordered text-center">
-                <thead>
-                    <tr class="active">
-                      <th>서버명</th>
-                      <th>장애 발생 건수</th>
-                   </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-           </table>
-        </div>
-      </div>
-    </div>
-  </div>
-	
-	
-</div>
 
 
 <%@include file="include/footer.jsp"%>
@@ -136,14 +89,27 @@ var barSeriesData = [];
 barSeriesData.push(parseInt("${item}"));
 </c:forEach>
 
+//선형 그래프
+(function (H) {
+    H.wrap(H.Tooltip.prototype, 'refresh', function (proceed, point, e) {
+        if (e.type !== 'mousemove') {
+            proceed.call(this, point, e);
+        }
+    });
+    H.addEvent(H.Point.prototype, 'click', function (e) {
+        e.point.series.chart.tooltip.refresh(e.point, e);
+    });
+}(Highcharts));
 
-
-Highcharts.chart('line-chart', {
+$('#line-chart').highcharts( {
     chart: {
         type: 'spline'
     },
     title: {
-        text: '장애 발생 일간 통계'
+        text: '장애 발생 일간 통계',
+       	style: {
+           	fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: '일간 장애 발생 총 건수'
@@ -160,54 +126,51 @@ Highcharts.chart('line-chart', {
         }
     },
     tooltip: {
-        
+        formatter: function() {
+        	var str = '<b>' + 'TOP5'+ '</b>';
+        	
+    		$.ajax({
+                type: "POST",
+                url: "/monitoring/dailyTopFive",
+                async:false,
+                data: {"date" : this.x},
+                dataType: "json",
+                success: function(data){
+                	
+                	str = '<b>' + 'TOP'+ data.result.length + '</b>';
+                	
+                	if (data.result.length == null || data.result.length == 0){
+                		str = '장애 발생하지 않음';
+                	}
+                	else {                   
+                        $(data.result).each(function(){
+                            str += "<br>" + this.serverNm + " : " + this.count;
+                        });
+                	}
+                },
+                error:function(){
+                    alert("불러오는 도중 에러가 발생하였습니다. 다시 시도해주세요.");
+                    return;
+                }
+            });
+    		str += "<br>총  " + this.y.toString() + "건";
+    		return str;
+        }
     },
 
     plotOptions: {
         spline: {
-            marker: {
+            dataLabels: {
                 enabled: true
-            }
-        },
-        series: {
-            cursor:'pointer',
-            point: {
-                events:{
-                    click : function (){
-                        var date = this.category;
-                        $("#popUpDate").text(date);
-                        $.ajax({
-                            
-                            type :"post",
-                            url : "/monitoring/dailyTopFive",
-                            data :{"date" : date},
-                            dataType : "json",
-                            success : function(data){
-                                if(data.result.length == 0){
-                                    alert("해당 날짜에 발생한 장애가 없습니다.");
-                                }
-                                else{
-                                    var str = "";
-                                    $(data.result).each(function(){
-                                        $("#tabDailyTopFive tbody").empty();
-                                        str += "<tr><td>" + this.serverNm + "</td><td>" + this.count + "</td></tr>";
-                                        $("#tabDailyTopFive tbody").append(str);
-                                        $("#dailyTopFivePopup").modal();
-                                    }); 
-                                }
-                                
-                            }
-                        });
-                        
-                    }
-                }
             }
         }
     },
     
     series: [{
-        showInLegend:false,
-        name: "발생 건수",
+    	showInLegend: false,
+    	label: {
+    		enabled: false
+    	},
         data: lineSeriesData
     }]
 });
@@ -218,7 +181,10 @@ Highcharts.chart('bar-chart', {
         type: 'column'
     },
     title: {
-        text: '주간 TOP 5'
+        text: '주간 TOP 5',
+       	style: {
+              fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: '장애 발생 서버 TOP 5'
@@ -254,7 +220,6 @@ Highcharts.chart('bar-chart', {
     },
 
     series: [{
-        name: '발생 건수',
         colorByPoint: true,
         data: barSeriesData
     }]

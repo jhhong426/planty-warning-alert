@@ -270,7 +270,7 @@
         "pagingType"           : "full_numbers",
         "dom"                  : '<"top"<"col-md-2"i><"col-md-8"B><"col-md-2"l>>' +
                                  'rt' +
-                                 '<"bottom"<"col-md-8"p><"col-md-4"B>>',
+                                 '<"bottom"<"col-md-4"B><"col-md-8"p>>',
         "select"              : "multi",
         "autoWidth" : false,
         "ordering": false
