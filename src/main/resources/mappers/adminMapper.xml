@@ -19,6 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into MANAGER(team_id,manager_nm,login_id,login_password,phone_no,email,sttus) values(#{teamId},#{managerNm},#{loginId},password(#{loginPassword}),#{phoneNo},#{email},"ACT01")
 	</insert>
 	
+	<select id="getLoginIdCount" resultType="int">
+		select count(*) from MANAGER where login_id = #{loginId} and sttus = "ACT01"
+	</select>
+	
 	<select id="getManagerListByTeamId" resultType="com.plantynet.warning.vo.ManagerVO" resultMap="managerVO" >
 		select * from MANAGER where team_id = #{teamId} and sttus = "ACT01"
 	</select>
@@ -26,7 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id = "deleteAdmin">
 		UPDATE MANAGER SET sttus= "ACT02"  WHERE manager_id = #{managerId} 
 	</update>
-
+	
+	<update id="updateEvntMngrByManagerId">
+        UPDATE EVENT_MANAGER
+        SET sttus = "ACT02"
+        WHERE manager_id = #{managerId}
+    </update>
 	
 	<!-- 참고용 !!!!
 	 

@@ -103,7 +103,7 @@ public class ServerInfoController {
     }
     
     @RequestMapping(value = "/deleteServer", method = RequestMethod.POST)
-    public String updateServer(Model model, @RequestParam("serverId")int serverId ){
+    public String deleteServer(Model model, @RequestParam("serverId")int serverId ){
     	System.out.println("삭제 수행\n 서버 아이디:"+serverId);
     	serverListService.deleteServer(serverId);
         return "redirect:/serverList";

@@ -27,5 +27,17 @@ public class AdminDAOImpl implements AdminDAO{
 	public void deleteAdmin(int managerId) {
 		sqlSession.delete(namespace+".deleteAdmin",managerId);
 	}
+
+	@Override
+	public int getLoginIdCount(String loginId) {
+		return sqlSession.selectOne(namespace+".getLoginIdCount", loginId);
+	}
+
+	@Override
+	public void updateEvntMngrByManagerId(int managerId) {
+		sqlSession.update(namespace+".updateEvntMngrByManagerId", managerId);
+	}
+	
+	
 	
 }

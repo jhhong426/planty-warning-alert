@@ -116,26 +116,26 @@
 				          <h4>서버 정보 수정</h4>
 				        </div>
 				        <div class="modal-body" style="padding:40px 50px;">
-				          <form role="form" action = "/updateServer" method = "post">
+				          <form role="form" action = "/updateServer" method = "post" onsubmit="return changeCheck();">
 				          <input id = "serverIdHidden" type="hidden" name="serverId" value="">
 					          <table class="table" style="width:500px;" align="center">
 								<tbody>
 									<tr>
 										<th style="text-align:center">&ensp;서&ensp;버&ensp;명</th>
 											<td>
-												<input id = "serverNm" type="text" name="serverNm" value="DB#1" style="width:375px; text-align:center">
+												<input id = "serverNm" type="text" name="serverNm" value="" style="width:375px; text-align:center">
 											</td>
 									</tr>
 									<tr>
 										<th style="text-align:center">&emsp;&emsp;I P&ensp;&ensp;</th>
 											<td>
-												<input id = "ip" type="text" name="ip" value="121.241.223.110" style="width:375px; text-align:center">
+												<input id = "ip" maxlength="15" type="text" name="ip" value="" style="width:375px; text-align:center">
 											</td>
 									</tr>
 									<tr>
 										<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
 								         	<td>
-								         		<input type="text" name="" value="플랜티넷팀" style="width:375px; text-align:center" disabled>
+								         		<input type="text" name="" value="${sessionScope.sessionVO.teamNm}" style="width:375px; text-align:center" disabled>
 								        	</td>
 									</tr>
 									
@@ -170,6 +170,10 @@
 	$(document).ready(function(){
 	    $("#btnRegister").click(function(){
 	        $("#serverRegisterPopup").modal();
+	        $("#registerServerNm").val("");
+	        $("#registerIp").val("");
+	        
+	        
 	    });
 	});
 	
@@ -177,10 +181,72 @@
 	function updateBtnClicked(serverId,serverNm,ip){
 		    	$("#serverNm").val(serverNm);
 		    	$("#ip").val(ip);
+		    	$("#serverNm").data("tempServerNm", serverNm );
+				$("#ip").data("tempIp", ip );
 		    	$("#serverIdHidden").val(serverId);
 		        $("#serverUpdatePopup").modal();
 	}
 	 
+	
+	// 서버 정보 수정 체크
+	function changeCheck(){
+		var serverNm = $("#serverNm").val();
+		var ip = $("#ip").val();
+		var tempServerNm = $("#serverNm").data("tempServerNm");
+		var tempIp = $("#ip").data("tempIp");
+		
+		if(serverNm=="" || ip==""){
+			alert("모든 항목을 입력해야 합니다");	
+			return false;
+		}
+		
+		if(!(/\d+\.\d+\.\d+\.\d+/.test(ip)) || !(ip.match(/\d+\.\d+\.\d+\.\d+/)==ip)){
+			alert("잘못된 IP 입니다");
+			return false;
+		}
+		
+		var flag = false;
+		 $.ajax({
+	            type : "POST",
+	            url :"/checkServerList",
+	            data : {serverNm : serverNm , ip : ip},
+	            async: false,
+	            error : function(){
+	                alert('통신실패!!');
+	                return false;
+	            },
+	            success : function(data){
+	            	if(data["isIpExist"] == true &&  ip != tempIp){
+	            		alert("이미 존재하는 IP 입니다.");
+	            		flag = false;
+	            		return false;
+	            	}
+	            	
+	            	if(data["isServerNmExist"] == true && serverNm != tempServerNm){
+	            		alert("이미 존재하는 서버명 입니다.");
+	            		flag = false;
+	            		return false;
+	            	}
+	            	
+	            	if(data["isIpExist"] == false && data["isServerNmExist"] == false){
+	            		flag = true;
+	            		return false;
+	            	}
+	            	
+	            	flag = true;
+	            	return false;
+	            }
+	        });
+		if(flag == true){
+			return true;
+		}else{
+			return false;
+		}
+		
+		
+	}
+	
+	
 	   
     // 서버 목록 Data Table
 	var server = $("#server").DataTable({
@@ -254,7 +320,7 @@
 	}
 	
 	function deleteConfirm(){
-		if (confirm("정말 삭제하시겠습니까??") == true){    
+		if (confirm("정말 삭제하시겠습니까?") == true){    
 		    return true;
 		}else{  
 		    return false;
