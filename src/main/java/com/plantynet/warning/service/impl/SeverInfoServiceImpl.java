@@ -63,9 +63,26 @@ public class SeverInfoServiceImpl implements ServerInfoService
     }
 
     @Override
-    public void updateEvntMngr(ManagerInChargeVO vo)
+    public boolean updateEvntMngr(ManagerInChargeVO vo)
     {
-        serverInfoDao.updateEvntMngr(vo);
+        if(vo.getFlag().equals("same"))
+        {
+            serverInfoDao.updateEvntMngr(vo);
+            return true;
+        }
+        else
+        {
+            if(serverInfoDao.checkPlusEvntMngr(vo) == 0)
+            {
+                serverInfoDao.updateEvntMngr(vo);
+                return true;
+            }
+            else
+            {
+                
+                return false;
+            }
+        }
     }
 
     @Override

@@ -7,8 +7,27 @@ public class ManagerInChargeVO
     private String managerNm;
     private String alertMth;
     private String rgsde;
+    private String flag;
+    private String oldManagerId;
     
     
+    
+    public String getOldManagerId()
+    {
+        return oldManagerId;
+    }
+    public void setOldManagerId(String oldManagerId)
+    {
+        this.oldManagerId = oldManagerId;
+    }
+    public String getFlag()
+    {
+        return flag;
+    }
+    public void setFlag(String flag)
+    {
+        this.flag = flag;
+    }
     public String getManagerNm()
     {
         return managerNm;
@@ -53,8 +72,11 @@ public class ManagerInChargeVO
     public String toString()
     {
         return "ManagerInChargeVO [managerId=" + managerId + ", eventId=" + eventId + ", managerNm=" + managerNm
-                + ", alertMth=" + alertMth + ", rgsde=" + rgsde + "]";
+                + ", alertMth=" + alertMth + ", rgsde=" + rgsde + ", flag=" + flag + ", oldManagerId=" + oldManagerId
+                + "]";
     }
+    
+    
     
     
 }
