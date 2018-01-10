@@ -28,5 +28,5 @@ public interface MonitoringDAO {
     
     public Map<String, Integer> getDailyStat(SessionVO vo);
     public List<TeamTopFiveVO> getTeamTopFive(SessionVO vo);
-
+    public List<TeamTopFiveVO> getDailyTopFive(Map<String,Object> map);
 }

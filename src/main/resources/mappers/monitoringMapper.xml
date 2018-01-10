@@ -142,16 +142,6 @@
         LIMIT 5
     </select>
     
-    <select id="getErrorLineHover" parameterType="hashmap" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT event_code, count(*) AS count
-        FROM NOTIFICATION_HISTORY
-		WHERE DATE_FORMAT(rgsde, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') - INTERVAL ${index} DAY
-        AND server_id=#{serverId}
-        GROUP BY event_id
-        ORDER BY count DESC
-        LIMIT 5
-    </select>
-    
     
     <select id="getDailyStat" resultType="java.util.Map">
 SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
@@ -178,6 +168,16 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
 		GROUP BY EVENT_HISTORY.server_id
 		ORDER BY count DESC
 		LIMIT 5
+    </select>
+    
+    <select id="getDailyTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+        select server_nm as serverNm, count(*) AS count from EVENT_HISTORY
+		JOIN SERVER
+		ON EVENT_HISTORY.server_id = SERVER.server_id
+		WHERE DATE_FORMAT(EVENT_HISTORY.rgsde,'%m/%d') LIKE #{date} AND EVENT_HISTORY.team_id = #{teamId}
+		GROUP BY EVENT_HISTORY.server_id
+		ORDER BY count DESC
+		LIMIT 5;
     </select>
 
 </mapper>

@@ -73,4 +73,9 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     {
         return sqlSession.selectList(namespace+".getTeamTopFive", vo);
     }
+    @Override
+    public List<TeamTopFiveVO> getDailyTopFive(Map<String, Object> map)
+    {
+        return sqlSession.selectList(namespace+".getDailyTopFive", map);
+    }
 }

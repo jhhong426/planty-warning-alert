@@ -131,6 +131,26 @@ public class MonitoringController {
 		return resultMap;
 	}
 	
+	@ResponseBody
+    @RequestMapping(value = "/monitoring/dailyTopFive", method = RequestMethod.POST)
+    public Map<String, Object> getDailyTopFive(String date, HttpSession session) 
+        throws Exception {
+	    
+	        SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
+        
+            HashMap<String, Object> resultMap = new HashMap<String,Object>();
+            Map<String, Object> paramMap = new HashMap<>();
+            
+            paramMap.put("date", date);
+            paramMap.put("teamId", sessionVO.getTeamId());
+            System.out.println("paramMap:"+ paramMap);
+            System.out.println(monitoringService.getDailyTopFive(paramMap));
+            resultMap.put("result", monitoringService.getDailyTopFive(paramMap));
+            
+
+        return resultMap;
+    }
+	
 	private static String[] getDateArrays(){
 	    
 	    String[] dateArray = new String[7];
