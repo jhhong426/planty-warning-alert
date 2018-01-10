@@ -66,9 +66,35 @@
 		</div>
 		
 		</div>
-		
-		
 	</div>
+	
+	<!-- 사용자 정보 수정 팝업창 기능 -->
+  <div class="modal fade" id="dailyTopFivePopup" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>일간 장애 발생 TOP 5</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+           <h3 class="text-center"><mark id="popUpDate"></mark></h3>
+           <table id="tabDailyTopFive" class="table table-bordered text-center">
+                <thead>
+                    <tr class="active">
+                      <th>서버명</th>
+                      <th>장애 발생 건수</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	
 </div>
 
 
@@ -142,6 +168,40 @@ Highcharts.chart('line-chart', {
             marker: {
                 enabled: true
             }
+        },
+        series: {
+            cursor:'pointer',
+            point: {
+                events:{
+                    click : function (){
+                        var date = this.category;
+                        $("#popUpDate").text(date);
+                        $.ajax({
+                            
+                            type :"post",
+                            url : "/monitoring/dailyTopFive",
+                            data :{"date" : date},
+                            dataType : "json",
+                            success : function(data){
+                                if(data.result.length == 0){
+                                    alert("해당 날짜에 발생한 장애가 없습니다.");
+                                }
+                                else{
+                                    var str = "";
+                                    $(data.result).each(function(){
+                                        $("#tabDailyTopFive tbody").empty();
+                                        str += "<tr><td>" + this.serverNm + "</td><td>" + this.count + "</td></tr>";
+                                        $("#tabDailyTopFive tbody").append(str);
+                                        $("#dailyTopFivePopup").modal();
+                                    }); 
+                                }
+                                
+                            }
+                        });
+                        
+                    }
+                }
+            }
         }
     },
     
@@ -164,6 +224,9 @@ Highcharts.chart('bar-chart', {
         text: '장애 발생 서버 TOP 5'
     },
     xAxis: {
+        title: {
+            text: '서버'
+        },
         categories : barServerNm
     },
     yAxis: {
@@ -186,8 +249,8 @@ Highcharts.chart('bar-chart', {
     },
 
     tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> 건<br/>'
+        headerFormat: ' ',
+        pointFormat: '<span style="color:{point.color}"">{point.category}</span><br><span>{series.name}</span>: <b>{point.y}</b> 건<br/>'
     },
 
     series: [{
