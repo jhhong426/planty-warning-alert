@@ -76,10 +76,11 @@ $('#line-chart').highcharts( {
     title: {
         text: '장애 일간 통계',
         style: {
-        	color: 'black',
-        	fontWeight: 'bold',
-        	fontSize: '24px'
+        	fontWeight: 'bold'
         }
+    },
+    subtitle: {
+        text: '~~~~'
     },
     xAxis: {
         categories : date,
@@ -172,9 +173,7 @@ Highcharts.chart('bar-chart', {
     title: {
         text: '장애 TOP 5',
         style: {
-        	color: 'black',
-        	fontWeight: 'bold',
-        	fontSize: '24px'
+        	fontWeight: 'bold'
         }
     },
     xAxis: {
