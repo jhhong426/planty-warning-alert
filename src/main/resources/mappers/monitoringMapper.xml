@@ -66,10 +66,19 @@
 			INNER JOIN 	
 				(	
 				SELECT
-					@ROWNUM := @ROWNUM + 1 AS ROWNUM
-					FROM NOTIFICATION_HISTORY, (SELECT @ROWNUM := 0) R
-            		ORDER BY ntfc_id ASC
-            		LIMIT 7
+				    @ROWNUM := @ROWNUM + 1 AS ROWNUM
+				FROM 
+					(
+					SELECT '' UNION ALL
+					SELECT '' UNION ALL
+					SELECT '' UNION ALL
+					SELECT '' UNION ALL
+					SELECT '' UNION ALL
+					SELECT '' UNION ALL
+					SELECT '' 
+					) V, (SELECT @ROWNUM := 0) R
+				ORDER BY ROWNUM ASC
+				LIMIT 7
 				) B
 			ON 1 = 1
 			) TT
