@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />    
 
 <%@include file="include/header.jsp"%>
+
 <div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
 	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;서버 목록 > 서버 상세정보</strong></h3>

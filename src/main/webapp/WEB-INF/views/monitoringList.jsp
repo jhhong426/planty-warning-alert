@@ -164,9 +164,9 @@ var errorList = $("#errorList").DataTable({
     "dom"                  : '<"top"<"col-md-2"i><"col-md-8"B><"col-md-2"l>>' +
                              'rt' +
                              '<"bottom"<"col-md-2"B><"col-md-8"p><"col-md-2"B>>',
-    "select"              : "multi",
-    "autoWidth" : false,
-    "ordering": false
+    "select"               : "multi",
+    "autoWidth" 		   : false,
+    "ordering"			   : false
 });
 
 
