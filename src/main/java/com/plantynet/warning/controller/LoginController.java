@@ -51,7 +51,6 @@ public class LoginController {
 		map.put("id", id);
 		map.put("password", password);
 		int result = loginDAO.login(map);
-
 		if (result >= 1) {
 			HttpSession session = request.getSession(true);
 			ManagerVO vo = loginDAO.getManagerByLoginId(id);
