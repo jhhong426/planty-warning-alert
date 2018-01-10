@@ -1,5 +1,6 @@
 package com.plantynet.warning.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plantynet.warning.service.impl.AdminServiceImpl;
 import com.plantynet.warning.vo.ManagerVO;
+import com.plantynet.warning.vo.ServerVO;
 import com.plantynet.warning.vo.SessionVO;
 
 @Controller
@@ -58,6 +61,20 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
+	
+	@RequestMapping(value = "/checkLoginId", method = RequestMethod.POST)
+    public @ResponseBody HashMap<String,Boolean> checkLoginId(Model model,HttpSession session, ManagerVO managerVO){
+    	HashMap<String,Boolean> map = new HashMap<>();
+    	int loginIdCount = adminService.getLoginIdCount(managerVO.getLoginId());
+    	System.out.println(loginIdCount);
+    	if(loginIdCount>0) {
+    		map.put("isIdExist", true);
+    	}else {
+    		map.put("isIDExist", false);
+    	}
+    	return map;
+    }
+	
 	@RequestMapping(value = "/deleteAdmin", method = RequestMethod.POST)
 	public String deleteAdmin(Model model, @RequestParam("managerId") int managerId) {
 		System.out.println(managerId);

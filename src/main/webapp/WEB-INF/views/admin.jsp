@@ -124,26 +124,45 @@
 	    "ordering": false
 	});
 	 
+    
+    //담당자 등록 체크
 	function check(){
 		if( $("#managerNm").val()=="" || $("#phoneNo1").val()=="" || $("#phoneNo2").val()=="" || $("#phoneNo3").val()=="" || $("#email1").val()=="" || $("#email2").val()=="" || $("#loginId").val()==""|| $("#loginPassword").val()==""){
 			alert("모든항목을 입력해주세요");
 			return false;
 		}
-		
 		if(/\D/.test($("#phoneNo1").val()) || /\D/.test($("#phoneNo2").val()) || /\D+/.test($("#phoneNo3").val()) ){
 			alert("휴대폰 번호가 올바르지 않습니다.");
 			return false;
 		}
 		
 		var loginId = $("#loginId").val();
-		
-		<c:forEach items="${list}" var="item">
-			if(loginId == "${item.loginId}"){
-				alert("ID와 동일한 값이 있습니다.");
-				return false;
-			}
-		</c:forEach>
-		return true;
+		var flag = false;
+		$.ajax({
+	    	type : "POST",
+			url :"/checkLoginId",
+			data : { loginId : loginId},
+            async: false,
+            error : function(){
+                alert('통신실패!!');
+                return false;
+            },
+            success : function(data){
+            	if(data["isIdExist"] == true){
+            		alert("이미 존재하는 ID 입니다.");
+            		flag = false;
+            		return false;
+            	}else{
+            		flag=true;
+            		return false;
+            	}
+            }
+	    });
+		if(flag == true){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	function deleteConfirm(){

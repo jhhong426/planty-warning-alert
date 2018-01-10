@@ -53,6 +53,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         delete from EVENT_HISTORY
         WHERE server_id = #{serverId}
     </delete>
+    
+    <update id = "updateEvntMngrByEventId">
+    	UPDATE EVENT_MANAGER
+        SET sttus = "ACT02"
+        WHERE event_id = #{eventId}
+    </update>
+    
+    <select id = "getEventIdByServerId" resultType="int">
+    	select event_id
+    	from EVENT
+    	where server_id = #{serverId}
+    </select>
 	
 
 	
