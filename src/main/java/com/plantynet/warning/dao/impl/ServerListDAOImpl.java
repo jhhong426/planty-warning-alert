@@ -58,6 +58,16 @@ public class ServerListDAOImpl implements ServerListDAO {
 	public void deleteEventHistoryByServerId(int serverId) {
 		sqlSession.delete(namespace + ".deleteEventHistoryByServerId", serverId);
 	}
+
+	@Override
+	public void updateEvntMngrByEventId(int eventId) {
+		sqlSession.update(namespace + ".updateEvntMngrByEventId",eventId);
+	}
+	
+	@Override
+	public int getEventIdByServerId(int serverId) {
+		return sqlSession.selectOne(namespace + ".getEventIdByServerId" , serverId);
+	}
 	
 	
 

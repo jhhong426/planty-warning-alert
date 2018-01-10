@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateEvntMngr">
 		UPDATE EVENT_MANAGER
 		SET manager_id = #{managerId}, alert_mth = #{alertMth}, updde = CURRENT_TIMESTAMP()
-		WHERE event_id = #{eventId}
+		WHERE event_id = #{eventId} and manager_id = #{oldManagerId}
     </update>
     
     <update id="deleteEvntMngr">
@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="checkPlusEvntMngr" resultType="int">
         select count(*) from EVENT_MANAGER
-        where manager_id = #{managerId} and event_id = #{eventId} and sttus = "ACT01";
+        where manager_id = #{managerId} and event_id = #{eventId} and sttus = "ACT01"
     </select>
     
     <insert id="plusEvntMngr">
