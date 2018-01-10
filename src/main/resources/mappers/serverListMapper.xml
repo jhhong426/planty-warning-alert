@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id = "updateServer">
-		UPDATE SERVER SET server_nm = #{serverNm}, ip= #{ip}, updde= current_timestamp WHERE server_id = #{serverId}
+		UPDATE SERVER SET server_nm = #{serverNm}, ip= #{ip}, updde= current_timestamp WHERE server_id = #{serverId} and sttus = "ACT01"
 	</update>
 	
 	<update id="deleteEventByServerId">
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id = "getEventIdByServerId" resultType="int">
     	select event_id
     	from EVENT
-    	where server_id = #{serverId}
+    	where server_id = #{serverId} and sttus = "ACT01"
     </select>
 	
 

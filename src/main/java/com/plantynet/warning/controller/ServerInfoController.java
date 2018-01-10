@@ -102,6 +102,7 @@ public class ServerInfoController {
     
     @RequestMapping(value = "/deleteServer", method = RequestMethod.POST)
     public String deleteServer(Model model, @RequestParam("serverId")int serverId ){
+        
     	serverListService.deleteServer(serverId);
         return "redirect:/serverList";
     }
