@@ -303,7 +303,7 @@
 								<tr>
 									<th style="text-align:center">서&ensp;버&ensp;명</th>
 										<td>
-											<input type="text" name="" value="Test" style="width:250px; text-align:center" disabled>
+											<input type="text" name="" value="${serverInfo.serverNm}" style="width:250px; text-align:center" disabled>
 										</td>
 								</tr>
 								<tr>
