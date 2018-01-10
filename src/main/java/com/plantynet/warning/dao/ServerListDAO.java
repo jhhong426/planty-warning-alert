@@ -13,6 +13,8 @@ public interface ServerListDAO {
 	public void updateServer(ServerVO servervo);
 	public void deleteEventByServerId(int serverId);
 	public void deleteEventHistoryByServerId(int serverId);
+	public void updateEvntMngrByEventId(int serverId);
+	public int getEventIdByServerId(int serverId);
 	
 	
 }

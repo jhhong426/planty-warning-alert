@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.plantynet.warning.dao.AdminDAO;
 import com.plantynet.warning.dao.impl.ServerListDAOImpl;
 import com.plantynet.warning.service.ServerListService;
 import com.plantynet.warning.vo.ServerVO;
@@ -14,6 +15,7 @@ public class ServerListServiceImpl implements ServerListService {
 
 	@Autowired
 	ServerListDAOImpl dao;
+	
 
 	public List<ServerVO> getServerList(int teamId) {
 		return dao.getServerList(teamId);
@@ -36,10 +38,16 @@ public class ServerListServiceImpl implements ServerListService {
 		dao.deleteServer(serverId);
 		dao.deleteEventHistoryByServerId(serverId);
 		dao.deleteEventByServerId(serverId);
+		int eventId = dao.getEventIdByServerId(serverId);
+		dao.updateEvntMngrByEventId(eventId);
 		
 	}
 
 	public void updateServer(ServerVO servervo) {
 		dao.updateServer(servervo);
 	}
+	
+	
+	
+	
 }
