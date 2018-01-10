@@ -19,11 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from SERVER where sttus = "ACT01" and team_id = #{teamId}
 	</select>
 
-	<select id="getServerListByIp" resultMap="serverVO">
+	<select id="getServerListByIpInTeam" resultMap="serverVO">
 		select * from SERVER where ip = #{ip} and sttus = "ACT01" and team_id = #{teamId}
 	</select>
 	
-	<select id= "getServerListByServerNm" resultMap="serverVO">
+	<select id="getServerListByIp" resultMap="serverVO">
+		select * from SERVER where ip = #{ip} and sttus = "ACT01"
+	</select>
+	
+	<select id= "getServerListByServerNmAndTeamId" resultMap="serverVO">
 		select * from SERVER where server_nm = #{serverNm} and sttus = "ACT01" and team_id = #{teamId}
 	</select>
 	
@@ -39,6 +43,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE SERVER SET server_nm = #{serverNm}, ip= #{ip}, updde= current_timestamp WHERE server_id = #{serverId}
 	</update>
 	
+	<update id="deleteEventByServerId">
+        UPDATE EVENT
+        SET sttus = "ACT02"
+        WHERE server_id = #{serverId}
+    </update>
+    
+    <delete id="deleteEventHistoryByServerId">
+        delete from EVENT_HISTORY
+        WHERE server_id = #{serverId}
+    </delete>
 	
 
 	

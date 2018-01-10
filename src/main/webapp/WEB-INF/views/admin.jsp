@@ -4,8 +4,9 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 
 <%@include file="include/header.jsp"%>
-<div class="content-wrapper" style="min-height:951.444px;">
-	<div class="box" style="min-height:951.444px;">
+
+<div class="content-wrapper"  style="width:auto; height:auto; padding:0px;">
+	<div class="box"  style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;담당자 관리</strong></h3>
 		<div class="box">
            <div class="box-body">
@@ -39,7 +40,7 @@
 			    </table>
 				<br>
 				
-				<h5 class="col-md-offset-3"><strong>&emsp; &bull; &ensp;담당자 등록</strong></h5>
+				<div style="width:600px;" align="center"><h5><strong>&emsp; &bull; &ensp;담당자 등록</strong></h5></div>
 				<form name="" method="post" action="/admin" onsubmit="return check()">
 				<table class="table" style="width:500px;" align="center">
 					<tbody>
@@ -70,9 +71,9 @@
 						<tr>
 							<th style="text-align:center">&ensp;휴&ensp;대&ensp;폰</th>
 					         	<td>
-					         		<input id = "phoneNo1" type="text" name="phoneNo1" value="010" style="width:90px; text-align:center"> -
-					             	<input id = "phoneNo2" type="text" name="phoneNo2" style="width:130px; text-align:center"> -
-					             	<input id = "phoneNo3" type="text" name="phoneNo3" style="width:130px; text-align:center">
+					         		<input id = "phoneNo1" type="text" name="phoneNo1"  value="010" style="width:90px; text-align:center" maxlength="4"> -
+					             	<input id = "phoneNo2" type="text" name="phoneNo2" style="width:130px; text-align:center" maxlength="4"> -
+					             	<input id = "phoneNo3" type="text" name="phoneNo3" style="width:130px; text-align:center" maxlength="4">
 					        	</td>
 						</tr>      
 						<tr>
@@ -126,6 +127,11 @@
 	function check(){
 		if( $("#managerNm").val()=="" || $("#phoneNo1").val()=="" || $("#phoneNo2").val()=="" || $("#phoneNo3").val()=="" || $("#email1").val()=="" || $("#email2").val()=="" || $("#loginId").val()==""|| $("#loginPassword").val()==""){
 			alert("모든항목을 입력해주세요");
+			return false;
+		}
+		
+		if(/\D/.test($("#phoneNo1").val()) || /\D/.test($("#phoneNo2").val()) || /\D+/.test($("#phoneNo3").val()) ){
+			alert("휴대폰 번호가 올바르지 않습니다.");
 			return false;
 		}
 		

@@ -6,19 +6,19 @@
 
 <%@include file="include/header.jsp"%>
 
-<div class="content-wrapper" style="min-height: 951.444px;">
-	<div class="box" style="min-height:951.444px;">
+<div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
+	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;모니터링 > 상세목록 > 서버별 장애 통계</strong></h3>
 		<div class="box">
 		
 			<div class="box-header">
-				<div id="date-text" style="float:left; width:25%">
+				<div id="date-text" class="col-md-5">
 					<h4><strong>통계기간&ensp;:&ensp;</strong>${today}</h4>
 					<h4><strong>서&emsp;&emsp;버&ensp;:&ensp;</strong>${serverInfo.serverNm}</h4>
 					<h4><strong>&ensp;I&emsp;&emsp;&ensp;P&ensp; :&ensp;</strong>${serverInfo.ip}</h4>
 				</div>
-				<div class="" style="float:right; width:5%">
-					<a href = "/monitoringList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>목록으로</strong></button>
+				<div class="" style="float:left; width:5%">
+					<a href = "/serverList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>서버 목록으로</strong></button></a>
 				</div>
 			</div>
 			
@@ -53,8 +53,8 @@ var date = new Array();
 var eventCount = new Array();
 
 <c:forEach var="item" items="${serverLineChart}" varStatus="status">
-	date[${status.index}] = "${item.rgsde}";
-	eventCount[${status.index}] = parseInt("${item.count}");
+	date[<c:out value="${status.index}" />] = "${item.rgsde}";
+	eventCount[<c:out value="${status.index}" />] = parseInt("${item.count}");
 </c:forEach>
 
 // 선형 그래프
@@ -72,7 +72,6 @@ var eventCount = new Array();
 $('#line-chart').highcharts( {
     chart: {
         type: 'spline',
-        zoomType: 'x' ,
     },
     title: {
         text: '장애 일간 통계',
@@ -117,6 +116,13 @@ $('#line-chart').highcharts( {
         },
         min: 0
     },
+    plotOptions: {
+    	spline: {
+    		dataLabels: {
+    			enabled: true
+    		}
+    	}
+    },
     tooltip: {
     	formatter : function() {
     		var str = '<b>' + 'TOP5'+ '</b>';
@@ -125,7 +131,7 @@ $('#line-chart').highcharts( {
                 type: "POST",
                 url: "/monitoringServer/topCode",
                 async:false,
-                data: { serverId : ${serverInfo.serverId}, rgsde : this.x },
+                data: { serverId : <c:out value="${serverInfo.serverId}" />, rgsde : this.x },
                 dataType: "json",
                 success: function(data){
                 	
@@ -227,10 +233,10 @@ Highcharts.chart('bar-chart', {
         data: [
         	<c:forEach var="item" items="${serverBarChart}" varStatus="status">
         	{
-	        	name: '${item.eventCode}',
-	            y: ${item.count}
+	        	name: '<c:out value="${item.eventCode}" />',
+	            y: <c:out value="${item.count}" />
         	}
-        	<c:if test="${!status.last}">, </c:if>
+        	<c:if test="${!status.last}"><c:out value=","/> </c:if>
         	</c:forEach>
         	]
     }]

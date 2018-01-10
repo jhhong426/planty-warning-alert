@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
@@ -11,8 +11,8 @@
 	 a:hover { color: blue; text-decoration: underline;}
 </style>
 
-<div class="content-wrapper" style="min-height:951.444px;">
-	<div class="box" style="min-height:951.444px;">
+<div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
+	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;서버 목록</strong></h3>
             <div class="box">
               <div class="box-body">
@@ -56,7 +56,7 @@
 				       			</form>
 				       		</td>
 			       		</tr>
-     					</c:forEach>
+     				</c:forEach>
 					</tbody>
 		         </table>
 			  </div>
@@ -73,7 +73,7 @@
 				          <h4>서버 등록</h4>
 				        </div>
 				        <div class="modal-body" style="padding:40px 50px;">
-				          <form role="form" action = "/addServer" method = "get" onsubmit="return isConflict();">
+				          <form role="form" action = "/addServer" method = "post" onsubmit="return isConflict();" accept-charset="utf-8">
 					          <table class="table" style="width:500px;" align="center">
 								<tbody>
 									<tr>
@@ -85,7 +85,7 @@
 									<tr>
 										<th style="text-align:center">&emsp;&emsp;I P&ensp;&ensp;</th>
 											<td>
-												<input id="registerIp" name="ip"  style="width:375px; text-align:center">
+												<input id="registerIp" maxlength="15" name="ip"  style="width:375px; text-align:center">
 											</td>
 									</tr>
 									<tr>
@@ -155,15 +155,15 @@
 <%@include file="include/footer.jsp"%>
 
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="/resources/plugins/fastclick/fastclick.js"></script>
-<script src="/resources/plugins/knob/jquery.knob.js"></script>
-<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
-<script src="resources/dist/js/demo.js"></script>
-<script src="resources/dist/js/app.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- <script src="/resources/plugins/fastclick/fastclick.js"></script>
+<script src="/resources/plugins/knob/jquery.knob.js"></script>
+<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="resources/dist/js/demo.js"></script>
+<script src="resources/dist/js/app.js"></script> -->
 
 <script>
 	//서버 등록 팝업창 띄우기 버튼 
@@ -265,24 +265,53 @@
 		var ip = $("#registerIp").val();
 		var serverNm = $("#registerServerNm").val();
 		
+		if(!(/\d+\.\d+\.\d+\.\d+/.test(ip)) || !(ip.match(/\d+\.\d+\.\d+\.\d+/)==ip)){
+			alert("잘못된 IP 입니다");
+			return false;
+		}
+		
 		if(ip == "" || serverNm == ""){
 			alert("모든항목을 입력해주세요");
 			return false;
 		}
 		
-		<c:forEach items="${serverList}" var="item">
-		if(ip == "${item.ip}"){
-			alert("동일한 IP가 존재합니다.");
-			return false;
-		}
-		if(serverNm == "${item.serverNm}" && teamId == "${sessionScope.sessionVO.teamId}"){
-			alert("${sessionScope.sessionVO.teamId}");
-			alert("동일한 IP가 존재합니다.");
-			return false;
-		}
-		</c:forEach>
-		
-		return true;
+		 var flag = false;
+		 $.ajax({
+	            type : "POST",
+	            url :"/checkServerList",
+	            data : {serverNm : serverNm , ip : ip},
+	            async: false,
+	            error : function(){
+	                alert('통신실패!!');
+	                return false;
+	            },
+	            success : function(data){
+	            	if(data["isIpExist"] == true){
+	            		alert("이미 존재하는 IP 입니다.");
+	            		flag = false;
+	            		return false;
+	            	}
+	            	
+	            	if(data["isServerNmExist"] == true){
+	            		alert("이미 존재하는 서버명 입니다.");
+	            		flag = false;
+	            		return false;
+	            	}
+	            	
+	            	if(data["isIpExist"] == false && data["isServerNmExist"] == false){
+	            		flag = true;
+	            		return false;
+	            	}
+	            }
+	        });
+		 
+		 if(flag == true){
+			return true;
+		}else{
+			return false
+		}		 
+		 
+
 	}
 	
 </script>

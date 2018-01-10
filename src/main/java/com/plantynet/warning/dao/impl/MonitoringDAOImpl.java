@@ -23,18 +23,6 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     public String getDate(){
     	return sqlSession.selectOne(namespace+".getDate");
     }
-    @Override
-    public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map){
-    	return sqlSession.selectList(namespace+".getGlobalLineStat", map);
-    }
-    @Override
-    public List<MonitoringVO> getTopServer(HashMap<String, Object> map){
-    	return sqlSession.selectList(namespace+".getTopServer", map);
-    }
-    @Override
-    public List<MonitoringVO> getGlobalBarStat(Integer teamId){
-    	return sqlSession.selectList(namespace+".getGlobalBarStat", teamId);
-    }
     
     // 모니터링 리스트 페이지
     @Override

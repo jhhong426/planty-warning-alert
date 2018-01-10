@@ -12,23 +12,23 @@
 	 a:hover { color: blue; text-decoration: underline;}	 
 </style>
 
-<div class="content-wrapper" style="min-height: 951.444px;"> 
-	<div class="box" style="min-height:951.444px;">
+<div class="content-wrapper" style="width:auto; height:auto; padding:0px;"> 
+	<div class="box" style="width:auto; height:auto; padding:0px;"> 
 		<h3><strong>&emsp;모니터링 > 상세목록</strong></h3>
 		<div class="box">
 		<div class="box-body">
 			<div class="row">
 				<br>
-				<h4 class="" style="float:left; width:20%"><strong>&emsp;&emsp;기&emsp;&emsp;간 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:50%">
-					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
+				<h5 class="col-md-2" align="left"><strong>&emsp;&emsp;&emsp;기&emsp;&emsp;간 &emsp;&emsp;: </strong></h5>
+				<div class="col-md-10" align="left">
+					<input type="text" id="preDate" class="inline form-control" value="--- 선택  ---" width="10px" style="text-align:center;">
 					&emsp;~&emsp;
-					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="12px" style="text-align:center;">
+					<input type="text" id="postDate" class="inline form-control" value="--- 선택  ---" width="10px" style="text-align:center;">
 				</div>
 			</div>
 			<div class="row">
-				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;서&ensp;버&ensp;명 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:25%">
+				<h5 class="col-md-2" align="left"><strong>&emsp;&emsp;&emsp;서&ensp;버&ensp;명 &emsp;&emsp;: </strong></h5>
+				<div class="col-md-2" align="left">
 					<select id="serverCategory" class="form-control form-group-inline" onchange="ServerChange(this.value);" style="display: inline-block">
 						<option value="">전체</option>
 						<c:forEach var="item" items="${serverList}">
@@ -36,22 +36,19 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="" style="float:left; width:65%"></div>
+				<div class="col-md-8" style="float:left;"></div>
 			</div>
 			<div class="row">
-				<h4 class="" style="float:left; width:10%"><strong>&emsp;&emsp;장애코드 &ensp;: </strong></h4>
-				<div class="" style="float:left; width:25%">
+				<h5 class="col-md-2" align="left"><strong>&emsp;&emsp;&emsp;장애코드 &emsp;&emsp;: </strong></h5>
+				<div class="col-md-2" align="left">
 					<select id="codeCategory" class="form-control form-group-inline" style="display: inline-block">
 						<option value="">전체</option>
 					</select>
 				</div>
-				<div class="" style="float:left; width:5%">
-					<p></p>
-				</div>
-				<div class="" style="float:left; width:5%">
+				<div class="col-md-1" align="center">
 					<button id="btnSearch" style="height:35px" class="btn btn-primary"><strong>조회</strong></button>
 				</div>
-				<div class="" style="float:left; width:55%"></div>
+				<div class="col-md-7" align="left"></div>
 			</div>
 			
        		<div class="box-body">			
@@ -102,7 +99,7 @@
 					</tbody>
 				</table>
 		   </div>
-		</div>
+	 	</div>
 	  </div>
 	</div>
 </div>
@@ -111,16 +108,11 @@
 <script src="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-
-<script src="/resources/plugins/fastclick/fastclick.js"></script>
-<script src="/resources/plugins/knob/jquery.knob.js"></script>
-<script src="/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
-<script src="resources/dist/js/demo.js"></script>
-<script src="resources/dist/js/app.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="resources/dist/js/app.js"></script>
 
 <script>
 
@@ -171,7 +163,7 @@ var errorList = $("#errorList").DataTable({
     "pagingType"           : "full_numbers",
     "dom"                  : '<"top"<"col-md-2"i><"col-md-8"B><"col-md-2"l>>' +
                              'rt' +
-                             '<"bottom"<"col-md-8"p><"col-md-4"B>>',
+                             '<"bottom"<"col-md-2"B><"col-md-8"p><"col-md-2"B>>',
     "select"              : "multi",
     "autoWidth" : false,
     "ordering": false
@@ -179,7 +171,9 @@ var errorList = $("#errorList").DataTable({
 
 
 function ServerChange(serverIdNum) {
-
+	//var $target = $("select[name='codeCategory']")
+	
+	//$target.empty();
 	$("#codeCategory").empty();
 	$("#codeCategory").append("<option value=''>전체</option>");
 
@@ -215,39 +209,10 @@ var dateParsing = function(arg) {
 	return intArg;
 };
  
-//검색 버튼이나 엔터 눌러야 검색 결과 나오도록 설정했음
-// 버튼 검색 이벤트
+//검색 버튼이나 엔터 눌러야 검색 결과 나오도록 설정
 $("#btnSearch").click(function(){
 	Search(); 
 });
-
-//엔터 검색 이벤트
-/* $("#preDate").keypress(function(e) { 
-	if (e.keyCode === 13) { 
-		e.preventDefault();
-		Search();
-	} 
-});
-$("#postDate").keypress(function(e) { 
-	if (e.keyCode === 13) { 
-		e.preventDefault();
-		Search();
-	} 
-}); */
-/*
-$("#serverCategory").keypress(function(e) { 
-	if (e.keyCode === 13) { 
-		e.preventDefault();
-		Search();
-	} 
-});
-$("#codeCategory").keypress(function(e) { 
-	if (e.keyCode === 13) { 
-		e.preventDefault();
-		Search();
-	} 
-});
-*/
 
 //검색
 function Search() {
@@ -257,7 +222,7 @@ function Search() {
 	$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 		var min = parseInt(dateParsing($('#preDate').val()));
 		var max = parseInt(dateParsing($('#postDate').val()));
-		var age = parseFloat(dateParsing(data[6])) || 0; 
+		var age = parseFloat(dateParsing(data[6])) || 0;   // use data for the age column
 
 		if ((isNaN(min) && isNaN(max)) || (isNaN(min) && age <= max)
 				|| (min <= age && isNaN(max))

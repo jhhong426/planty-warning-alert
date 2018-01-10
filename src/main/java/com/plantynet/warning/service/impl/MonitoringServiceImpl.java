@@ -26,18 +26,6 @@ public class MonitoringServiceImpl implements MonitoringService{
 	public String getDate() {
 		return monitoringDAO.getDate();
 	}
-	@Override
-	public List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map) {
-		return monitoringDAO.getGlobalLineStat(map);
-	}
-	@Override
-	public List<MonitoringVO> getTopServer(HashMap<String, Object> map) {
-		return monitoringDAO.getTopServer(map);
-	}
-	@Override
-	public List<MonitoringVO> getGlobalBarStat(Integer teamId) {
-		return monitoringDAO.getGlobalBarStat(teamId);
-	}
 	
 	// 모니터링 리스트 페이지
 	@Override

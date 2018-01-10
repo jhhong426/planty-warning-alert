@@ -13,11 +13,7 @@ import com.plantynet.warning.vo.TeamTopFiveVO;
 public interface MonitoringService {
 
 	String getDate();
-    
-    List<MonitoringVO> getGlobalLineStat(HashMap<String, Object> map);
-    List<MonitoringVO> getTopServer(HashMap<String, Object> map);
-    List<MonitoringVO> getGlobalBarStat(Integer teamId);
-    
+
     // 모니터링 리스트 페이지
     List<MonitoringVO> getServerList(Integer teamId);
     List<MonitoringVO> getCodeList(int serverId);
