@@ -10,7 +10,6 @@
 	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;모니터링 > 상세목록 > 서버별 장애 통계</strong></h3>
 		<div class="box">
-		
 			<div class="box-header">
 				<div id="date-text" class="col-md-5">
 					<h4><strong>통계기간&ensp;:&ensp;</strong>${today}</h4>
@@ -21,7 +20,6 @@
 					<a href = "/serverList"><button id="btnList" style="height:35px" class="btn btn-primary"><strong>서버 목록으로</strong></button></a>
 				</div>
 			</div>
-		    
 		    <div class="box-body">
                 <div class="row">
                      <div class="col-md-6">
@@ -52,7 +50,6 @@
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>

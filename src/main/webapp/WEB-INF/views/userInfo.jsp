@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 
 <%@include file="include/header.jsp"%>
+
 <div class="content-wrapper" style="width:auto; height:100%; padding:0px;">
 	<div class="box" style="width:auto; height:100%; padding:0px;">
 		<h3><strong>&emsp;사용자 정보</strong></h3>
@@ -46,7 +47,6 @@
 		</div>
 	</div>
 </div>
-
 		
 				  <!-- 사용자 정보 수정 팝업창 기능 -->
 				  <div class="modal fade" id="userUpdatePopup" role="dialog">
@@ -143,6 +143,7 @@
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <script>
 
 	$(document).ready(function(){
@@ -246,13 +247,10 @@
 	           
 	       }
 	    });
-	    
-	    
-	    
+	   
 	});// document(ready)
 	
 	
 </script>
 
 </body>
-
