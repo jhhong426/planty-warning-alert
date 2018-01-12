@@ -220,7 +220,8 @@ Highcharts.chart('bar-chart', {
     },
 
     series: [{
-        colorByPoint: true,
+        name:"발생 건수",
+    	colorByPoint: true,
         data: barSeriesData
     }]
              
