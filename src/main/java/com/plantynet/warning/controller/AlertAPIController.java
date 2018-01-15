@@ -36,7 +36,11 @@ public class AlertAPIController
             return map;
         }
         //예외처리 2. 파라미터로 넘어온 IP값과 송신 서버의 IP가 일치 하지 않을 때(response_code = 2)
-//        if(!vo.getIp().equals(req.getRemoteAddr()))
+//        String clientIp = req.getHeader("X-FORWARDED-FOR");
+//        if(clientIp == null){
+//            clientIp = req.getRemoteAddr();
+//        }
+//        if(!vo.getIp().equals(clientIp))
 //        {
 //            map.put("response_code", 2);
 //            return map;
