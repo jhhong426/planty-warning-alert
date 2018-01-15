@@ -125,6 +125,9 @@ $('#line-chart').highcharts( {
             text: '장애 발생 총 건수 (건)'
         }
     },
+    credits:{
+    	enabled:false
+    }, 
     tooltip: {
         formatter: function() {
         	var str = '<b>' + 'TOP5'+ '</b>';
@@ -213,7 +216,9 @@ Highcharts.chart('bar-chart', {
             }
         }
     },
-
+    credits:{
+    	enabled:false
+    }, 
     tooltip: {
         headerFormat: ' ',
         pointFormat: '<span style="color:{point.color}"">{point.category}</span><br><span>{series.name}</span>: <b>{point.y}</b> 건<br/>'
