@@ -34,14 +34,14 @@
   <div class="wrapper" style="width:auto%; height:auto;">
 	<header class="main-header">
 	    <div id="title">
-	       <img src="/resources/dist/img/title.PNG" height="80px">
+	       <a href="/monitoring"> 
+	       		<img src="/resources/dist/img/title.PNG" height="80px">
+	       </a>
 	    </div>
     </header>
 	<aside class="main-sidebar">
 		<section class="sidebar">
-			<a href="/monitoring" style="float:left;">
                  <img src="/resources/dist/img/logo.PNG" alt="" width="230px" height="70px" style="margin-top:-40px;">
-             </a>
              <br><br>
 			<li>
 				<a>${sessionScope.sessionVO.managerNm}님 환영합니다!</a>
