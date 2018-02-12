@@ -115,7 +115,7 @@
     
     <!-- Server Bar Chart : 오늘로부터 7일 이전까지 한 서버(serverId)에서 발생한 에러코드를 건수가 가장 많은 순서대로 5개를 추출 -->
     <select id="getErrorBarStat" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT h.event_id AS event_id, e.event_code AS event_code, count(*) AS count
+        SELECT h.event_id AS event_id, e.event_code AS event_code, count(*) AS count, e.description AS description
         FROM EVENT_HISTORY h, EVENT e
         WHERE h.rgsde > (CURDATE() - INTERVAL 6 DAY)
         AND h.server_id=#{serverId}

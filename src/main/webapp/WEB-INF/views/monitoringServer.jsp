@@ -57,15 +57,24 @@
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
+
 <script>
 
 // 오늘을 포함한 일주일의 날짜(String)와 그 날 한 서버에서 에러가 발생한 총 개수(Int)를 배열에 불러옴
 var date = new Array();
 var eventCount = new Array();
 
+var eventCode = new Array();
+var msg = new Array();
+
 <c:forEach var="item" items="${serverLineChart}" varStatus="status">
 	date[<c:out value="${status.index}" />] = "${item.rgsde}";
 	eventCount[<c:out value="${status.index}" />] = parseInt("${item.count}");
+</c:forEach>
+
+<c:forEach var="item" items="${serverBarChart}" varStatus="status">
+	eventCode[<c:out value="${status.index}" />]="${item.eventCode}";
+	msg[<c:out value="${status.index}" />] = "${item.description}";
 </c:forEach>
 
 // 선형 그래프
@@ -78,7 +87,7 @@ var eventCount = new Array();
     H.addEvent(H.Point.prototype, 'click', function (e) {
         e.point.series.chart.tooltip.refresh(e.point, e);
     });
-}(Highcharts));
+}(Highcharts)); 
 
 $('#line-chart').highcharts( {
     chart: {
@@ -112,6 +121,9 @@ $('#line-chart').highcharts( {
     		}
     	}
     },
+    credits:{
+    	enabled:false
+    }, 
     tooltip: {
     	formatter : function() {
     		var str = '<b>' + 'TOP5'+ '</b>';
@@ -153,8 +165,9 @@ $('#line-chart').highcharts( {
     }]
 });
 
+
 // 막대 그래프 
-Highcharts.chart('bar-chart', {
+$('#bar-chart').highcharts({
 	chart: {
         type: 'column'
     },
@@ -171,7 +184,7 @@ Highcharts.chart('bar-chart', {
     	title: {
             text: '에러코드',
         },
-    	type: 'category',
+    	type: 'category'
     },
     yAxis: {
         title: {
@@ -183,16 +196,22 @@ Highcharts.chart('bar-chart', {
     },
     plotOptions: {
         series: {
-            borderWidth: 0,
             dataLabels: {
-                enabled: true,
-                format: '{point.y}'
+                enabled: true
             }
         }
     },
+    credits:{
+    	enabled:false
+    }, 
     tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> 건<br/>'
+    	formatter : function(){
+    		var str = '<b> 에러코드 </b>';
+    		str += '<br>' + eventCode[this.x] + ': ' + this.y + '건';
+    		str += '<br>' + msg[this.x];
+    		return str;
+    	}
+        
     },
     series: [{
         name: '<b>에러코드</b>',
@@ -200,8 +219,8 @@ Highcharts.chart('bar-chart', {
         data: [
         	<c:forEach var="item" items="${serverBarChart}" varStatus="status">
         	{
-	        	name: '<c:out value="${item.eventCode}" />',
-	            y: <c:out value="${item.count}" />
+        		name: '<c:out value="${item.eventCode}"/>',
+	            y: <c:out value="${item.count}" />,
         	}
         	<c:if test="${!status.last}"><c:out value=","/> </c:if>
         	</c:forEach>

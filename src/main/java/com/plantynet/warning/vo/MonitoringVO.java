@@ -17,6 +17,7 @@ public class MonitoringVO {
 	private String logde;
 	private String rgsde;
 	private String ntfcde;
+	private String description;
 	private int count;
 	
 	public int getNtfcId() {
@@ -115,7 +116,12 @@ public class MonitoringVO {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	@Override
 	public String toString() {
 		return "MonitoringVO [ntfcId=" + ntfcId + ", serverId=" + serverId + ", managerId=" + managerId + ", eventId="
