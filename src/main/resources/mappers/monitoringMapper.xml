@@ -139,8 +139,8 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
          (SELECT DATE(rgsde) AS date,
                  count(rgsde) cnt
           FROM EVENT_HISTORY
-          WHERE team_id = #{teamId} 
-          GROUP BY date)AS a;
+          WHERE team_id = #{teamId} AND rgsde >= DATE_ADD(now(), INTERVAL -10 day)
+          GROUP BY date)AS a
     </select>
     
     <select id="getTeamTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
