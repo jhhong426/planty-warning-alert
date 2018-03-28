@@ -42,5 +42,10 @@ public class NotificationDAOImpl implements NotificationDAO
     {
         sqlSession.insert(namespace+".plusEventHistory",vo);
     }
+
+	@Override
+	public void updateLastTime(NotiInfoVO vo) {
+		sqlSession.update(namespace+".updateLastTime", vo);
+	}
     
 }

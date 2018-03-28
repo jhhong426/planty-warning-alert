@@ -12,10 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="ntfcMth" column="ntfc_mth" javaType="String"/>
         <result property="managerEmail" column="email" javaType="String"/>
         <result property="managerCttpc" column="phone_no" javaType="String"/>
+        <result property="ntfcNeed" column="ntfc_need" javaType="String"/>
+        <result property="alertTerm" column="alert_term" javaType="Integer"/>
+        <result property="lastTime" column="last_time" javaType="Date"/>
     </resultMap>
     
     <select id="getManagerInfo" resultMap="getManagerInfoResult">
         SELECT SERVER.server_id, MANAGER.manager_id, EVENT.event_id, EVENT.event_code, SERVER.ip, EVENT_MANAGER.alert_mth as ntfc_mth, MANAGER.email, MANAGER.phone_no
+        ,EVENT_MANAGER.alert_term, EVENT_MANAGER.last_time
         FROM SERVER 
 		JOIN EVENT ON EVENT.server_id = SERVER.server_id
 		JOIN EVENT_MANAGER ON EVENT_MANAGER.event_id = EVENT.event_id 
@@ -24,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="setNotiInfo" parameterType="com.plantynet.warning.vo.NotiInfoVO">
-        INSERT INTO NOTIFICATION_TEMP (server_id, manager_id, event_id, event_code, ip, msg, ntfc_mth, manager_email, manager_cttpc, logde)
+        INSERT INTO NOTIFICATION_HISTORY (server_id, manager_id, event_id, event_code, ip, msg, ntfc_mth, ntfc_sttus, ntfc_need, manager_email, manager_cttpc, logde)
         VALUES (
             #{serverId},
             #{managerId},
@@ -33,6 +37,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{ip},
             #{msg},
             #{ntfcMth},
+            <if test="ntfcNeed == 'ALN01'">
+            	'ALS01',
+            </if>
+            <if test="ntfcNeed == 'ALN02'">
+            	'ALS02',
+            </if>
+            #{ntfcNeed},
             #{managerEmail},
             #{managerCttpc},
             #{logde}
@@ -44,11 +55,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE ip = #{ip} and sttus = 'ACT01'
     </select>
     
-    <insert id="plusEventHistory">
+    <update id="updateLastTime">
+    	UPDATE EVENT_MANAGER 
+    	SET last_time = CURRENT_TIMESTAMP
+    	WHERE event_id = #{eventId} and manager_id = #{managerId}
+    </update>
+    
+   <!--  <insert id="plusEventHistory">
 	    insert into EVENT_HISTORY (server_id, event_id, team_id , rgsde)
 		select SERVER.server_id, EVENT.event_id, SERVER.team_id, current_timestamp()
 		from SERVER join EVENT 
 		ON SERVER.server_id = EVENT.server_id
 		where ip = #{ip} and event_code = #{eventCode}
-    </insert>
+    </insert> -->
 </mapper>

@@ -2,24 +2,16 @@ package com.plantynet.warning.vo;
 
 public class SessionVO {
 	private	int managerId;
-	private int teamId;
 	private String managerNm;
 	private String loginId;
 	private String phoneNo;
 	private String email;
-	private String teamNm;
 	
 	public int getManagerId() {
 		return managerId;
 	}
 	public void setManagerId(int managerId) {
 		this.managerId = managerId;
-	}
-	public int getTeamId() {
-		return teamId;
-	}
-	public void setTeamId(int teamId) {
-		this.teamId = teamId;
 	}
 	public String getManagerNm() {
 		return managerNm;
@@ -45,11 +37,10 @@ public class SessionVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTeamNm() {
-		return teamNm; 
-	}
-	public void setTeamNm(String teamNm) {
-		this.teamNm = teamNm;
+	@Override
+	public String toString() {
+		return "SessionVO [managerId=" + managerId + ", managerNm=" + managerNm + ", loginId=" + loginId + ", phoneNo="
+				+ phoneNo + ", email=" + email + "]";
 	}
 	
 	

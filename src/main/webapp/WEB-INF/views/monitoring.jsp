@@ -17,11 +17,11 @@
 		
 		<div class="box">
 			<div class="box-header with-border">
-				<div id="date-text" style="float:left; width:35%">
+				<div id="date-text" style="float:left; width:65%">
 					<h4><strong>&emsp;통계 기간 : </strong>&emsp;${today}</h4>
 				</div>
-				<div id="button" style="float:left; width:65%">
-					<a href = "/monitoringList"><button class="btn btn-primary"><strong>상세목록</strong></button></a>
+				<div id="button" style="float:right; width:35%">
+					<a href = "/monitoringList"><button class="btn btn-primary"><strong>알림 이력</strong></button></a>
 				</div>
 				<hr>
 			</div>
@@ -83,11 +83,31 @@ var barServerNm = [];
 barServerNm.push("${item}");
 </c:forEach>
 
-//line 그래프의 x 값 매칭
+//bar 그래프의 x 값 매칭
 var barSeriesData = [];
 <c:forEach items="${topFiveCnt}" var="item">
 barSeriesData.push(parseInt("${item}"));
 </c:forEach>
+
+
+
+// pie 그래프 데이터 렌더링
+var pieData = [];
+
+
+for (var i = 0; i < barServerNm.length; i++){
+	
+	var pieKeyAndValue = new Object();
+
+	pieKeyAndValue.name = barServerNm[i];
+	pieKeyAndValue.y = barSeriesData[i];
+	
+	pieData.push(pieKeyAndValue);
+	
+}
+
+
+
 
 //선형 그래프
 (function (H) {
@@ -106,13 +126,13 @@ $('#line-chart').highcharts( {
         type: 'spline'
     },
     title: {
-        text: '장애 발생 일간 통계',
+        text: '장애 알림 일간 통계',
        	style: {
            	fontWeight: 'bold'
         }
     },
     subtitle: {
-        text: '일간 장애 발생 총 건수'
+        text: '일간 장애 알림 총 건수'
     },
     xAxis: {
         categories: lineDate,
@@ -178,8 +198,59 @@ $('#line-chart').highcharts( {
     }]
 });
 
-// 막대 그래프
+//pie 그래프
 Highcharts.chart('bar-chart', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: '주간 서버 별 알림 통계',
+        style: {
+           	fontWeight: 'bold'
+        }
+    },
+    subtitle: {
+        text: '주간 서버 별 알림 건 수'
+    },
+    credits:{
+    	enabled:false
+    }, 
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y} 건</b><br><b>{point.percentage:.1f} %</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            point: {
+            	events: {
+            		click: function () {
+            			var url = '/monitoring/server?serverNm=' + encodeURIComponent(this.options.name);
+            			location.href = url;
+            		}
+            	}
+            }
+        }
+    },
+    series: [{
+        name: '알림 건수',
+        colorByPoint: true,
+        data: pieData
+    }]
+});
+
+// 막대 그래프
+/* Highcharts.chart('bar-chart', {
 	chart: {
         type: 'column'
     },
@@ -230,6 +301,6 @@ Highcharts.chart('bar-chart', {
         data: barSeriesData
     }]
              
-});
+}); */
 
 </script>

@@ -25,4 +25,6 @@ public interface ServerInfoService
     public boolean plusEvent(EventVO vo);
     
     public boolean plusEvntMngr(ManagerInChargeVO vo);
+    
+    public Integer getServerIdByName(String serverNm);
 }

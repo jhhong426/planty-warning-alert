@@ -20,8 +20,8 @@ public class ServerListServiceImpl implements ServerListService {
 	@Autowired
 	ServerInfoDAOImpl serverInfoDAO;
 
-	public List<ServerVO> getServerList(int teamId) {
-		return dao.getServerList(teamId);
+	public List<ServerVO> getServerList() {
+		return dao.getServerList();
 	}
 
 	public List<ServerVO> getServerListByIp(String ip) {
@@ -42,7 +42,7 @@ public class ServerListServiceImpl implements ServerListService {
 			dao.updateEvntMngrByEventId(eventVO.getEventId());
 		}
 		dao.deleteServer(serverId);
-		dao.deleteEventHistoryByServerId(serverId);
+		//dao.deleteEventHistoryByServerId(serverId);
 		dao.deleteEventByServerId(serverId);
 		
 	}

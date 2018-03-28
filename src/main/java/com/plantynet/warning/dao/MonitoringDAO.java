@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SearchParamVO;
 import com.plantynet.warning.vo.SessionVO;
 import com.plantynet.warning.vo.TeamTopFiveVO;
 
@@ -13,9 +14,9 @@ public interface MonitoringDAO {
 	public String getDate();
     
     // 모니터링 리스트 페이지
-    public List<MonitoringVO> getServerList(Integer teamId);
-    public List<MonitoringVO> getCodeList(int serverId);
-    public List<MonitoringVO> getErrorLogList(Integer teamId);
+    public List<MonitoringVO> getServerList(Integer managerId);
+    public List<MonitoringVO> getCodeList(MonitoringVO vo);
+    public List<MonitoringVO> getErrorLogList(SearchParamVO vo);
     
     // 모니터링 상세 페이지
     public List<MonitoringVO> getErrorLineStat(Integer serverId);

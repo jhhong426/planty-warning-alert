@@ -88,12 +88,6 @@
 												<input id="registerIp" maxlength="15" name="ip"  style="width:375px; text-align:center">
 											</td>
 									</tr>
-									<tr>
-										<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
-								         	<td>
-								         		<input type="text" name="" value="${sessionScope.sessionVO.teamNm}" style="width:375px; text-align:center" disabled>
-								        	</td>
-									</tr>
 								</tbody>
 							</table>
 				          
@@ -131,12 +125,6 @@
 											<td>
 												<input id = "ip" maxlength="15" type="text" name="ip" value="" style="width:375px; text-align:center">
 											</td>
-									</tr>
-									<tr>
-										<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
-								         	<td>
-								         		<input type="text" name="" value="${sessionScope.sessionVO.teamNm}" style="width:375px; text-align:center" disabled>
-								        	</td>
 									</tr>
 									
 								</tbody>

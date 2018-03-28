@@ -19,8 +19,8 @@ public class AdminDAOImpl implements AdminDAO{
 		sqlSession.insert(namespace+".addAdmin", managerVO);
 	}
 	
-	public List<ManagerVO> getManagerListByTeamId(int teamId){
-		return sqlSession.selectList(namespace+".getManagerListByTeamId",teamId);
+	public List<ManagerVO> getManagerList(){
+		return sqlSession.selectList(namespace+".getManagerList");
 	}
 
 	@Override

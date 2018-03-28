@@ -5,7 +5,7 @@ import java.util.List;
 import com.plantynet.warning.vo.ServerVO;
 
 public interface ServerListDAO {
-	public List<ServerVO> getServerList(int teamId);
+	public List<ServerVO> getServerList();
 	public List<ServerVO> getServerListByIp(String ip);
 	public List<ServerVO> getServerListByServerNmAndTeamId(ServerVO ServerVO);
 	public void addServer(ServerVO serverVo);

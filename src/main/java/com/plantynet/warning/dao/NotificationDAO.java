@@ -15,4 +15,6 @@ public interface NotificationDAO
     
     public void plusEventHistory(ParamVO vo);
     
+    public void updateLastTime(NotiInfoVO vo);
+    
 }

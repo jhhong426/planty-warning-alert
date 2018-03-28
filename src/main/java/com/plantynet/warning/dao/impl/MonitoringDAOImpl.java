@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SearchParamVO;
 import com.plantynet.warning.vo.SessionVO;
 import com.plantynet.warning.vo.TeamTopFiveVO;
 
@@ -26,16 +27,16 @@ public class MonitoringDAOImpl implements MonitoringDAO{
     
     // 모니터링 리스트 페이지
     @Override
-    public List<MonitoringVO> getServerList(Integer teamId){
-    	return sqlSession.selectList(namespace+".getServerList", teamId);
+    public List<MonitoringVO> getServerList(Integer managerId){
+    	return sqlSession.selectList(namespace+".getServerList", managerId);
     }
     @Override
-    public List<MonitoringVO> getCodeList(int serverId){
-    	return sqlSession.selectList(namespace+".getCodeList", serverId);
+    public List<MonitoringVO> getCodeList(MonitoringVO vo){
+    	return sqlSession.selectList(namespace+".getCodeList", vo);
     }
     @Override
-    public List<MonitoringVO> getErrorLogList(Integer teamId){
-    	return sqlSession.selectList(namespace+".getErrorLogList", teamId);
+    public List<MonitoringVO> getErrorLogList(SearchParamVO vo){
+    	return sqlSession.selectList(namespace+".getErrorLogList", vo);
     }
 
     // 모니터링 상세 페이지

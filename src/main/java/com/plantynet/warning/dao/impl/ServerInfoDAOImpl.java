@@ -87,4 +87,9 @@ public class ServerInfoDAOImpl implements ServerInfoDAO
         session.insert(namespace+".plusEvntMngr", vo);
     }
 
+	@Override
+	public Integer getServerIdByName(String serverNm) {
+		return session.selectOne(namespace+".getServerIdByName", serverNm);
+	}
+
 }

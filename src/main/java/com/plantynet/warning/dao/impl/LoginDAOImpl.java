@@ -24,37 +24,5 @@ public class LoginDAOImpl implements LoginDAO {
 	public ManagerVO getManagerByLoginId(String id) {
 		return sqlSession.selectOne(namespace+".getManagerByLoginId",id);
 	}
-
-	@Override
-	public String getTeamNmByTeamId(int teamId) {
-		return sqlSession.selectOne(namespace+".getTeamNmByTeamId",teamId);
-	}
-
-
-	
-//	public void create(BoardVO vo) throws Exception {
-//	    session.insert(namespace + ".create", vo);
-//	  }
-//
-//	  @Override
-//	  public BoardVO read(Integer bno) throws Exception {
-//	    return session.selectOne(namespace + ".read", bno);
-//	  }
-//
-//	  @Override
-//	  public void update(BoardVO vo) throws Exception {
-//	    session.update(namespace + ".update", vo);
-//	  }
-//
-//	  @Override
-//	  public void delete(Integer bno) throws Exception {
-//	    session.delete(namespace + ".delete", bno);
-//	  }
-//
-//	  @Override
-//	  public List<BoardVO> listAll() throws Exception {
-//	    return session.selectList(namespace + ".listAll");
-//	  }
-	
 	
 }

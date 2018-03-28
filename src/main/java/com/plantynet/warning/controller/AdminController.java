@@ -29,9 +29,8 @@ public class AdminController {
 	public void admin(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-		int teamId = sessionVO.getTeamId();
 
-		List<ManagerVO> list = adminService.getManagerListByTeamId(teamId);
+		List<ManagerVO> list = adminService.getManagerList();
 		
 		for (ManagerVO managerVO : list) {
 			StringBuffer buffer = new StringBuffer(managerVO.getPhoneNo());
@@ -51,11 +50,9 @@ public class AdminController {
 		SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
 		String email = email1 + "@" + email2;
 		String phoneNo = phoneNo1 + phoneNo2 + phoneNo3;
-		int teamId = sessionVO.getTeamId();
 
 		managerVO.setEmail(email);
 		managerVO.setPhoneNo(phoneNo);
-		managerVO.setTeamId(teamId);
 		managerVO.toString();
 		adminService.addAdmin(managerVO);
 		return "redirect:/admin";
@@ -66,7 +63,6 @@ public class AdminController {
     public @ResponseBody HashMap<String,Boolean> checkLoginId(Model model,HttpSession session, ManagerVO managerVO){
     	HashMap<String,Boolean> map = new HashMap<>();
     	int loginIdCount = adminService.getLoginIdCount(managerVO.getLoginId());
-    	System.out.println(loginIdCount);
     	if(loginIdCount>0) {
     		map.put("isIdExist", true);
     	}else {
@@ -77,7 +73,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/deleteAdmin", method = RequestMethod.POST)
 	public String deleteAdmin(Model model, @RequestParam("managerId") int managerId) {
-		System.out.println(managerId);
 		adminService.deleteAdmin(managerId);
 		return "redirect:/admin";
 	}

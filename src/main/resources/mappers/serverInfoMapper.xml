@@ -5,8 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.plantynet.warning.sql.serverInfoMapper">
     <resultMap id="getServerInfo" type="com.plantynet.warning.vo.ServerVO">
         <result property="serverId" column="server_id" javaType="Integer"/>
-        <result property="teamId" column="team_id" javaType="Integer"/>
-        <result property="teamNm" column="team_nm" javaType="String"/>
         <result property="serverNm" column="server_nm" javaType="String"/>
         <result property="ip" column="ip" javaType="String"/>
     </resultMap>
@@ -24,8 +22,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="eventId" column="event_id" javaType="Integer"/>
         <result property="managerNm" column="manager_nm" javaType="String"/>
         <result property="alertMth" column="alert_mth" javaType="String"/>
+        <result property="alertTerm" column="alert_term" javaType="Integer"/>
         <result property="rgsde" column="rgsde" javaType="String"/>
+        <result property="updde" column="updde" javaType="String"/>
     </resultMap>
+    
+    
+    <select id="getServerIdByName" resultType="Integer">
+    	SELECT server_id
+		FROM SERVER
+		WHERE SERVER.server_nm = #{serverNm}
+		AND SERVER.sttus = 'ACT01' 
+    </select>
     
     <select id="getServerEventList" resultMap="getServerEventList">
         select event_id, server_id, event_code, description, rgsde 
@@ -34,16 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="getEventManagerInfoList" resultMap="getEventManagerInfoList">
-		select EVENT_MANAGER.manager_id, EVENT_MANAGER.event_id, MANAGER.manager_nm, EVENT_MANAGER.alert_mth, EVENT_MANAGER.rgsde
+		select EVENT_MANAGER.manager_id, EVENT_MANAGER.event_id, MANAGER.manager_nm, EVENT_MANAGER.alert_mth, EVENT_MANAGER.alert_term, EVENT_MANAGER.rgsde, EVENT_MANAGER.updde
 		from EVENT_MANAGER 
 		join MANAGER ON MANAGER.manager_id = EVENT_MANAGER.manager_id
 		where event_id = #{eventId} and EVENT_MANAGER.sttus = "ACT01"
     </select>
     
     <select id="getServerInfo" resultMap="getServerInfo">
-		select server_id, SERVER.team_id, TEAM.team_nm, SERVER.server_nm, SERVER.ip
-		from SERVER join TEAM 
-		ON TEAM.team_id = SERVER.team_id
+		select server_id, SERVER.server_nm, SERVER.ip
+		from SERVER
 		where server_id = #{serverId}
     </select>
     
@@ -67,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <update id="updateEvntMngr">
 		UPDATE EVENT_MANAGER
-		SET manager_id = #{managerId}, alert_mth = #{alertMth}, updde = CURRENT_TIMESTAMP()
+		SET manager_id = #{managerId}, alert_mth = #{alertMth}, alert_term = #{alertTerm}, updde = CURRENT_TIMESTAMP()
 		WHERE event_id = #{eventId} and manager_id = #{oldManagerId}
     </update>
     
@@ -78,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="checkPlusEvent" resultType="int">
         select count(*) from EVENT
-        where event_code = #{eventCode} and server_id=#{serverId} and sttus = "ACT01" 
+        where event_code = #{eventCode} and sttus = "ACT01" 
     </select>
     
     <insert id="plusEvent">
@@ -92,8 +99,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="plusEvntMngr">
-        insert into EVENT_MANAGER (manager_id, event_id, alert_mth, sttus)
-        values (#{managerId}, #{eventId}, #{alertMth},'ACT01')
+        insert into EVENT_MANAGER (manager_id, event_id, alert_mth, alert_term, sttus)
+        values (#{managerId}, #{eventId}, #{alertMth}, #{alertTerm}, 'ACT01')
     </insert>
     
 </mapper>

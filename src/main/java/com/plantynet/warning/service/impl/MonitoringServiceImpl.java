@@ -1,6 +1,5 @@
 package com.plantynet.warning.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.plantynet.warning.dao.MonitoringDAO;
 import com.plantynet.warning.service.MonitoringService;
 import com.plantynet.warning.vo.MonitoringVO;
+import com.plantynet.warning.vo.SearchParamVO;
 import com.plantynet.warning.vo.SessionVO;
 import com.plantynet.warning.vo.TeamTopFiveVO;
-import com.plantynet.warning.vo.MonitoringVO;
 
 @Service
 public class MonitoringServiceImpl implements MonitoringService{
@@ -29,16 +28,22 @@ public class MonitoringServiceImpl implements MonitoringService{
 	
 	// 모니터링 리스트 페이지
 	@Override
-	public List<MonitoringVO> getServerList(Integer teamId) {
-		return monitoringDAO.getServerList(teamId);
+	public List<MonitoringVO> getServerList(Integer managerId) {
+		return monitoringDAO.getServerList(managerId);
 	}
 	@Override
-	public List<MonitoringVO> getCodeList(int serverId) {
-		return monitoringDAO.getCodeList(serverId);
+	public List<MonitoringVO> getCodeList(MonitoringVO vo) {
+		return monitoringDAO.getCodeList(vo);
 	}
 	@Override
-	public List<MonitoringVO> getErrorLogList(Integer teamId) {
-		return monitoringDAO.getErrorLogList(teamId);
+	public List<MonitoringVO> getErrorLogList(SearchParamVO vo) {
+		
+		String fullPreDate = vo.getPreDate() + " 00:00:00";
+		String fullPostDate = vo.getPostDate() + " 23:59:59";
+		
+		vo.setPreDate(fullPreDate);
+		vo.setPostDate(fullPostDate);
+		return monitoringDAO.getErrorLogList(vo);
 	}
 
 	// 모니터링 상세 페이지

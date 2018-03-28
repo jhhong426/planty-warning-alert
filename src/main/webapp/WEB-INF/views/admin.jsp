@@ -63,12 +63,6 @@
 								</td>
 						</tr>
 						<tr>
-							<th style="text-align:center">&ensp;소&ensp;속&ensp;팀</th>
-								<td>
-									<input type="text" name="" value="${sessionScope.sessionVO.teamNm}" style="width:375px; text-align:center" disabled >
-								</td>
-						</tr>
-						<tr>
 							<th style="text-align:center">&ensp;휴&ensp;대&ensp;폰</th>
 					         	<td>
 					         		<input id = "phoneNo1" type="text" name="phoneNo1"  value="010" style="width:90px; text-align:center" maxlength="4"> -

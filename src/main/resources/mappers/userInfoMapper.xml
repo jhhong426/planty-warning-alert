@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     
     <select id="getManagerInfo" resultMap="getManagerInfo" parameterType="int">
-        SELECT MANAGER.manager_id, MANAGER.manager_nm, MANAGER.team_id, TEAM.team_nm, MANAGER.phone_no, MANAGER.email  
-        FROM MANAGER JOIN TEAM ON TEAM.team_id = MANAGER.team_id
+        SELECT MANAGER.manager_id, MANAGER.manager_nm, MANAGER.phone_no, MANAGER.email  
+        FROM MANAGER
         WHERE MANAGER.manager_id = #{managerId}
     </select>
     

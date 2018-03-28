@@ -6,6 +6,51 @@
 
 <%@include file="include/header.jsp"%>
 
+<script>
+
+	function handleRadioClick1(radio, flag) {
+		
+		if(flag) {
+			$(radio).nextAll('#inputPlusTermVal').prop("disabled", false);
+		} else {
+			$(radio).prev('#inputPlusTermVal').prop("disabled", true);
+			$(radio).prev('#inputPlusTermVal').val('');
+		}
+	}
+	
+	function handleRadioClick2(radio, flag) {
+			
+		if(flag) {
+			$(radio).nextAll('#inputUptTermVal').prop("disabled", false);
+		} else {
+			$(radio).prev('#inputUptTermVal').prop("disabled", true);
+			$(radio).prev('#inputUptTermVal').val('');
+		}
+	}
+	
+	function handleRadioClick3(radio, flag) {
+		
+		
+		if (flag) {
+			
+			$(radio).prev().prop("checked",false);
+			$(radio).parents('tr').next().children().eq(1).children().eq(0).prop("disabled", true);
+			$(radio).parents('tr').next().children().eq(1).children().eq(1).prop("disabled", true);
+			$(radio).parents('tr').next().children().eq(1).children().eq(2).prop("disabled", true);
+			$(radio).parents('tr').next().children().eq(1).children().eq(1).val('');
+			
+		} else {
+			$(radio).next().prop("checked", false);
+			$(radio).parents('tr').next().children().eq(1).children().eq(0).prop("disabled", false);
+			$(radio).parents('tr').next().children().eq(1).children().eq(1).prop("disabled", true);
+			$(radio).parents('tr').next().children().eq(1).children().eq(2).prop("disabled", false);
+			$(radio).parents('tr').next().children().eq(1).children().eq(2).prop("checked", true);
+			$(radio).parents('tr').next().children().eq(1).children().eq(1).val('');
+		}
+		
+	}
+</script>
+
 <div class="content-wrapper" style="width:auto; height:auto; padding:0px;">
 	<div class="box" style="width:auto; height:auto; padding:0px;">
 		<h3><strong>&emsp;서버 목록 > 서버 상세정보</strong></h3>
@@ -28,24 +73,18 @@
 									<input class="form-control" type="text" name="" value="${serverInfo.ip}" style="width:280px; text-align:center" disabled>
 								</td>
 						</tr>
-						<tr>
-							<th style="text-align:center">&ensp;관&ensp;리&ensp;팀</th>
-					         	<td>
-					         		<input class="form-control" type="text" name="" value="${serverInfo.teamNm}" style="width:280px; text-align:center" disabled>
-					        	</td>
-						</tr>
 					</tbody>
 				</table>
 	          </form>
 	        </div>
             <hr>
             
-            <h5><strong>&emsp; &bull; &ensp;서버 모니터링</strong></h5>
+            <%-- <h5><strong>&emsp; &bull; &ensp;서버 모니터링</strong></h5>
 
             <div class="left-block" style="width:400px; padding:10px;">
                 <a href="/monitoringServer?serverId=${serverInfo.serverId}" class="btn btn-primary col-md-offset-1">모니터링</a>
             </div>
-            <hr>
+            <hr> --%>
            	<h5><strong>&emsp; &bull; &ensp;장애 및 담당자 목록</strong></h5>
            	<div class="row" style="background-color:#F2F2F2">
 				<div class="col-md-2 text-center">
@@ -92,11 +131,14 @@
 					</div>
 				</div>
 				<div class="box-body">
-					<table style="width:70%; margin:auto;">
+					<table style="width:80%; margin:auto;">
 					  <tr style="height:30px;">
 					    <th class="col-md-2 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">담당자</th>
 					    <th class="col-md-2 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">알림방법</th>
-					    <th class="col-md-3 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">등록일</th>
+					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">알림수신</th>
+					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">알림간격</th>
+					    <th class="col-md-2 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">등록일</th>
+					    <th class="col-md-2 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">수정일</th>
 					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">수정</th>
 					    <th class="col-md-1 text-center" bgcolor="#E6E6E6" style="border:2px gray solid;">삭제</th>
 					  </tr>
@@ -109,14 +151,38 @@
 					    <td id="managerNm" class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.managerNm}</td>
 					    <c:choose>
 					       <c:when test = "${eventMngInfo.alertMth == 'ALM01' }">
-					           <td id="alertMth" class="col-md-2 text-center" style="border:1px gray solid;">Email</td>
+					           <td id="alertMth" class="col-md-1 text-center" style="border:1px gray solid;">Email</td>
 					       </c:when>
 					       <c:when test = "${eventMngInfo.alertMth == 'ALM02' }">
-					           <td id="alertMth" class="col-md-2 text-center" style="border:1px gray solid;">SMS + Email</td>
+					           <td id="alertMth" class="col-md-1 text-center" style="border:1px gray solid;">SMS + Email</td>
                            </c:when>
 					    </c:choose>
+					    <c:choose>
+					       <c:when test = "${eventMngInfo.alertTerm eq 99999999 }">
+					           <td id="alertTerm" data-val="${eventMngInfo.alertTerm}" class="col-md-1 text-center" style="border:1px gray solid;">받지 않음</td>
+					           <td id="" class="col-md-1 text-center" style="border:1px gray solid;">-</td>
+					       </c:when>
+					       <c:when test = "${eventMngInfo.alertTerm eq 0 }">
+					           <td id="" data-val="${eventMngInfo.alertTerm}" class="col-md-1 text-center" style="border:1px gray solid;">받음</td>
+					           <td id="alertTerm" class="col-md-1 text-center" style="border:1px gray solid;">설정안함</td>
+					       </c:when>
+					       <c:otherwise>
+					       		<td id="alertTerm" data-val="${eventMngInfo.alertTerm}" class="col-md-1 text-center" style="border:1px gray solid;">받음</td>
+					       		<td id="alertTerm" data-val="${eventMngInfo.alertTerm}" class="col-md-1 text-center" style="border:1px gray solid;">${eventMngInfo.alertTerm}분</td>
+					       </c:otherwise>
+					    </c:choose>
 					    
-					    <td class="col-md-3 text-center" style="border:1px gray solid;">${eventMngInfo.rgsde}</td>
+					    
+					    <td class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.rgsde}</td>
+					    <c:choose>
+					    	<c:when test="${eventMngInfo.updde == '0000-00-00 00:00:00'}">
+					    		<td class="col-md-2 text-center" style="border:1px gray solid;">-</td>
+					    	</c:when>
+					    	<c:otherwise>
+					    		<td class="col-md-2 text-center" style="border:1px gray solid;">${eventMngInfo.updde}</td>
+					    	</c:otherwise>
+					    </c:choose>
+					    
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
 					    	<button id="btnUpdateEvntMngr" type="button" class="btn btn-primary btn-xs btnUpdateEvntMngr" onclick="">수정</button></td>
 					    <td class="col-md-1 text-center" style="border:1px gray solid;">
@@ -222,7 +288,31 @@
 							                    <option value="ALM02">SMS + Email</option>
 							                </select>
 							        	</td>
-								</tr>      
+								</tr>
+								<tr>
+									<th style="text-align:center">알림수신</th>
+							         	<td>
+							         		<input type="radio" name="" value="1234" onclick="handleRadioClick3(this, false);" checked/>받음&ensp;
+							         		<input type="radio" id="sleepTerm" name="alertTerm" value="99999999" onclick="handleRadioClick3(this, true);"/>받지 않음
+							        	</td>
+								</tr>   
+								<tr>
+									<th style="text-align:center">알림간격</th>
+							         	<td>
+							         		<input type="radio" id="custTerm" name="alertTerm" value="1234"onclick="handleRadioClick2(this, true);"/>
+							         		<input type="text" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=3 id="inputUptTermVal" name="inputTermVal" style="display:inline; width:50px; text-align:center" disabled> 분&ensp;
+							        		<input type="radio" id="noTerm" name="alertTerm" value="0" onclick="handleRadioClick2(this, false);" checked/>설정안함&ensp;
+							        	</td>
+								</tr>  
+								<%-- <tr>
+									<th style="text-align:center">알림간격</th>
+							         	<td>
+							         		<input type="radio" id="noTerm" name="alertTerm" value="0" onclick="handleRadioClick2(this, false);" checked/>설정안함&ensp;
+							         		<input type="radio" id="sleepTerm" name="alertTerm" value="99999999"onclick="handleRadioClick2(this, false);"/>중지&ensp;
+							         		<input type="radio" id="custTerm" name="alertTerm" value="1234"onclick="handleRadioClick2(this, true);"/>입력
+							         		<input type="text" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=3 id="inputUptTermVal" name="inputTermVal" style="display:inline; width:50px; text-align:center" disabled> 분
+							        	</td>
+								</tr>   --%>    
 								<tr>
 									<th style="text-align:center">담&ensp;당&ensp;자</th>
 							         	<td>
@@ -324,7 +414,31 @@
 							                    <option value="ALM02">SMS + Email</option>
 							                </select>
 							        	</td>
-								</tr>      
+								</tr>
+								<tr>
+									<th style="text-align:center">알림수신</th>
+							         	<td>
+							         		<input type="radio" name="" value="1234" onclick="handleRadioClick3(this, false);" checked/>받음&ensp;
+							         		<input type="radio" name="alertTerm" value="99999999" onclick="handleRadioClick3(this, true);"/>받지 않음
+							        	</td>
+								</tr>    
+								<tr>
+									<th style="text-align:center">알림간격</th>
+							         	<td>
+							         		<input type="radio" name="alertTerm" value="1234" onclick="handleRadioClick1(this, true);"/>
+							         		<input type="text" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=3 id="inputPlusTermVal" name="inputTermVal" style="display:inline; width:50px; text-align:center" disabled> 분&ensp;
+							        		<input type="radio" name="alertTerm" value="0" onclick="handleRadioClick1(this, false);" checked/>설정안함&ensp;
+							        	</td>
+								</tr>   
+								<%-- <tr>
+									<th style="text-align:center">알림간격</th>
+							         	<td>
+							         		<input type="radio" name="alertTerm" value="0" onclick="handleRadioClick1(this, false);" checked/>설정안함&ensp;
+							         		<input type="radio" name="alertTerm" value="99999999" onclick="handleRadioClick1(this, false);"/>중지&ensp;
+							         		<input type="radio" name="alertTerm" value="1234" onclick="handleRadioClick1(this, true);"/>입력
+							         		<input type="number" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=3 id="inputPlusTermVal" name="inputTermVal" style="display:inline; width:50px; text-align:center" disabled> 분
+							        	</td>
+								</tr> --%>          
 								<tr>
 									<th style="text-align:center">담&ensp;당&ensp;자</th>
 							         	<td>
@@ -459,10 +573,13 @@ $(document).ready(function(){
 	       var managerId = $(this).parents("tr").children().eq(2).val();
 	       var managerNm = $(this).parents("tr").children().eq(3).text();
 	       var alertMth = $(this).parents("tr").children().eq(4).text();
+	       var alertTerm = $(this).parents("tr").children().eq(5).data("val");
 	       
 	       $("#inputUptEventId2").val(eventId);
 	       $("#inputUptEventCode2").val(eventCode);
 	       $("#inputUptManagerId2").val(managerId);
+	       $('#inputUptTermVal').val('');
+	       $('#inputUptTermVal').prop("disabled", true);
 	       
 	       $('#selUptAlertMth>option').each(function () {
 	           var text = $(this).text();
@@ -477,6 +594,21 @@ $(document).ready(function(){
                    $(this).prop('selected',true);
                }
            });
+	       
+	       if(alertTerm == '0'){
+	    	   handleRadioClick3($('#sleepTerm'), false);
+	    	   $('#noTerm').prop("checked", true);
+	       } else if (alertTerm == '99999999') {
+	    	   $('#sleepTerm').prop("checked", true);
+	    	   handleRadioClick3($('#sleepTerm'), true);
+	    	   
+	       } else {
+	    	   handleRadioClick3($('#sleepTerm'), false);
+	    	   $('#sleepTerm').prev().prop("checked",true);
+	    	   $('#custTerm').prop("checked",true);
+	    	   $('#inputUptTermVal').val(parseInt(alertTerm));
+	    	   $('#inputUptTermVal').prop("disabled", false);
+	       }
 	       
 	       $("#errorAdminUpdatePopup").modal();
 	   });
@@ -529,6 +661,7 @@ $(document).ready(function(){
 	
 	//담당자 등록 팝업 띄우기
 	$("#btnAddEvntMngr").click(function(){
+		
         $("#errorAdminRegisterPopup").modal();
     });
 	

@@ -24,8 +24,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public List<ManagerVO> getManagerListByTeamId(int teamId) {
-		return adminDAO.getManagerListByTeamId(teamId);
+	public List<ManagerVO> getManagerList() {
+		return adminDAO.getManagerList();
 	}
 	@Override
 	public void deleteAdmin(int managerId) {

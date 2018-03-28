@@ -5,8 +5,6 @@ public class ManagerVO {
 
 
 	private int managerId;
-	private Integer teamId;
-	private String teamNm;
 	private String managerNm;
 	private String loginId;
 	private String loginPassword;
@@ -17,16 +15,6 @@ public class ManagerVO {
 	private String updde;
 	
 	
-
-	public String getTeamNm()
-    {
-        return teamNm;
-    }
-
-    public void setTeamNm(String teamNm)
-    {
-        this.teamNm = teamNm;
-    }
 
     public String getLoginId() {
 		return loginId;
@@ -44,13 +32,6 @@ public class ManagerVO {
 		this.managerId = managerId;
 	}
 
-	public Integer getTeamId() {
-		return teamId;
-	}
-
-	public void setTeamId(Integer teamId) {
-		this.teamId = teamId;
-	}
 
 	public String getManagerNm() {
 		return managerNm;
@@ -108,14 +89,6 @@ public class ManagerVO {
 		this.updde = updde;
 	}
 
-
-    @Override
-    public String toString()
-    {
-        return "ManagerVO [managerId=" + managerId + ", teamId=" + teamId + ", teamNm=" + teamNm + ", managerNm="
-                + managerNm + ", loginId=" + loginId + ", loginPassword=" + loginPassword + ", phoneNo=" + phoneNo
-                + ", email=" + email + ", sttus=" + sttus + ", rgsde=" + rgsde + ", updde=" + updde + "]";
-    }
 
 	
 }

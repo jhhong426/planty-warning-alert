@@ -17,8 +17,8 @@ public class ServerListDAOImpl implements ServerListDAO {
 	private static final String namespace = "com.plantynet.warning.sql.serverListMapper";
 	
 	@Override
-	public List<ServerVO> getServerList(int teamId){
-		return sqlSession.selectList(namespace + ".getServerList",teamId);
+	public List<ServerVO> getServerList(){
+		return sqlSession.selectList(namespace + ".getServerList");
 	}
 	
 	@Override

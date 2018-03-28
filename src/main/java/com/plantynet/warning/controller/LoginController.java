@@ -56,12 +56,10 @@ public class LoginController {
 			ManagerVO vo = loginDAO.getManagerByLoginId(id);
 			SessionVO sessionVO = new SessionVO();
 			sessionVO.setManagerId(vo.getManagerId());
-			sessionVO.setTeamId(vo.getTeamId());
 			sessionVO.setManagerNm(vo.getManagerNm());
 			sessionVO.setLoginId(vo.getLoginId());
 			sessionVO.setPhoneNo(vo.getPhoneNo());
 			sessionVO.setEmail(vo.getEmail());
-			sessionVO.setTeamNm(loginDAO.getTeamNmByTeamId(vo.getTeamId()));
 			session.setAttribute("sessionVO", sessionVO);
 
 			return "redirect:/monitoring";

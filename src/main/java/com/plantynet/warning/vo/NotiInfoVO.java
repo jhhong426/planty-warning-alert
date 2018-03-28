@@ -1,4 +1,7 @@
 package com.plantynet.warning.vo;
+
+import java.util.Date;
+
 /*
  * 발송 대기 테이블에 INSERT 할 데이터 VO 객체
  */
@@ -14,8 +17,31 @@ public class NotiInfoVO
     private String managerEmail;        //장애 담당자의 이메일
     private String managerCttpc;        //장애 담당자의 휴대폰 연락처
     private String logde;               //장애 발생 시간
+    private String ntfcNeed;
+    private Integer alertTerm;
+    private Date lastTime;
     
-    public Integer getServerId()
+    
+    
+    public String getNtfcNeed() {
+		return ntfcNeed;
+	}
+	public void setNtfcNeed(String ntfcNeed) {
+		this.ntfcNeed = ntfcNeed;
+	}
+	public Integer getAlertTerm() {
+		return alertTerm;
+	}
+	public void setAlertTerm(Integer alertTerm) {
+		this.alertTerm = alertTerm;
+	}
+	public Date getLastTime() {
+		return lastTime;
+	}
+	public void setLastTime(Date lastTime) {
+		this.lastTime = lastTime;
+	}
+	public Integer getServerId()
     {
         return serverId;
     }

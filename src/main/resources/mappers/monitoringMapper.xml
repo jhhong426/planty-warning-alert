@@ -11,10 +11,12 @@
         <result property="serverNm" column="server_nm" javaType="String"/>
         <result property="eventCode" column="event_code" javaType="String"/>
         <result property="ntfcMth" column="ntfc_mth" javaType="String"/>
+        <result property="ntfcNeed" column="ntfc_need" javaType="String"/>
+        <result property="ntfcSttus" column="ntfc_sttus" javaType="String"/>
         <result property="managerEmail" column="manager_email" javaType="String"/>
         <result property="managerCttpc" column="manager_cttpc" javaType="String"/>
     </resultMap>
-
+    
 	<!-- '일주일 전 날짜 ~ 오늘날짜 ' 출력  -->
 	<select id="getDate" resultType="String">
         SELECT CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 DAY), '%Y-%m-%d'), " ~ ", DATE_FORMAT(NOW(),'%Y-%m-%d')) AS date
@@ -22,24 +24,38 @@
 
 	<!-- 카테고리에 들어갈 서버 목록 -->
 	<select id="getServerList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
-        SELECT server_id, server_nm
-        FROM SERVER
-        WHERE team_id=#{teamId}
-        AND sttus='ACT01'
+        select a.server_id, a.server_nm
+		from SERVER a
+		inner join EVENT b 
+		on a.server_id = b.server_id
+		inner join EVENT_MANAGER e
+		on e.event_id = b.event_id
+		where a.sttus='ACT01'
+		and b.sttus='ACT01'
+		and e.sttus='ACT01'
+		and  e.manager_id = #{managerId}
+		group by a.server_id
     </select>
     
     <!-- 카테고리에 들어갈 해당 서버의 에러코드 목록 -->
-    <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+    <!-- <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT DISTINCT e.event_id AS event_id, e.event_code AS event_code
         FROM EVENT e, EVENT_MANAGER m
         WHERE e.server_id=#{serverId}
         AND m.sttus='ACT01'
         AND e.event_id=m.event_id
         
+    </select> -->
+    
+    <!-- 서버의 장애코드 중 해당 담당자가 담당하는 장애코드만 가져오기 -->
+    <select id="getCodeList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        select e.event_id as event_id, upper(e.event_code) as event_code  from EVENT e
+		join EVENT_MANAGER e1 ON e.event_id = e1.event_id
+		where e.server_id = #{serverId} and e1.manager_id = #{managerId} and e.sttus = 'ACT01'
     </select>
     
     <!-- 전체 에러로그의 목록 출력 -->
-    <select id="getErrorLogList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+    <!-- <select id="getErrorLogList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
         SELECT n.server_id, s.server_nm, n.ip, e.event_code, m.manager_nm, n.msg, n.ntfc_mth, n.ntfcde, n.logde
         FROM SERVER s, MANAGER m, NOTIFICATION_HISTORY n, EVENT e
 		WHERE n.server_id=s.server_id
@@ -47,6 +63,34 @@
 		AND n.manager_id=m.manager_id
 		AND s.sttus='ACT01'
 		AND m.team_id=#{teamId}
+    </select> -->
+    
+    <select id="getErrorLogList" resultType="com.plantynet.warning.vo.MonitoringVO" resultMap="monitoringVO">
+        SELECT n.server_id, s.server_nm, n.ip, upper(e.event_code) as event_code, m.manager_nm, n.msg, n.ntfc_mth, n.ntfc_need, n.ntfc_sttus, n.ntfcde, n.logde
+        FROM SERVER s, MANAGER m, NOTIFICATION_HISTORY n, EVENT e
+        WHERE n.server_id=s.server_id
+				AND n.event_id=e.event_id
+				AND n.manager_id=m.manager_id
+				AND s.sttus='ACT01'
+				AND e.sttus ='ACT01'
+				AND s.sttus = 'ACT01'
+				AND n.manager_id = #{managerId}
+				AND n.rgsde between #{preDate} and #{postDate}
+        <choose>
+        	<when test="isSearch == 'true'">
+        	
+        		<if test="selServerId != null">
+        			AND n.server_id = #{selServerId}
+        		</if>
+        		<if test="selEventId != null">
+        			AND n.event_id = #{selEventId}
+        		</if>
+        		<if test="notiFlag != null">
+        			AND n.ntfc_need = 'ALN01'
+        		</if>
+        	</when>
+        </choose>
+		ORDER BY n.rgsde DESC
     </select>
 
     <!-- Server Line Chart : 오늘을 포함한 일주일 전까지 한 서버(serverId)에서 발생한 모든 에러 건수 -->
@@ -127,7 +171,7 @@
     
 
     
-    <select id="getDailyStat" resultType="java.util.Map">
+    <!-- <select id="getDailyStat" resultType="java.util.Map">
 SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
          IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '5' DAY)) THEN cnt END),0) as "02",
          IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '4' DAY)) THEN cnt END),0) as "03",
@@ -141,9 +185,26 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
           FROM EVENT_HISTORY
           WHERE team_id = #{teamId} AND rgsde >= DATE_ADD(now(), INTERVAL -10 day)
           GROUP BY date)AS a
+    </select> -->
+    
+    <!-- 담당자별 일간 알림 건수로 수정 -->
+    <select id="getDailyStat" resultType="java.util.Map">
+SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '6' DAY)) THEN cnt END),0) as "01",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '5' DAY)) THEN cnt END),0) as "02",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '4' DAY)) THEN cnt END),0) as "03",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '3' DAY)) THEN cnt END),0) as "04",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '2' DAY)) THEN cnt END),0) as "05",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '1' DAY)) THEN cnt END),0) as "06",
+         IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVAL '0' DAY)) THEN cnt END),0) as "07"
+         FROM 
+         (SELECT DATE(ntfcde) AS date,
+                 count(ntfcde) cnt
+          FROM NOTIFICATION_HISTORY
+          WHERE manager_id = #{managerId} and ntfcde >= DATE_ADD(now(), INTERVAL -10 day) and ntfc_sttus = 'ALS02' and ntfc_need = 'ALN01'
+          GROUP BY date)AS a;
     </select>
     
-    <select id="getTeamTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+    <!-- <select id="getTeamTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
 		SELECT server_nm as serverNm, count(*) as count 
 		FROM EVENT_HISTORY 
 		JOIN SERVER
@@ -152,16 +213,37 @@ SELECT   IFNULL(SUM(CASE DAYOFMONTH(date) WHEN DAYOFMONTH(SUBDATE(NOW(), INTERVA
 		GROUP BY EVENT_HISTORY.server_id
 		ORDER BY count DESC
 		LIMIT 5
+    </select> -->
+    
+    <!-- 주간 서버별 장애 통계, 메소드명 수정 안함(팀, TOP 5 X) -->
+    <select id="getTeamTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+		select server_nm as serverNm, count(*) as count from NOTIFICATION_HISTORY
+		join SERVER
+		on NOTIFICATION_HISTORY.server_id = SERVER.server_id
+		where manager_id = #{managerId} and ntfc_sttus = 'ALS02' and ntfc_need = 'ALN01'
+		group by NOTIFICATION_HISTORY.server_id
+		order by count desc
     </select>
     
-    <select id="getDailyTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+    <!-- <select id="getDailyTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
         select server_nm as serverNm, count(*) AS count from EVENT_HISTORY
 		JOIN SERVER
 		ON EVENT_HISTORY.server_id = SERVER.server_id
 		WHERE DATE_FORMAT(EVENT_HISTORY.rgsde,'%m/%d') LIKE #{date} AND EVENT_HISTORY.team_id = #{teamId}
 		GROUP BY EVENT_HISTORY.server_id
 		ORDER BY count DESC
-		LIMIT 5;
+		LIMIT 5
+    </select> -->
+    
+    <!-- 담당자별 일별 장애 TOP 서버, 메소드명 따로 수정하지 않음(팀x)  -->
+    <select id="getDailyTopFive" resultType="com.plantynet.warning.vo.TeamTopFiveVO">
+        select server_nm as serverNm, count(*) AS count from NOTIFICATION_HISTORY
+		JOIN SERVER
+		ON NOTIFICATION_HISTORY.server_id = SERVER.server_id
+		WHERE DATE_FORMAT(NOTIFICATION_HISTORY.rgsde,'%m/%d') LIKE #{date} AND NOTIFICATION_HISTORY.manager_id = #{managerId} AND NOTIFICATION_HISTORY.ntfc_sttus = 'ALS02' and NOTIFICATION_HISTORY.ntfc_need = 'ALN01'
+		GROUP BY NOTIFICATION_HISTORY.server_id
+		ORDER BY count DESC
+		LIMIT 5
     </select>
 
 </mapper>

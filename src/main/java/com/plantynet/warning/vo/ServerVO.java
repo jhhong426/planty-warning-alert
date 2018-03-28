@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 
 public class ServerVO {
 	private	int serverId;
-	private int teamId;
-	private String teamNm;
 	private String serverNm;
 	private String ip;
 	private String sttus;
@@ -14,25 +12,12 @@ public class ServerVO {
 	private String updde;
 	
 	
-	public String getTeamNm()
-    {
-        return teamNm;
-    }
-    public void setTeamNm(String teamNm)
-    {
-        this.teamNm = teamNm;
-    }
+
     public int getServerId() {
 		return serverId;
 	}
 	public void setServerId(int serverId) {
 		this.serverId = serverId;
-	}
-	public int getTeamId() {
-		return teamId;
-	}
-	public void setTeamId(int teamId) {
-		this.teamId = teamId;
 	}
 	public String getServerNm() {
 		return serverNm;
@@ -70,11 +55,5 @@ public class ServerVO {
 	public void setUpdde(String updde) {
 		this.updde = updde;
 	}
-	@Override
-	public String toString() {
-		return "ServerVO [serverId=" + serverId + ", teamId=" + teamId + ", ServerNm=" + serverNm + ", ip=" + ip
-				+ ", sttus=" + sttus + ", rgsde=" + rgsde + ", updde=" + updde + "]";
-	}
-	
 	
 }

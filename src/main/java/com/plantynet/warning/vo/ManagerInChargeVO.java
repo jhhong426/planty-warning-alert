@@ -6,13 +6,28 @@ public class ManagerInChargeVO
     private int eventId;
     private String managerNm;
     private String alertMth;
+    private Integer alertTerm;
     private String rgsde;
+    private String updde;
     private String flag;
     private String oldManagerId;
     
     
     
-    public String getOldManagerId()
+    
+	public String getUpdde() {
+		return updde;
+	}
+	public void setUpdde(String updde) {
+		this.updde = updde;
+	}
+	public Integer getAlertTerm() {
+		return alertTerm;
+	}
+	public void setAlertTerm(Integer alertTerm) {
+		this.alertTerm = alertTerm;
+	}
+	public String getOldManagerId()
     {
         return oldManagerId;
     }

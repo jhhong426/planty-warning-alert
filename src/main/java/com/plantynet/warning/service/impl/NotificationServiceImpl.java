@@ -1,5 +1,6 @@
 package com.plantynet.warning.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,44 @@ public class NotificationServiceImpl implements NotificationService
     {
         List<NotiInfoVO> managerInfos = dao.getManagerInfo(vo);
         
+        Date nowTime = null;
+        Date lastRegistTime = null;
+        long alertTermToMilliSecond = 0;
+        
         if(managerInfos.isEmpty()){
             return false;
         }
         
         for (NotiInfoVO manager : managerInfos)
         {
+        	if(manager.getAlertTerm() == 99999999) 
+        	{
+        		manager.setNtfcNeed("ALN02");
+        	}
+        	else
+        	{
+        		alertTermToMilliSecond = manager.getAlertTerm() * 60 * 1000;
+        		nowTime = new Date();
+            	lastRegistTime = manager.getLastTime();
+            	
+            	if (lastRegistTime == null)
+            	{
+            		manager.setNtfcNeed("ALN01");
+            		dao.updateLastTime(manager);
+            	}
+            	else 
+            	{
+            		if ((nowTime.getTime() - lastRegistTime.getTime()) >= alertTermToMilliSecond)
+                	{
+                		manager.setNtfcNeed("ALN01");
+                		dao.updateLastTime(manager);
+                	}
+                	else
+                	{
+                		manager.setNtfcNeed("ALN02");
+                	}
+            	}
+        	}
             manager.setMsg(vo.getMsg());
             manager.setLogde(vo.getLogde());
             dao.setNotiInfo(manager);

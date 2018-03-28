@@ -6,7 +6,7 @@ import com.plantynet.warning.vo.ManagerVO;
 
 public interface AdminDAO {
 	public void addAdmin(ManagerVO managerVO);
-	public List<ManagerVO> getManagerListByTeamId(int teamId);
+	public List<ManagerVO> getManagerList();
 	public void deleteAdmin(int managerId);
 	public int getLoginIdCount(String loginId);
 	public void updateEvntMngrByManagerId(int managerId);

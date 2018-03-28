@@ -29,4 +29,6 @@ public interface ServerInfoDAO
     public int checkPlusEvntMngr(ManagerInChargeVO vo);
     
     public void plusEvntMngr(ManagerInChargeVO vo);
+    
+    public Integer getServerIdByName(String serverNm);
 }

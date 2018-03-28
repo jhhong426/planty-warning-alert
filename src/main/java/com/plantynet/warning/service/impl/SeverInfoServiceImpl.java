@@ -27,7 +27,13 @@ public class SeverInfoServiceImpl implements ServerInfoService
     @Override
     public List<EventVO> getServerEventList(int serverId)
     {
-        return serverInfoDao.getServerEventList(serverId);
+        List<EventVO> list = serverInfoDao.getServerEventList(serverId);
+        
+        for (EventVO eventVO : list) {
+			eventVO.setEventCode(eventVO.getEventCode().toUpperCase());
+		}
+        
+        return list;
     }
 
     // 해당 서버가 가진 에러코드들에 대한 각각의 담당자들을 담아 전송(전체 장애별 담당자 데이터를 가져오는 것을 막기 위함)
@@ -118,5 +124,10 @@ public class SeverInfoServiceImpl implements ServerInfoService
             return false;
         }
     }
+
+	@Override
+	public Integer getServerIdByName(String serverNm) {
+		return serverInfoDao.getServerIdByName(serverNm);
+	}
 
 }

@@ -40,8 +40,7 @@ public class ServerInfoController {
     @RequestMapping(value = "/serverList", method = RequestMethod.GET)
     public String serverListGET(Model model,HttpSession session){
     	SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-    	int teamId = sessionVO.getTeamId();
-    	List<ServerVO> serverList = serverListService.getServerList(teamId);
+    	List<ServerVO> serverList = serverListService.getServerList();
     	model.addAttribute("serverList",serverList);
         return "serverList";
     }
@@ -50,16 +49,18 @@ public class ServerInfoController {
     public @ResponseBody HashMap<String,Boolean> checkServerList(Model model,HttpSession session, ServerVO serverVO){
     	HashMap<String,Boolean> map = new HashMap<>();
     	System.out.println("ip:"+serverVO.getIp() + "\nserverNm:" + serverVO.getServerNm());
-    	SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-    	serverVO.setTeamId(sessionVO.getTeamId());
-    	List<ServerVO> serverListByIp = serverListService.getServerListByIp(serverVO.getIp());
-    	List<ServerVO> serverListByServerNm = serverListService.getServerListByServerNmAndTeamId(serverVO);
-    	if(serverListByIp.size()==0) {
-    		map.put("isIpExist", false);
-    	}else {
-    		map.put("isIpExist", true);
-    	}
     	
+    	// IP 중복 허용으로 주석처리
+//    	List<ServerVO> serverListByIp = serverListService.getServerListByIp(serverVO.getIp());
+//    	if(serverListByIp.size()==0) {
+//    		map.put("isIpExist", false);
+//    	}else {
+//    		map.put("isIpExist", true);
+//    	}
+
+    	map.put("isIpExist", false);
+    	
+    	List<ServerVO> serverListByServerNm = serverListService.getServerListByServerNmAndTeamId(serverVO);
     	if(serverListByServerNm.size()==0) {
     		map.put("isServerNmExist", false);
     	}else {
@@ -67,29 +68,9 @@ public class ServerInfoController {
     	}
     	return map;
     }
-    
-   /* @RequestMapping(value = "/searchServer", method = RequestMethod.GET)
-    public String serverListBy(Model model,@RequestParam("method") String method,@RequestParam("keyword")String keyword){
-    	List<ServerVO> serverList;
-    	if(method.equals("serverNm")) {
-    		serverList = serverListService.getServerListByServerNm(keyword);
-    	}else if(method.equals("ip")) {
-    		serverList =serverListService.getServerListByIpInTeam(keyword);
-    	}else {
-    		System.out.println("값이 이상한데 .? \n메소드:"+method + "\n 키워드:"+keyword);
-    		serverList = null;
-    	}
-    	System.out.println(method +keyword);
-    	model.addAttribute("serverList",serverList);
-        return "serverList";
-    }*/
-    
+
     @RequestMapping(value = "/addServer", method = RequestMethod.POST)
     public String addServer(Model model, ServerVO serverVO,HttpSession session ){
-    	System.out.println("삽입 수행\n ip:"+serverVO.getIp()+"\n serverNm :"+serverVO.getServerNm());
-    	SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
-    	int teamId = sessionVO.getTeamId();
-    	serverVO.setTeamId(teamId);
     	serverListService.addServer(serverVO);
         return "redirect:/serverList";
     }
@@ -110,13 +91,13 @@ public class ServerInfoController {
 	@RequestMapping(value = "/serverInfo", method = RequestMethod.GET)
 	public String serverInfoGET(Model model,HttpServletRequest request, HttpSession session, Integer id) {
 	    
-	    SessionVO sessionVo = (SessionVO) session.getAttribute("sessionVO");   
 	    String prePath = request.getHeader("referer");
 	    if(prePath == null)
 	    {
 	        return "errorPage";
 	    }
-	    model.addAttribute("managerList", adminService.getManagerListByTeamId(sessionVo.getTeamId()));
+	    
+	    model.addAttribute("managerList", adminService.getManagerList());
 	    model.addAttribute("serverInfo", serverInfoService.getServerInfo(id));
 	    model.addAttribute("eventList", serverInfoService.getServerEventList(id));
 	    model.addAttribute("eventMngrInfoList", serverInfoService.getManagerInChargeList(id));
@@ -149,10 +130,14 @@ public class ServerInfoController {
 	
 	@ResponseBody
     @RequestMapping(value="/updateEvntMngr", method=RequestMethod.POST)
-    public Map<String, Boolean> updateEvntMngr(ManagerInChargeVO vo){
+    public Map<String, Boolean> updateEvntMngr(ManagerInChargeVO vo, Integer inputTermVal){
         
         Map<String, Boolean> map = new HashMap<>();
         
+        if(vo.getAlertTerm() != 99999999 && vo.getAlertTerm() != 0)
+        {
+        	vo.setAlertTerm(inputTermVal);
+        }
         if(serverInfoService.updateEvntMngr(vo))
         {
             map.put("flag", true);
@@ -198,8 +183,14 @@ public class ServerInfoController {
 	
 	@ResponseBody
     @RequestMapping(value="/plusEvntMngr", method=RequestMethod.POST)
-    public Map<String, Boolean> plusEvntMngr(ManagerInChargeVO vo){
-        Map<String, Boolean> map = new HashMap<>();
+    public Map<String, Boolean> plusEvntMngr(ManagerInChargeVO vo, Integer inputTermVal){
+        
+		Map<String, Boolean> map = new HashMap<>();
+        
+        if(vo.getAlertTerm() != 99999999 && vo.getAlertTerm() != 0)
+        {
+        	vo.setAlertTerm(inputTermVal);
+        }
         
         if(serverInfoService.plusEvntMngr(vo))
         {

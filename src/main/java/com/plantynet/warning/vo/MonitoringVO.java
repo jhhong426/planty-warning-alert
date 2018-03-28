@@ -18,8 +18,24 @@ public class MonitoringVO {
 	private String rgsde;
 	private String ntfcde;
 	private String description;
+	private String ntfcNeed;
+	private String ntfcSttus;
 	private int count;
 	
+	
+	
+	public String getNtfcSttus() {
+		return ntfcSttus;
+	}
+	public void setNtfcSttus(String ntfcSttus) {
+		this.ntfcSttus = ntfcSttus;
+	}
+	public String getNtfcNeed() {
+		return ntfcNeed;
+	}
+	public void setNtfcNeed(String ntfcNeed) {
+		this.ntfcNeed = ntfcNeed;
+	}
 	public int getNtfcId() {
 		return ntfcId;
 	}
@@ -122,13 +138,4 @@ public class MonitoringVO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@Override
-	public String toString() {
-		return "MonitoringVO [ntfcId=" + ntfcId + ", serverId=" + serverId + ", managerId=" + managerId + ", eventId="
-				+ eventId + ", managerNm=" + managerNm + ", serverNm=" + serverNm + ", eventCode=" + eventCode + ", ip="
-				+ ip + ", msg=" + msg + ", ntfcMth=" + ntfcMth + ", managerEmail=" + managerEmail + ", managerCttpc="
-				+ managerCttpc + ", logde=" + logde + ", rgsde=" + rgsde + ", ntfcde=" + ntfcde + ", count=" + count
-				+ "]";
-	}
-	
 }
