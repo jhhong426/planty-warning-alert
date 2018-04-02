@@ -36,7 +36,7 @@ public class AlertAPIController
             return map;
         }
         
-        //예외 처리 3. IP가 현재 DB에 저장되어 있지 않을 때(response_code = 0)
+        //예외 처리 2. IP가 현재 DB에 저장되어 있지 않을 때(response_code = 0)
         if(service.ipAllowCheck(vo.getIp()) == 0)
         {
             map.put("response_code", 0);
@@ -50,7 +50,7 @@ public class AlertAPIController
                 map.put("response_code", 1);
                 return map;
             }
-            //해당 장애 코드가 없거나 담당자가 없을 경우(response_code = 4)
+            //예외처리 3. 해당 장애 코드가 없거나 담당자가 없을 경우(response_code = 4)
             else{
                 map.put("response_code", 4);
                 return map;

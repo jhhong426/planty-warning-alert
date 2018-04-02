@@ -39,7 +39,6 @@ public class ServerInfoController {
 	
     @RequestMapping(value = "/serverList", method = RequestMethod.GET)
     public String serverListGET(Model model,HttpSession session){
-    	SessionVO sessionVO = (SessionVO) session.getAttribute("sessionVO");
     	List<ServerVO> serverList = serverListService.getServerList();
     	model.addAttribute("serverList",serverList);
         return "serverList";
@@ -47,8 +46,8 @@ public class ServerInfoController {
     
     @RequestMapping(value = "/checkServerList", method = RequestMethod.POST)
     public @ResponseBody HashMap<String,Boolean> checkServerList(Model model,HttpSession session, ServerVO serverVO){
+    	
     	HashMap<String,Boolean> map = new HashMap<>();
-    	System.out.println("ip:"+serverVO.getIp() + "\nserverNm:" + serverVO.getServerNm());
     	
     	// IP 중복 허용으로 주석처리
 //    	List<ServerVO> serverListByIp = serverListService.getServerListByIp(serverVO.getIp());

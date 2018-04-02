@@ -10,6 +10,7 @@
 <link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
 <link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 <link href="/resources/bootstrap/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="/resources/img/alert_favicon.ico">
 
 <style>
 	@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);

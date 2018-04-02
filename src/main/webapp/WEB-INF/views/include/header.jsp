@@ -16,6 +16,7 @@
     <link href="/resources/bootstrap/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="/resources/img/alert_favicon.ico">
     <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
     <style>
