@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
     
     <select id="getServerList" resultMap="serverVO">
-		select * from SERVER where sttus = "ACT01"
+		select * from SERVER where sttus = "ACT01" order by rgsde DESC
 	</select>
 	
 	<!-- 팀 아이디로 검색 안함 (수정 반영 후 메소드명은 그대로 둠) -->

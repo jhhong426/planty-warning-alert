@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT server_id
 		FROM SERVER
 		WHERE SERVER.server_nm = #{serverNm}
-		AND SERVER.sttus = 'ACT01' 
+		<!-- AND SERVER.sttus = 'ACT01' --> 
     </select>
     
     <select id="getServerEventList" resultMap="getServerEventList">

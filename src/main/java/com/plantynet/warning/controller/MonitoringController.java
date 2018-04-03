@@ -106,12 +106,18 @@ public class MonitoringController {
 	public String redirectMonitoringList (String serverNm) {
 		
 		
-		String serverId = serverInfoService.getServerIdByName(serverNm).toString();
+		Integer serverId = serverInfoService.getServerIdByName(serverNm);
+		
+		if(serverId == null)
+		{
+			return "redirect:/monitoringList";
+		}
+		
 		String[] dates = getDateArrays("yyyy-MM-dd");
 		String preDate = dates[0];
 		String postDate = dates[6];
 		
-		String url = "/monitoringList?preDate="+ preDate + "&postDate=" + postDate + "&selServerId=" + serverId + "&selEventId=";
+		String url = "/monitoringList?preDate="+ preDate + "&postDate=" + postDate + "&selServerId=" + serverId.toString() + "&selEventId=";
 		
 		return "redirect:" + url;
 	}
